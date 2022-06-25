@@ -36,7 +36,7 @@ export class RoleResolver {
   }
 
   @Mutation(() => Role)
-  async updateRole(@Arg('id') id: string, @Arg('data') data: UpdateRoleInput): Promise<Role> {
+  async updateRole(@Arg('data') data: UpdateRoleInput): Promise<Role> {
     const role = await Role.findOneOrFail({ where: { id: data.id }, relations: ['permissions'] });
     if (data.permissionIds)
       role.permissions = await Permission.find({

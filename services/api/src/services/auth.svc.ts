@@ -35,7 +35,7 @@ class AuthService {
 
   public async updateUser(user: UpdateUserInput): Promise<Omit<User, 'password'>> {
     let currentUser = await User.findOneOrFail({
-      where: { username: user.username },
+      where: { id: user.id },
       relations: ['roles'],
     });
     if (user.password) currentUser.password = await argon2.hash(user.password);

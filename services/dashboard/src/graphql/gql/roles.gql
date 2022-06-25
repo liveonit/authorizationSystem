@@ -24,7 +24,7 @@ mutation CreateRole($name: String!, $description: String ) {
 }
 
 mutation UpdateRole($id: String!, $name: String, $description: String ) {
-  updateRole(data: { name: $name, description: $description }, id: $id) {
+  updateRole(data: { id: $id, name: $name, description: $description }) {
     id
     name
     description

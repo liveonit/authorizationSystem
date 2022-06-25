@@ -68,7 +68,7 @@ type Mutation {
   refreshToken(data: RefreshTokenInput!): UserSession!
   updateAuthor(data: UpdateAuthorInput!, id: Int!): Author!
   updateBook(data: UpdateBookInput!, id: Int!): Book!
-  updateRole(data: UpdateRoleInput!, id: String!): Role!
+  updateRole(data: UpdateRoleInput!): Role!
   updateUser(data: UpdateUserInput!): User!
 }
 
@@ -125,11 +125,12 @@ input UpdateUserInput {
   accessToken: String
   email: String
   firstName: String
+  id: String!
   lastName: String
-  password: String!
+  password: String
   refreshToken: String
   roleIds: [String!]
-  username: String!
+  username: String
 }
 
 type User {

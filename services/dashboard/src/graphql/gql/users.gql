@@ -6,7 +6,6 @@ query GetUsers {
     firstName
     lastName
     email
-    relatedRoleIds
     roles {
       id
       name
@@ -22,7 +21,6 @@ query GetUserAndRoles {
     firstName
     lastName
     email
-    relatedRoleIds
     roles {
       id
       name
@@ -35,14 +33,13 @@ query GetUserAndRoles {
 }
 
 query GetUser($id: String!) {
-  user(id: $id) {
+  getOne(id: $id) {
     id
     username
     enabled
     firstName
     lastName
     email
-    relatedRoleIds
     roles {
       id
       name
@@ -53,21 +50,19 @@ query GetUser($id: String!) {
 mutation CreateUser(
   $username: String!
   $email: String!
-  $enabled: Boolean!
   $firstName: String!
   $lastName: String!
   $password: String!
-  $relatedRoleIds: [String!]!
+  $roleIds: [String!]!
 ) {
   createUser(
     data: {
       username: $username
       email: $email
-      enabled: $enabled
       firstName: $firstName
       lastName: $lastName
       password: $password
-      relatedRoleIds: $relatedRoleIds
+      roleIds: $roleIds
     }
   ) {
     id
@@ -76,7 +71,6 @@ mutation CreateUser(
     firstName
     lastName
     email
-    relatedRoleIds
     roles {
       id
       name
@@ -86,9 +80,8 @@ mutation CreateUser(
 
 mutation UpdateUser(
   $id: String!,
-  $username: String
+  $username: String!
   $email: String
-  $enabled: Boolean
   $firstName: String
   $lastName: String
   $password: String
@@ -96,15 +89,14 @@ mutation UpdateUser(
 ) {
   updateUser(
     data: {
+      id: $id
       username: $username
       email: $email
-      enabled: $enabled
       firstName: $firstName
       lastName: $lastName
       password: $password
-      relatedRoleIds: $relatedRoleIds
-    },
-    id: $id
+      roleIds: $relatedRoleIds
+    }
   ) {
     id
     username
@@ -112,7 +104,6 @@ mutation UpdateUser(
     firstName
     lastName
     email
-    relatedRoleIds
     roles {
       id
       name
