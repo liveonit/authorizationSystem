@@ -1,0 +1,125 @@
+query GetUsers {
+  users {
+    id
+    username
+    enabled
+    firstName
+    lastName
+    email
+    relatedRoleIds
+    roles {
+      id
+      name
+    }
+  }
+}
+
+query GetUserAndRoles {
+  users {
+    id
+    username
+    enabled
+    firstName
+    lastName
+    email
+    relatedRoleIds
+    roles {
+      id
+      name
+    }
+  }
+  roles {
+    id
+    name
+  }
+}
+
+query GetUser($id: String!) {
+  user(id: $id) {
+    id
+    username
+    enabled
+    firstName
+    lastName
+    email
+    relatedRoleIds
+    roles {
+      id
+      name
+    }
+  }
+}
+
+mutation CreateUser(
+  $username: String!
+  $email: String!
+  $enabled: Boolean!
+  $firstName: String!
+  $lastName: String!
+  $password: String!
+  $relatedRoleIds: [String!]!
+) {
+  createUser(
+    data: {
+      username: $username
+      email: $email
+      enabled: $enabled
+      firstName: $firstName
+      lastName: $lastName
+      password: $password
+      relatedRoleIds: $relatedRoleIds
+    }
+  ) {
+    id
+    username
+    enabled
+    firstName
+    lastName
+    email
+    relatedRoleIds
+    roles {
+      id
+      name
+    }
+  }
+}
+
+mutation UpdateUser(
+  $id: String!,
+  $username: String
+  $email: String
+  $enabled: Boolean
+  $firstName: String
+  $lastName: String
+  $password: String
+  $relatedRoleIds: [String!]
+) {
+  updateUser(
+    data: {
+      username: $username
+      email: $email
+      enabled: $enabled
+      firstName: $firstName
+      lastName: $lastName
+      password: $password
+      relatedRoleIds: $relatedRoleIds
+    },
+    id: $id
+  ) {
+    id
+    username
+    enabled
+    firstName
+    lastName
+    email
+    relatedRoleIds
+    roles {
+      id
+      name
+    }
+  }
+}
+
+mutation DeleteUser($id: String!) {
+  deleteUser(id: $id)
+}

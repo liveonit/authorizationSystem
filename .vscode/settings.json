@@ -1,0 +1,20 @@
+{
+  "makefile.extensionOutputFolder": "./.vscode",
+  "sqltools.connections": [
+    {
+      "mysqlOptions": {
+        "authProtocol": "default"
+      },
+      "previewLimit": 50,
+      "server": "localhost",
+      "port": 3306,
+      "driver": "MySQL",
+      "name": "authorizationSystem",
+      "database": "authorizationSystem",
+      "username": "user_example",
+      "password": "testPassword"
+    }
+  ],
+  "cSpell.language": "en,es-ES",
+  "git.ignoreLimitWarning": true
+}

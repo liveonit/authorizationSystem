@@ -1,0 +1,70 @@
+query GetBooks {
+  books {
+    id
+    title
+    isPublished
+    author {
+      id
+      name
+    }
+  }
+}
+
+
+query GetBooksAndAuthors {
+  books {
+    id
+    title
+    isPublished
+    authorId
+    author {
+      id
+      name
+    }
+  }
+  authors {
+    id
+    name
+  }
+}
+
+query GetBook($id: Int!) {
+  book(id: $id) {
+    id
+    title
+    isPublished
+    authorId
+    author {
+      id
+      name
+    }
+  }
+}
+
+mutation CreateBook($title: String!, $isPublished: Boolean, $authorId: Int!) {
+  createBook(data: { title: $title, isPublished: $isPublished, authorId: $authorId}) {
+    id
+    title
+    isPublished
+    author {
+      id
+      name
+    }
+  }
+}
+
+mutation UpdateBook($id: Int!, $title: String, $isPublished: Boolean, $authorId: Int) {
+  updateBook(data: { title: $title, isPublished: $isPublished, authorId: $authorId}, id: $id) {
+    id
+    title
+    isPublished
+    author {
+      id
+      name
+    }
+  }
+}
+
+mutation DeleteBook($id: Int!) {
+  deleteBook(id: $id)
+}

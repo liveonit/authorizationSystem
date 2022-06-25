@@ -1,0 +1,49 @@
+.--toolbar-header-filter,
+.--toolbar-header-date-filter {
+  padding-top: 0.2rem;
+  padding-bottom: 0.2rem;
+  padding-left: 1rem;
+  display: inline-block;
+}
+
+.rs-picker-menu.placement-bottom-start.rs-picker-select-menu {
+  z-index: 100;
+  opacity: 1;
+}
+
+.pagination-footer {
+  background-color:white;
+  position: sticky;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  margin-bottom: 0px;
+}
+
+.--toolbar-footer-limit {
+  left: 0;
+}
+
+.pf-c-toolbar.--footer-toolbar {
+  padding: 0 0 0 0;
+}
+
+.--toolbar-create-entity {
+  padding-right: 1rem;
+}
+
+.redLabel {
+  background: var(--pf-global--danger-color--100);
+}
+
+.greenLabel {
+  background: var(--pf-global--success-color--100);
+}
+
+.successLabel {
+  background: var(--pf-global--info-color--100);
+}
+
+.normalLabel {
+  background: rgba(3,3,3,0.32);
+}
