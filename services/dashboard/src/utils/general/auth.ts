@@ -15,7 +15,6 @@ export interface IUser {
 
 
 export const getToken = (): string => {
-  console.log(window.k)
   if (window.k !== undefined) return window.k.token;
   return '';
 }

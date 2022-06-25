@@ -1,5 +1,5 @@
 import React from 'react';
-import { updateToken } from '../../../utils/general/keycloak';
+import { updateToken } from '../../../utils/general/auth';
 
 let keycloak: any;
 

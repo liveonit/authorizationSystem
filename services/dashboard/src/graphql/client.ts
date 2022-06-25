@@ -4,7 +4,7 @@ import { getMainDefinition } from '@apollo/client/utilities';
 import { setContext } from '@apollo/link-context';
 import { WebSocketLink } from '@apollo/client/link/ws';
 import { onError } from '@apollo/client/link/error'
-import { getToken, updateToken } from '../utils/general/keycloak';
+import { getToken, updateToken } from '../utils/general/auth';
 
 
 let loc = window.location, new_uri;

@@ -14,7 +14,6 @@ import { SubscribeMessage } from 'graphql-ws/lib/common';
 import { Context } from 'graphql-ws/lib/server';
 import { config } from './config';
 import { CustomContext } from './services/auth.svc';
-import { graphqlUploadExpress } from 'graphql-upload';
 
 import {
   ApolloServerPluginLandingPageProductionDefault,
@@ -111,8 +110,6 @@ async function main() {
   app.get('/healthz', (req: Request, res: Response) => {
     res.send('Everything is fine!!!');
   });
-
-  app.use(graphqlUploadExpress({ maxFileSize: 1000000000, maxFiles: 100 }));
 
   // Add apollo server to express app, the apollo server is now running in `/graphql`
   apolloServer.applyMiddleware({ app, path: '/graphql' });

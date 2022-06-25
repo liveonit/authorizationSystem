@@ -9,10 +9,10 @@ import { Role } from './Role';
 export class User extends BaseEntity {
   @Field(() => String)
   @PrimaryGeneratedColumn('uuid')
-  id?: string;
+  id!: string;
 
   @Field(() => String)
-  @Column()
+  @Column({ unique: true })
   username!: string;
 
   @Column()

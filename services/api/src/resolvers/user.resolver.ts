@@ -1,9 +1,10 @@
 import { Resolver, Query, Mutation, Arg, UseMiddleware, Ctx } from 'type-graphql';
-import { CreateUserInput, UpdateUserInput } from '@typeDefs/user.types';
+import { CreateUserInput, LoginInput, RefreshTokenInput, UpdateUserInput } from '@typeDefs/user.types';
 import { gqlLogMiddleware } from '../utils/middlewares/gqlLogMiddleware';
 import { User } from '@entities/User';
 import { authSvc, CustomContext } from '@services/auth.svc';
 import { ApolloError } from 'apollo-server-express';
+import { UserSession } from '@entities/UserSession';
 
 @Resolver()
 export class UserResolver {
@@ -38,6 +39,26 @@ export class UserResolver {
   async createUser(@Arg('data') data: CreateUserInput): Promise<User> {
     return authSvc.createUser(data);
   }
+
+  @Mutation(() => UserSession)
+  @UseMiddleware([gqlLogMiddleware])
+  async login(@Arg('data') data: LoginInput): Promise<UserSession> {
+    return authSvc.login(data);
+  }
+
+  @Mutation(() => String)
+  @UseMiddleware([gqlLogMiddleware])
+  async logout(@Arg('data', () => String!) id: string): Promise<string> {
+    await authSvc.logout(id);
+    return id;
+  }
+
+  @Mutation(() => UserSession)
+  @UseMiddleware([gqlLogMiddleware])
+  async refreshToken(@Arg('data') refreshTokenInput: RefreshTokenInput): Promise<UserSession> {
+    return authSvc.refreshToken(refreshTokenInput);
+  }
+
 
   @Mutation(() => User)
   @UseMiddleware([gqlLogMiddleware])

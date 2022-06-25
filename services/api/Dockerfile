@@ -5,10 +5,12 @@ RUN mkdir -p /api
 
 WORKDIR /api
 
-COPY package* .
+COPY package.json package.json
 
-RUN npm install
+COPY yarn.lock yarn.lock
+
+RUN yarn install
 
 COPY ./ /api
 
-CMD [ "npm", "run", "development" ]
+CMD [ "yarn", "development" ]

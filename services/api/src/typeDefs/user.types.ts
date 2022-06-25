@@ -1,6 +1,21 @@
 import { InputType, Field } from 'type-graphql';
 
 @InputType()
+export class LoginInput {
+  @Field(() => String)
+  username!: string;
+
+  @Field(() => String)
+  password!: string;
+}
+
+@InputType()
+export class RefreshTokenInput {
+  @Field(() => String)
+  refreshToken!: string;
+}
+
+@InputType()
 export class CreateUserInput {
   @Field(() => String)
   username!: string;

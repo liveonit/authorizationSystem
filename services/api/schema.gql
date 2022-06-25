@@ -48,6 +48,11 @@ input CreateUserInput {
   username: String!
 }
 
+input LoginInput {
+  password: String!
+  username: String!
+}
+
 type Mutation {
   createAuthor(data: CreateAuthorInput!): Author!
   createBook(data: CreateBookInput!): Book!
@@ -58,6 +63,9 @@ type Mutation {
   deleteMe: String!
   deleteRole(id: String!): String!
   deleteUser(id: String!): String!
+  login(data: LoginInput!): UserSession!
+  logout(data: String!): String!
+  refreshToken(data: RefreshTokenInput!): UserSession!
   updateAuthor(data: UpdateAuthorInput!, id: Int!): Author!
   updateBook(data: UpdateBookInput!, id: Int!): Book!
   updateRole(data: UpdateRoleInput!, id: String!): Role!
@@ -81,6 +89,10 @@ type Query {
   role(id: Int!): Role!
   roles(limit: Float, offset: Float): [Role!]!
   users(limit: Float, offset: Float): [User!]!
+}
+
+input RefreshTokenInput {
+  refreshToken: String!
 }
 
 type Role {
@@ -121,6 +133,19 @@ input UpdateUserInput {
 }
 
 type User {
+  accessToken: String
+  email: String!
+  emailVerified: Boolean
+  enabled: Boolean!
+  firstName: String!
+  id: String!
+  lastName: String!
+  refreshToken: String
+  roles: [Role!]
+  username: String!
+}
+
+type UserSession {
   accessToken: String
   email: String!
   emailVerified: Boolean

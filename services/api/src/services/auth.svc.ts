@@ -6,11 +6,11 @@ import { Request, Response } from 'express';
 import { MiddlewareFn } from 'type-graphql';
 import { Role } from '@entities/Role';
 import { In } from 'typeorm';
-import { CreateUserInput, UpdateUserInput } from '@typeDefs/user.types';
+import { CreateUserInput, LoginInput, RefreshTokenInput, UpdateUserInput } from '@typeDefs/user.types';
 import { signJwt, verifyJwt } from './auth/jwt';
 import { UserSession } from '@entities/UserSession';
 import _ from 'lodash';
-
+import { redisClient } from 'src/redis';
 export interface CustomContext {
   req: Request;
   res: Response;
@@ -46,6 +46,7 @@ class AuthService {
 
   public async delete(id: string): Promise<boolean> {
     const result = await User.delete({ id });
+    await redisClient.del(id);
     if (!result.affected) throw new ApolloError('User not found');
     return !!result.affected;
   }
@@ -74,13 +75,19 @@ class AuthService {
       expiresIn: `${config.refreshTokenExpiresIn}m`,
     });
 
+    // Create a Session
+    redisClient.set(user.id, JSON.stringify(user), {
+      EX: 60 * 60,
+    });
+
     // Return access token
     return { ...user, accessToken, refreshToken } as UserSession;
   };
 
-  public async login(username: string, password: string): Promise<UserSession> {
+  public async login(data: LoginInput): Promise<UserSession> {
+    const {username, password} = data
     const user = await User.findOne({
-      where: { username },
+      where: { username: username },
       relations: ['roles', 'roles.permissions'],
     });
     if (user) {
@@ -92,6 +99,47 @@ class AuthService {
       throw new ApolloError('Invalid user');
     }
     return this.signToken(_.omit(user, ['password']));
+  }
+
+  public async logout(id: string): Promise<void> {
+    await redisClient.del(id);
+  }
+
+  public async refreshToken(refreshTokenInput: RefreshTokenInput): Promise<UserSession> {
+    try {
+      // Validate the Refresh token
+      const decoded = verifyJwt<UserSession>(
+        refreshTokenInput.refreshToken,
+        'refreshTokenPublicKey'
+      );
+      if (!decoded) {
+        throw new ApolloError('Could not refresh access token');
+      }
+
+      // Check if the user has a valid session
+      const session = await redisClient.get(decoded.id);
+      if (!session) {
+        throw new ApolloError('Could not refresh access token');
+      }
+
+      // Check if the user exist
+      const user = await User.findOneBy({ id: decoded.id});
+
+      if (!user) {
+        throw new ApolloError('Could not refresh access token');
+      }
+
+      // Sign new access token
+      const accessToken = signJwt({ decoded }, 'accessTokenPrivateKey', {
+        expiresIn: `${config.accessTokenExpiresIn}m`,
+      });
+
+      // Send the access token as cookie
+      return {...decoded, ...refreshTokenInput ,accessToken} as UserSession;
+    } catch (err: any) {
+      logger.logError("Error refreshing access token", "AUTH");
+      throw new ApolloError('Could not refresh access token');
+    }
   }
 
   private getTokenFromHeader(req: Request) {

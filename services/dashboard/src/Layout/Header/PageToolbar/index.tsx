@@ -12,7 +12,7 @@ import {
   PageHeaderToolsItem,
 } from '@patternfly/react-core';
 import { BellIcon, CogIcon, HelpIcon } from '@patternfly/react-icons';
-import { logout, getUserInfo } from '../../../utils/general/keycloak'
+import { logout, getUserInfo } from '../../../utils/general/auth'
 
 export const userDropdownItems = [
   <DropdownItem key="1">Link</DropdownItem>,
