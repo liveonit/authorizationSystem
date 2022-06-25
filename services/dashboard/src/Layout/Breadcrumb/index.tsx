@@ -1,14 +1,15 @@
 import React from 'react';
-import { Link, RouteComponentProps } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { Breadcrumb, BreadcrumbItem, BreadcrumbHeading } from '@patternfly/react-core';
 
 import toTitleCase from '../../utils/general/toTitleCase';
 
 interface LayoutBreadcrumbProps {
-  location: RouteComponentProps["location"]
+
 }
 
-export const LayoutBreadcrumb: React.FC<LayoutBreadcrumbProps> = ({ location  }) => {
+export const LayoutBreadcrumb: React.FC<LayoutBreadcrumbProps> = ({  }) => {
+  const location = useLocation();
   const pathname: String = React.useMemo(
     () => location.pathname.replace(`/macSearch/findbymac/`, ''),
     [location.pathname]

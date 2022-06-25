@@ -12,13 +12,14 @@ import {
 import Header from './Header';
 import Sidebar from './Sidebar';
 // import Breadcrumb from './Breadcrumb';
-import { withRouter, RouteComponentProps } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 interface LayoutProps {
   children: React.ReactChild
 }
 
-export const Layout: React.FC<LayoutProps & RouteComponentProps> = ({children, location}) => {
+export const Layout: React.FC<LayoutProps> = ({children}) => {
+  const location = useLocation();
   const [ isNavOpen, setIsNavOpen] = React.useState(false);
   const pageId = 'main-content-page-layout-default-nav';
   const PageSkipToContent = <SkipToContent href={`#${pageId}`}>Skip to content</SkipToContent>;
@@ -41,4 +42,4 @@ export const Layout: React.FC<LayoutProps & RouteComponentProps> = ({children, l
   ) 
 }
 
-export default withRouter(Layout);
+export default Layout;

@@ -7,19 +7,7 @@ import { onError } from '@apollo/client/link/error'
 import { getToken, updateToken } from '../utils/general/auth';
 
 
-let loc = window.location, new_uri;
-new_uri = loc.protocol === "https:"
-  ? "wss:"
-  : "ws:";
-new_uri += "//" + loc.host + "/graphqlws";
-
-const wsLink = new WebSocketLink({
-  uri: new_uri,
-  options: {
-    reconnect: true
-  }
-});
-
+let loc = window.location;
 
 const httpLink = new HttpLink({
   uri: `${loc.protocol}//${loc.host}/graphql`
@@ -33,8 +21,7 @@ const link = split(
       definition.operation === 'subscription'
     );
   },
-  wsLink,
-  httpLink,
+  httpLink
 );
 
 

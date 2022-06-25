@@ -2,7 +2,6 @@ import "./style.css";
 
 import React from "react";
 
-import "rsuite/dist/styles/rsuite-default.min.css";
 import "@patternfly/react-icons";
 
 import { DateRangePicker } from "rsuite";
@@ -34,7 +33,7 @@ export const DateTimeFilter: React.FC<DateTimeFilterProps> = ({
           closeOverlay: true,
           value: v => {
             const ms = new Date().getTime();
-            return [new Date(ms - (ms % 86400000) + (new Date().getTimezoneOffset() * 60 * 1000)), new Date(ms - 86400000)];
+            return [new Date(ms - (ms % 86400000) + (new Date().getTimezoneOffset() * 60 * 1000)), new Date(ms - 86400000)] as any;
           },
         },
         {
