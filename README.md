@@ -1,6 +1,4 @@
-# Primer entrega Sistemas Distribuidos
-
-Ignacio Barreto
+# Sistema de autenticación - segunda entrega Seguridad
 
 ## Requisitos
 
@@ -9,7 +7,7 @@ Ignacio Barreto
 - Docker
 - Docker compose
 
-## Inicio rapido
+## Getting Started
 
 ### Dev
 
