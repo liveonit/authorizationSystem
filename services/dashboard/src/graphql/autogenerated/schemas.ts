@@ -286,13 +286,6 @@ export type User = {
 export type UserSession = {
   __typename?: 'UserSession';
   accessToken?: Maybe<Scalars['String']>;
-  email: Scalars['String'];
-  emailVerified?: Maybe<Scalars['Boolean']>;
-  enabled: Scalars['Boolean'];
-  firstName: Scalars['String'];
   id: Scalars['String'];
-  lastName: Scalars['String'];
   refreshToken?: Maybe<Scalars['String']>;
-  roles?: Maybe<Array<Role>>;
-  username: Scalars['String'];
 };

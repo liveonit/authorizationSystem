@@ -8,7 +8,7 @@ import { Role } from '@entities/Role';
 import { In } from 'typeorm';
 import { CreateUserInput, LoginInput, RefreshTokenInput, UpdateUserInput } from '@typeDefs/user.types';
 import { signJwt, verifyJwt } from './auth/jwt';
-import { UserSession } from '@entities/UserSession';
+import { UserSession, UserSessionPayload } from '@entities/UserSession';
 import _ from 'lodash';
 import { redisClient } from 'src/redis';
 export interface CustomContext {
@@ -81,7 +81,7 @@ class AuthService {
     });
 
     // Return access token
-    return { ...user, accessToken, refreshToken } as UserSession;
+    return { accessToken, refreshToken } as UserSession;
   };
 
   public async login(data: LoginInput): Promise<UserSession> {
@@ -108,7 +108,7 @@ class AuthService {
   public async refreshToken(refreshTokenInput: RefreshTokenInput): Promise<UserSession> {
     try {
       // Validate the Refresh token
-      const decoded = verifyJwt<UserSession>(
+      const decoded = verifyJwt<UserSessionPayload>(
         refreshTokenInput.refreshToken,
         'refreshTokenPublicKey'
       );
@@ -135,7 +135,7 @@ class AuthService {
       });
 
       // Send the access token as cookie
-      return {...decoded, ...refreshTokenInput ,accessToken} as UserSession;
+      return {id: decoded.id, ...refreshTokenInput ,accessToken} as UserSession;
     } catch (err: any) {
       logger.logError("Error refreshing access token", "AUTH");
       throw new ApolloError('Could not refresh access token');
@@ -153,7 +153,7 @@ class AuthService {
     return async ({ context }, next) => {
       const token = this.getTokenFromHeader(context.req);
       if (token == null) throw new ApolloError('Invalid Credentials');
-      const userSession: UserSession | null = verifyJwt(token, 'refreshTokenPublicKey');
+      const userSession: UserSessionPayload | null = verifyJwt(token, 'refreshTokenPublicKey');
       if (!userSession) throw new ApolloError('Invalid credentials');
       let result;
       if (requiredPermissionsName.length) {

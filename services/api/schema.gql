@@ -148,13 +148,6 @@ type User {
 
 type UserSession {
   accessToken: String
-  email: String!
-  emailVerified: Boolean
-  enabled: Boolean!
-  firstName: String!
   id: String!
-  lastName: String!
   refreshToken: String
-  roles: [Role!]
-  username: String!
 }
