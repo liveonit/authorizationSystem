@@ -1,5 +1,5 @@
-import React from "react";
-import { Tabs, Tab, TabTitleText } from "@patternfly/react-core";
+import React from 'react';
+import { Tabs, Tab, TabTitleText } from '@patternfly/react-core';
 
 interface TabObject {
   title: String;
@@ -20,12 +20,10 @@ const SimpleTabs: React.FC<Props> = ({ tabObjects }) => {
 
   const handleTabClick = (
     event: React.MouseEvent<HTMLElement, MouseEvent>,
-    tabIndex: number | String
+    tabIndex: number | String,
   ) => {
     setActiveTabKey(
-      (typeof tabIndex === "string"
-        ? Number.parseInt(tabIndex)
-        : tabIndex) as number
+      (typeof tabIndex === 'string' ? Number.parseInt(tabIndex) : tabIndex) as number,
     );
   };
   let eventKey = 0;

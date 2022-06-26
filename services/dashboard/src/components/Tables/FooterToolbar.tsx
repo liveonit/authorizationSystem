@@ -1,16 +1,15 @@
-import "./style.css";
+import './style.css';
 
-import React from "react";
-import "@patternfly/react-styles";
+import React from 'react';
+import '@patternfly/react-styles';
 
 import {
   ToolbarItem,
   Toolbar,
   ToolbarContent,
   Pagination,
-  PerPageOptions
-} from "@patternfly/react-core";
-
+  PerPageOptions,
+} from '@patternfly/react-core';
 
 interface ToolbarProps {
   totalRecords: number;
@@ -22,25 +21,32 @@ interface ToolbarProps {
 }
 
 export const FooterToolbar: React.FC<ToolbarProps> = (props) => {
-  const { posibleLimitsPerPage, pageLimit, onPageLimitChanged, currentPage, totalRecords, onPageChanged } = props;
+  const {
+    posibleLimitsPerPage,
+    pageLimit,
+    onPageLimitChanged,
+    currentPage,
+    totalRecords,
+    onPageChanged,
+  } = props;
   return (
-
-      <Toolbar className="--footer-toolbar">
-          <ToolbarContent>
-              <ToolbarItem variant="pagination" alignment={{ default: 'alignRight' }}>
-                <Pagination
-                  dropDirection="up"
-                  perPageOptions={posibleLimitsPerPage.map(p => ({ title: p.toString(), value: p} as PerPageOptions))}
-                  itemCount={totalRecords}
-                  perPage={pageLimit}
-                  page={currentPage}
-                  onSetPage={(e, v) => onPageChanged(v)}
-                  widgetId="pagination-options-menu-top"
-                  onPerPageSelect={(e, v) => onPageLimitChanged(v)}
-
-                />
-              </ToolbarItem>
-          </ToolbarContent>
+    <Toolbar className="--footer-toolbar">
+      <ToolbarContent>
+        <ToolbarItem variant="pagination" alignment={{ default: 'alignRight' }}>
+          <Pagination
+            dropDirection="up"
+            perPageOptions={posibleLimitsPerPage.map(
+              (p) => ({ title: p.toString(), value: p } as PerPageOptions),
+            )}
+            itemCount={totalRecords}
+            perPage={pageLimit}
+            page={currentPage}
+            onSetPage={(e, v) => onPageChanged(v)}
+            widgetId="pagination-options-menu-top"
+            onPerPageSelect={(e, v) => onPageLimitChanged(v)}
+          />
+        </ToolbarItem>
+      </ToolbarContent>
     </Toolbar>
   );
 };

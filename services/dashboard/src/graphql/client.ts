@@ -40,7 +40,6 @@ const authLink = setContext(async (_, { headers }) => {
   };
 });
 
-
 let clientAux;
 if (window.location.pathname !== '/login') {
   clientAux = new ApolloClient({

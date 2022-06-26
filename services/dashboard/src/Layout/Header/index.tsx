@@ -1,8 +1,8 @@
-import React from "react";
-import { PageHeader, Brand } from "@patternfly/react-core";
+import React from 'react';
+import { PageHeader, Brand } from '@patternfly/react-core';
 
-import PageToolbar from "./PageToolbar";
-import logo from "./logo.png";
+import PageToolbar from './PageToolbar';
+import logo from './logo.png';
 
 interface HeaderProps {
   navToggle: () => void;

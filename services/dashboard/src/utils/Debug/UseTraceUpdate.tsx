@@ -1,6 +1,6 @@
-import React from 'react'
+import React from 'react';
 
-export const UseTraceUpdate = (type: "props" | "state", props: any) => {
+export const UseTraceUpdate = (type: 'props' | 'state', props: any) => {
   const prev = React.useRef(props);
   React.useEffect(() => {
     const changedProps = Object.entries(props).reduce((ps: any, [k, v]) => {
@@ -14,4 +14,4 @@ export const UseTraceUpdate = (type: "props" | "state", props: any) => {
     }
     prev.current = props;
   });
-}
+};

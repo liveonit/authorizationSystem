@@ -1,12 +1,6 @@
-import React from "react";
-import {
-  Select,
-  SelectOption,
-  SelectOptionObject,
-  SelectVariant,
-} from "@patternfly/react-core";
-import { SelectionOption } from "../Utils";
-
+import React from 'react';
+import { Select, SelectOption, SelectOptionObject, SelectVariant } from '@patternfly/react-core';
+import { SelectionOption } from '../Utils';
 
 interface Props {
   keyName: string;
@@ -14,7 +8,7 @@ interface Props {
   selected?: string;
   options: SelectionOption[];
   handleChangeSelected: (selected?: string) => void;
-  direction?: "up" | "down";
+  direction?: 'up' | 'down';
 }
 
 interface State {
@@ -43,7 +37,7 @@ const SelectWithFilter: React.FC<Props> = (props) => {
   const onSelect = (
     event: React.MouseEvent<Element, MouseEvent> | React.ChangeEvent<Element>,
     selection: string | SelectOptionObject,
-    isPlaceholder?: boolean | undefined
+    isPlaceholder?: boolean | undefined,
   ) => {
     if (isPlaceholder) clearSelection();
     else {
@@ -62,7 +56,6 @@ const SelectWithFilter: React.FC<Props> = (props) => {
       isOpen: false,
     });
   };
-
 
   const { isDisabled, isCreatable } = state;
   return (
@@ -95,4 +88,4 @@ const SelectWithFilter: React.FC<Props> = (props) => {
   );
 };
 
-export default SelectWithFilter
+export default SelectWithFilter;

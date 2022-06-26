@@ -1,12 +1,5 @@
 import React from 'react';
-import {
-  Alert,
-  AlertGroup,
-  AlertActionCloseButton,
-  AlertVariant
-} from '@patternfly/react-core';
-
-
+import { Alert, AlertGroup, AlertActionCloseButton, AlertVariant } from '@patternfly/react-core';
 
 interface IAlert {
   title: string;
@@ -24,16 +17,16 @@ const Alerts: React.FC<Props> = ({ alerts, hideAlert }) => {
   return (
     <React.Fragment>
       <AlertGroup isToast>
-        { alerts.map(({ title, type, description }) => (
+        {alerts.map(({ title, type, description }) => (
           <Alert
             isLiveRegion
             variant={AlertVariant[type]}
             title={title}
             key={++count}
-            actionClose={
-              <AlertActionCloseButton onClose={() => hideAlert(description)} />
-            }
-          >{description}</Alert>
+            actionClose={<AlertActionCloseButton onClose={() => hideAlert(description)} />}
+          >
+            {description}
+          </Alert>
         ))}
       </AlertGroup>
     </React.Fragment>

@@ -5,15 +5,15 @@ import * as Apollo from '@apollo/client';
 const defaultOptions = {} as const;
 
 export const GetAuthorsDocument = gql`
-    query GetAuthors {
-  authors {
-    id
-    name
-    age
-    country
+  query GetAuthors {
+    authors {
+      id
+      name
+      age
+      country
+    }
   }
-}
-    `;
+`;
 
 /**
  * __useGetAuthorsQuery__
@@ -30,27 +30,40 @@ export const GetAuthorsDocument = gql`
  *   },
  * });
  */
-export function useGetAuthorsQuery(baseOptions?: Apollo.QueryHookOptions<Types.GetAuthorsQuery, Types.GetAuthorsQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<Types.GetAuthorsQuery, Types.GetAuthorsQueryVariables>(GetAuthorsDocument, options);
-      }
-export function useGetAuthorsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Types.GetAuthorsQuery, Types.GetAuthorsQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<Types.GetAuthorsQuery, Types.GetAuthorsQueryVariables>(GetAuthorsDocument, options);
-        }
+export function useGetAuthorsQuery(
+  baseOptions?: Apollo.QueryHookOptions<Types.GetAuthorsQuery, Types.GetAuthorsQueryVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<Types.GetAuthorsQuery, Types.GetAuthorsQueryVariables>(
+    GetAuthorsDocument,
+    options,
+  );
+}
+export function useGetAuthorsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<Types.GetAuthorsQuery, Types.GetAuthorsQueryVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<Types.GetAuthorsQuery, Types.GetAuthorsQueryVariables>(
+    GetAuthorsDocument,
+    options,
+  );
+}
 export type GetAuthorsQueryHookResult = ReturnType<typeof useGetAuthorsQuery>;
 export type GetAuthorsLazyQueryHookResult = ReturnType<typeof useGetAuthorsLazyQuery>;
-export type GetAuthorsQueryResult = Apollo.QueryResult<Types.GetAuthorsQuery, Types.GetAuthorsQueryVariables>;
+export type GetAuthorsQueryResult = Apollo.QueryResult<
+  Types.GetAuthorsQuery,
+  Types.GetAuthorsQueryVariables
+>;
 export const GetAuthorDocument = gql`
-    query GetAuthor($id: Int!) {
-  author(id: $id) {
-    id
-    name
-    age
-    country
+  query GetAuthor($id: Int!) {
+    author(id: $id) {
+      id
+      name
+      age
+      country
+    }
   }
-}
-    `;
+`;
 
 /**
  * __useGetAuthorQuery__
@@ -68,28 +81,44 @@ export const GetAuthorDocument = gql`
  *   },
  * });
  */
-export function useGetAuthorQuery(baseOptions: Apollo.QueryHookOptions<Types.GetAuthorQuery, Types.GetAuthorQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<Types.GetAuthorQuery, Types.GetAuthorQueryVariables>(GetAuthorDocument, options);
-      }
-export function useGetAuthorLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Types.GetAuthorQuery, Types.GetAuthorQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<Types.GetAuthorQuery, Types.GetAuthorQueryVariables>(GetAuthorDocument, options);
-        }
+export function useGetAuthorQuery(
+  baseOptions: Apollo.QueryHookOptions<Types.GetAuthorQuery, Types.GetAuthorQueryVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<Types.GetAuthorQuery, Types.GetAuthorQueryVariables>(
+    GetAuthorDocument,
+    options,
+  );
+}
+export function useGetAuthorLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<Types.GetAuthorQuery, Types.GetAuthorQueryVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<Types.GetAuthorQuery, Types.GetAuthorQueryVariables>(
+    GetAuthorDocument,
+    options,
+  );
+}
 export type GetAuthorQueryHookResult = ReturnType<typeof useGetAuthorQuery>;
 export type GetAuthorLazyQueryHookResult = ReturnType<typeof useGetAuthorLazyQuery>;
-export type GetAuthorQueryResult = Apollo.QueryResult<Types.GetAuthorQuery, Types.GetAuthorQueryVariables>;
+export type GetAuthorQueryResult = Apollo.QueryResult<
+  Types.GetAuthorQuery,
+  Types.GetAuthorQueryVariables
+>;
 export const CreateAuthorDocument = gql`
-    mutation CreateAuthor($name: String!, $age: Int!, $country: String) {
-  createAuthor(data: {name: $name, age: $age, country: $country}) {
-    id
-    age
-    name
-    country
+  mutation CreateAuthor($name: String!, $age: Int!, $country: String) {
+    createAuthor(data: { name: $name, age: $age, country: $country }) {
+      id
+      age
+      name
+      country
+    }
   }
-}
-    `;
-export type CreateAuthorMutationFn = Apollo.MutationFunction<Types.CreateAuthorMutation, Types.CreateAuthorMutationVariables>;
+`;
+export type CreateAuthorMutationFn = Apollo.MutationFunction<
+  Types.CreateAuthorMutation,
+  Types.CreateAuthorMutationVariables
+>;
 
 /**
  * __useCreateAuthorMutation__
@@ -110,24 +139,38 @@ export type CreateAuthorMutationFn = Apollo.MutationFunction<Types.CreateAuthorM
  *   },
  * });
  */
-export function useCreateAuthorMutation(baseOptions?: Apollo.MutationHookOptions<Types.CreateAuthorMutation, Types.CreateAuthorMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<Types.CreateAuthorMutation, Types.CreateAuthorMutationVariables>(CreateAuthorDocument, options);
-      }
+export function useCreateAuthorMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    Types.CreateAuthorMutation,
+    Types.CreateAuthorMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<Types.CreateAuthorMutation, Types.CreateAuthorMutationVariables>(
+    CreateAuthorDocument,
+    options,
+  );
+}
 export type CreateAuthorMutationHookResult = ReturnType<typeof useCreateAuthorMutation>;
 export type CreateAuthorMutationResult = Apollo.MutationResult<Types.CreateAuthorMutation>;
-export type CreateAuthorMutationOptions = Apollo.BaseMutationOptions<Types.CreateAuthorMutation, Types.CreateAuthorMutationVariables>;
+export type CreateAuthorMutationOptions = Apollo.BaseMutationOptions<
+  Types.CreateAuthorMutation,
+  Types.CreateAuthorMutationVariables
+>;
 export const UpdateAuthorDocument = gql`
-    mutation UpdateAuthor($id: Int!, $name: String, $age: Int, $country: String) {
-  updateAuthor(data: {name: $name, age: $age, country: $country}, id: $id) {
-    id
-    age
-    name
-    country
+  mutation UpdateAuthor($id: Int!, $name: String, $age: Int, $country: String) {
+    updateAuthor(data: { name: $name, age: $age, country: $country }, id: $id) {
+      id
+      age
+      name
+      country
+    }
   }
-}
-    `;
-export type UpdateAuthorMutationFn = Apollo.MutationFunction<Types.UpdateAuthorMutation, Types.UpdateAuthorMutationVariables>;
+`;
+export type UpdateAuthorMutationFn = Apollo.MutationFunction<
+  Types.UpdateAuthorMutation,
+  Types.UpdateAuthorMutationVariables
+>;
 
 /**
  * __useUpdateAuthorMutation__
@@ -149,19 +192,33 @@ export type UpdateAuthorMutationFn = Apollo.MutationFunction<Types.UpdateAuthorM
  *   },
  * });
  */
-export function useUpdateAuthorMutation(baseOptions?: Apollo.MutationHookOptions<Types.UpdateAuthorMutation, Types.UpdateAuthorMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<Types.UpdateAuthorMutation, Types.UpdateAuthorMutationVariables>(UpdateAuthorDocument, options);
-      }
+export function useUpdateAuthorMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    Types.UpdateAuthorMutation,
+    Types.UpdateAuthorMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<Types.UpdateAuthorMutation, Types.UpdateAuthorMutationVariables>(
+    UpdateAuthorDocument,
+    options,
+  );
+}
 export type UpdateAuthorMutationHookResult = ReturnType<typeof useUpdateAuthorMutation>;
 export type UpdateAuthorMutationResult = Apollo.MutationResult<Types.UpdateAuthorMutation>;
-export type UpdateAuthorMutationOptions = Apollo.BaseMutationOptions<Types.UpdateAuthorMutation, Types.UpdateAuthorMutationVariables>;
+export type UpdateAuthorMutationOptions = Apollo.BaseMutationOptions<
+  Types.UpdateAuthorMutation,
+  Types.UpdateAuthorMutationVariables
+>;
 export const DeleteAuthorDocument = gql`
-    mutation DeleteAuthor($id: Int!) {
-  deleteAuthor(id: $id)
-}
-    `;
-export type DeleteAuthorMutationFn = Apollo.MutationFunction<Types.DeleteAuthorMutation, Types.DeleteAuthorMutationVariables>;
+  mutation DeleteAuthor($id: Int!) {
+    deleteAuthor(id: $id)
+  }
+`;
+export type DeleteAuthorMutationFn = Apollo.MutationFunction<
+  Types.DeleteAuthorMutation,
+  Types.DeleteAuthorMutationVariables
+>;
 
 /**
  * __useDeleteAuthorMutation__
@@ -180,26 +237,37 @@ export type DeleteAuthorMutationFn = Apollo.MutationFunction<Types.DeleteAuthorM
  *   },
  * });
  */
-export function useDeleteAuthorMutation(baseOptions?: Apollo.MutationHookOptions<Types.DeleteAuthorMutation, Types.DeleteAuthorMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<Types.DeleteAuthorMutation, Types.DeleteAuthorMutationVariables>(DeleteAuthorDocument, options);
-      }
+export function useDeleteAuthorMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    Types.DeleteAuthorMutation,
+    Types.DeleteAuthorMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<Types.DeleteAuthorMutation, Types.DeleteAuthorMutationVariables>(
+    DeleteAuthorDocument,
+    options,
+  );
+}
 export type DeleteAuthorMutationHookResult = ReturnType<typeof useDeleteAuthorMutation>;
 export type DeleteAuthorMutationResult = Apollo.MutationResult<Types.DeleteAuthorMutation>;
-export type DeleteAuthorMutationOptions = Apollo.BaseMutationOptions<Types.DeleteAuthorMutation, Types.DeleteAuthorMutationVariables>;
+export type DeleteAuthorMutationOptions = Apollo.BaseMutationOptions<
+  Types.DeleteAuthorMutation,
+  Types.DeleteAuthorMutationVariables
+>;
 export const GetBooksDocument = gql`
-    query GetBooks {
-  books {
-    id
-    title
-    isPublished
-    author {
+  query GetBooks {
+    books {
       id
-      name
+      title
+      isPublished
+      author {
+        id
+        name
+      }
     }
   }
-}
-    `;
+`;
 
 /**
  * __useGetBooksQuery__
@@ -216,35 +284,48 @@ export const GetBooksDocument = gql`
  *   },
  * });
  */
-export function useGetBooksQuery(baseOptions?: Apollo.QueryHookOptions<Types.GetBooksQuery, Types.GetBooksQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<Types.GetBooksQuery, Types.GetBooksQueryVariables>(GetBooksDocument, options);
-      }
-export function useGetBooksLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Types.GetBooksQuery, Types.GetBooksQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<Types.GetBooksQuery, Types.GetBooksQueryVariables>(GetBooksDocument, options);
-        }
+export function useGetBooksQuery(
+  baseOptions?: Apollo.QueryHookOptions<Types.GetBooksQuery, Types.GetBooksQueryVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<Types.GetBooksQuery, Types.GetBooksQueryVariables>(
+    GetBooksDocument,
+    options,
+  );
+}
+export function useGetBooksLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<Types.GetBooksQuery, Types.GetBooksQueryVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<Types.GetBooksQuery, Types.GetBooksQueryVariables>(
+    GetBooksDocument,
+    options,
+  );
+}
 export type GetBooksQueryHookResult = ReturnType<typeof useGetBooksQuery>;
 export type GetBooksLazyQueryHookResult = ReturnType<typeof useGetBooksLazyQuery>;
-export type GetBooksQueryResult = Apollo.QueryResult<Types.GetBooksQuery, Types.GetBooksQueryVariables>;
+export type GetBooksQueryResult = Apollo.QueryResult<
+  Types.GetBooksQuery,
+  Types.GetBooksQueryVariables
+>;
 export const GetBooksAndAuthorsDocument = gql`
-    query GetBooksAndAuthors {
-  books {
-    id
-    title
-    isPublished
-    authorId
-    author {
+  query GetBooksAndAuthors {
+    books {
+      id
+      title
+      isPublished
+      authorId
+      author {
+        id
+        name
+      }
+    }
+    authors {
       id
       name
     }
   }
-  authors {
-    id
-    name
-  }
-}
-    `;
+`;
 
 /**
  * __useGetBooksAndAuthorsQuery__
@@ -261,31 +342,52 @@ export const GetBooksAndAuthorsDocument = gql`
  *   },
  * });
  */
-export function useGetBooksAndAuthorsQuery(baseOptions?: Apollo.QueryHookOptions<Types.GetBooksAndAuthorsQuery, Types.GetBooksAndAuthorsQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<Types.GetBooksAndAuthorsQuery, Types.GetBooksAndAuthorsQueryVariables>(GetBooksAndAuthorsDocument, options);
-      }
-export function useGetBooksAndAuthorsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Types.GetBooksAndAuthorsQuery, Types.GetBooksAndAuthorsQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<Types.GetBooksAndAuthorsQuery, Types.GetBooksAndAuthorsQueryVariables>(GetBooksAndAuthorsDocument, options);
-        }
+export function useGetBooksAndAuthorsQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    Types.GetBooksAndAuthorsQuery,
+    Types.GetBooksAndAuthorsQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<Types.GetBooksAndAuthorsQuery, Types.GetBooksAndAuthorsQueryVariables>(
+    GetBooksAndAuthorsDocument,
+    options,
+  );
+}
+export function useGetBooksAndAuthorsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    Types.GetBooksAndAuthorsQuery,
+    Types.GetBooksAndAuthorsQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<Types.GetBooksAndAuthorsQuery, Types.GetBooksAndAuthorsQueryVariables>(
+    GetBooksAndAuthorsDocument,
+    options,
+  );
+}
 export type GetBooksAndAuthorsQueryHookResult = ReturnType<typeof useGetBooksAndAuthorsQuery>;
-export type GetBooksAndAuthorsLazyQueryHookResult = ReturnType<typeof useGetBooksAndAuthorsLazyQuery>;
-export type GetBooksAndAuthorsQueryResult = Apollo.QueryResult<Types.GetBooksAndAuthorsQuery, Types.GetBooksAndAuthorsQueryVariables>;
+export type GetBooksAndAuthorsLazyQueryHookResult = ReturnType<
+  typeof useGetBooksAndAuthorsLazyQuery
+>;
+export type GetBooksAndAuthorsQueryResult = Apollo.QueryResult<
+  Types.GetBooksAndAuthorsQuery,
+  Types.GetBooksAndAuthorsQueryVariables
+>;
 export const GetBookDocument = gql`
-    query GetBook($id: Int!) {
-  book(id: $id) {
-    id
-    title
-    isPublished
-    authorId
-    author {
+  query GetBook($id: Int!) {
+    book(id: $id) {
       id
-      name
+      title
+      isPublished
+      authorId
+      author {
+        id
+        name
+      }
     }
   }
-}
-    `;
+`;
 
 /**
  * __useGetBookQuery__
@@ -303,33 +405,44 @@ export const GetBookDocument = gql`
  *   },
  * });
  */
-export function useGetBookQuery(baseOptions: Apollo.QueryHookOptions<Types.GetBookQuery, Types.GetBookQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<Types.GetBookQuery, Types.GetBookQueryVariables>(GetBookDocument, options);
-      }
-export function useGetBookLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Types.GetBookQuery, Types.GetBookQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<Types.GetBookQuery, Types.GetBookQueryVariables>(GetBookDocument, options);
-        }
+export function useGetBookQuery(
+  baseOptions: Apollo.QueryHookOptions<Types.GetBookQuery, Types.GetBookQueryVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<Types.GetBookQuery, Types.GetBookQueryVariables>(GetBookDocument, options);
+}
+export function useGetBookLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<Types.GetBookQuery, Types.GetBookQueryVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<Types.GetBookQuery, Types.GetBookQueryVariables>(
+    GetBookDocument,
+    options,
+  );
+}
 export type GetBookQueryHookResult = ReturnType<typeof useGetBookQuery>;
 export type GetBookLazyQueryHookResult = ReturnType<typeof useGetBookLazyQuery>;
-export type GetBookQueryResult = Apollo.QueryResult<Types.GetBookQuery, Types.GetBookQueryVariables>;
+export type GetBookQueryResult = Apollo.QueryResult<
+  Types.GetBookQuery,
+  Types.GetBookQueryVariables
+>;
 export const CreateBookDocument = gql`
-    mutation CreateBook($title: String!, $isPublished: Boolean, $authorId: Int!) {
-  createBook(
-    data: {title: $title, isPublished: $isPublished, authorId: $authorId}
-  ) {
-    id
-    title
-    isPublished
-    author {
+  mutation CreateBook($title: String!, $isPublished: Boolean, $authorId: Int!) {
+    createBook(data: { title: $title, isPublished: $isPublished, authorId: $authorId }) {
       id
-      name
+      title
+      isPublished
+      author {
+        id
+        name
+      }
     }
   }
-}
-    `;
-export type CreateBookMutationFn = Apollo.MutationFunction<Types.CreateBookMutation, Types.CreateBookMutationVariables>;
+`;
+export type CreateBookMutationFn = Apollo.MutationFunction<
+  Types.CreateBookMutation,
+  Types.CreateBookMutationVariables
+>;
 
 /**
  * __useCreateBookMutation__
@@ -350,30 +463,41 @@ export type CreateBookMutationFn = Apollo.MutationFunction<Types.CreateBookMutat
  *   },
  * });
  */
-export function useCreateBookMutation(baseOptions?: Apollo.MutationHookOptions<Types.CreateBookMutation, Types.CreateBookMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<Types.CreateBookMutation, Types.CreateBookMutationVariables>(CreateBookDocument, options);
-      }
+export function useCreateBookMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    Types.CreateBookMutation,
+    Types.CreateBookMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<Types.CreateBookMutation, Types.CreateBookMutationVariables>(
+    CreateBookDocument,
+    options,
+  );
+}
 export type CreateBookMutationHookResult = ReturnType<typeof useCreateBookMutation>;
 export type CreateBookMutationResult = Apollo.MutationResult<Types.CreateBookMutation>;
-export type CreateBookMutationOptions = Apollo.BaseMutationOptions<Types.CreateBookMutation, Types.CreateBookMutationVariables>;
+export type CreateBookMutationOptions = Apollo.BaseMutationOptions<
+  Types.CreateBookMutation,
+  Types.CreateBookMutationVariables
+>;
 export const UpdateBookDocument = gql`
-    mutation UpdateBook($id: Int!, $title: String, $isPublished: Boolean, $authorId: Int) {
-  updateBook(
-    data: {title: $title, isPublished: $isPublished, authorId: $authorId}
-    id: $id
-  ) {
-    id
-    title
-    isPublished
-    author {
+  mutation UpdateBook($id: Int!, $title: String, $isPublished: Boolean, $authorId: Int) {
+    updateBook(data: { title: $title, isPublished: $isPublished, authorId: $authorId }, id: $id) {
       id
-      name
+      title
+      isPublished
+      author {
+        id
+        name
+      }
     }
   }
-}
-    `;
-export type UpdateBookMutationFn = Apollo.MutationFunction<Types.UpdateBookMutation, Types.UpdateBookMutationVariables>;
+`;
+export type UpdateBookMutationFn = Apollo.MutationFunction<
+  Types.UpdateBookMutation,
+  Types.UpdateBookMutationVariables
+>;
 
 /**
  * __useUpdateBookMutation__
@@ -395,19 +519,33 @@ export type UpdateBookMutationFn = Apollo.MutationFunction<Types.UpdateBookMutat
  *   },
  * });
  */
-export function useUpdateBookMutation(baseOptions?: Apollo.MutationHookOptions<Types.UpdateBookMutation, Types.UpdateBookMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<Types.UpdateBookMutation, Types.UpdateBookMutationVariables>(UpdateBookDocument, options);
-      }
+export function useUpdateBookMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    Types.UpdateBookMutation,
+    Types.UpdateBookMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<Types.UpdateBookMutation, Types.UpdateBookMutationVariables>(
+    UpdateBookDocument,
+    options,
+  );
+}
 export type UpdateBookMutationHookResult = ReturnType<typeof useUpdateBookMutation>;
 export type UpdateBookMutationResult = Apollo.MutationResult<Types.UpdateBookMutation>;
-export type UpdateBookMutationOptions = Apollo.BaseMutationOptions<Types.UpdateBookMutation, Types.UpdateBookMutationVariables>;
+export type UpdateBookMutationOptions = Apollo.BaseMutationOptions<
+  Types.UpdateBookMutation,
+  Types.UpdateBookMutationVariables
+>;
 export const DeleteBookDocument = gql`
-    mutation DeleteBook($id: Int!) {
-  deleteBook(id: $id)
-}
-    `;
-export type DeleteBookMutationFn = Apollo.MutationFunction<Types.DeleteBookMutation, Types.DeleteBookMutationVariables>;
+  mutation DeleteBook($id: Int!) {
+    deleteBook(id: $id)
+  }
+`;
+export type DeleteBookMutationFn = Apollo.MutationFunction<
+  Types.DeleteBookMutation,
+  Types.DeleteBookMutationVariables
+>;
 
 /**
  * __useDeleteBookMutation__
@@ -426,22 +564,33 @@ export type DeleteBookMutationFn = Apollo.MutationFunction<Types.DeleteBookMutat
  *   },
  * });
  */
-export function useDeleteBookMutation(baseOptions?: Apollo.MutationHookOptions<Types.DeleteBookMutation, Types.DeleteBookMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<Types.DeleteBookMutation, Types.DeleteBookMutationVariables>(DeleteBookDocument, options);
-      }
+export function useDeleteBookMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    Types.DeleteBookMutation,
+    Types.DeleteBookMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<Types.DeleteBookMutation, Types.DeleteBookMutationVariables>(
+    DeleteBookDocument,
+    options,
+  );
+}
 export type DeleteBookMutationHookResult = ReturnType<typeof useDeleteBookMutation>;
 export type DeleteBookMutationResult = Apollo.MutationResult<Types.DeleteBookMutation>;
-export type DeleteBookMutationOptions = Apollo.BaseMutationOptions<Types.DeleteBookMutation, Types.DeleteBookMutationVariables>;
+export type DeleteBookMutationOptions = Apollo.BaseMutationOptions<
+  Types.DeleteBookMutation,
+  Types.DeleteBookMutationVariables
+>;
 export const GetRolesDocument = gql`
-    query GetRoles {
-  roles {
-    id
-    name
-    description
+  query GetRoles {
+    roles {
+      id
+      name
+      description
+    }
   }
-}
-    `;
+`;
 
 /**
  * __useGetRolesQuery__
@@ -458,26 +607,39 @@ export const GetRolesDocument = gql`
  *   },
  * });
  */
-export function useGetRolesQuery(baseOptions?: Apollo.QueryHookOptions<Types.GetRolesQuery, Types.GetRolesQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<Types.GetRolesQuery, Types.GetRolesQueryVariables>(GetRolesDocument, options);
-      }
-export function useGetRolesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Types.GetRolesQuery, Types.GetRolesQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<Types.GetRolesQuery, Types.GetRolesQueryVariables>(GetRolesDocument, options);
-        }
+export function useGetRolesQuery(
+  baseOptions?: Apollo.QueryHookOptions<Types.GetRolesQuery, Types.GetRolesQueryVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<Types.GetRolesQuery, Types.GetRolesQueryVariables>(
+    GetRolesDocument,
+    options,
+  );
+}
+export function useGetRolesLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<Types.GetRolesQuery, Types.GetRolesQueryVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<Types.GetRolesQuery, Types.GetRolesQueryVariables>(
+    GetRolesDocument,
+    options,
+  );
+}
 export type GetRolesQueryHookResult = ReturnType<typeof useGetRolesQuery>;
 export type GetRolesLazyQueryHookResult = ReturnType<typeof useGetRolesLazyQuery>;
-export type GetRolesQueryResult = Apollo.QueryResult<Types.GetRolesQuery, Types.GetRolesQueryVariables>;
+export type GetRolesQueryResult = Apollo.QueryResult<
+  Types.GetRolesQuery,
+  Types.GetRolesQueryVariables
+>;
 export const GetRoleDocument = gql`
-    query GetRole($id: Int!) {
-  role(id: $id) {
-    id
-    name
-    description
+  query GetRole($id: Int!) {
+    role(id: $id) {
+      id
+      name
+      description
+    }
   }
-}
-    `;
+`;
 
 /**
  * __useGetRoleQuery__
@@ -495,27 +657,40 @@ export const GetRoleDocument = gql`
  *   },
  * });
  */
-export function useGetRoleQuery(baseOptions: Apollo.QueryHookOptions<Types.GetRoleQuery, Types.GetRoleQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<Types.GetRoleQuery, Types.GetRoleQueryVariables>(GetRoleDocument, options);
-      }
-export function useGetRoleLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Types.GetRoleQuery, Types.GetRoleQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<Types.GetRoleQuery, Types.GetRoleQueryVariables>(GetRoleDocument, options);
-        }
+export function useGetRoleQuery(
+  baseOptions: Apollo.QueryHookOptions<Types.GetRoleQuery, Types.GetRoleQueryVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<Types.GetRoleQuery, Types.GetRoleQueryVariables>(GetRoleDocument, options);
+}
+export function useGetRoleLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<Types.GetRoleQuery, Types.GetRoleQueryVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<Types.GetRoleQuery, Types.GetRoleQueryVariables>(
+    GetRoleDocument,
+    options,
+  );
+}
 export type GetRoleQueryHookResult = ReturnType<typeof useGetRoleQuery>;
 export type GetRoleLazyQueryHookResult = ReturnType<typeof useGetRoleLazyQuery>;
-export type GetRoleQueryResult = Apollo.QueryResult<Types.GetRoleQuery, Types.GetRoleQueryVariables>;
+export type GetRoleQueryResult = Apollo.QueryResult<
+  Types.GetRoleQuery,
+  Types.GetRoleQueryVariables
+>;
 export const CreateRoleDocument = gql`
-    mutation CreateRole($name: String!, $description: String) {
-  createRole(data: {name: $name, description: $description}) {
-    id
-    name
-    description
+  mutation CreateRole($name: String!, $description: String) {
+    createRole(data: { name: $name, description: $description }) {
+      id
+      name
+      description
+    }
   }
-}
-    `;
-export type CreateRoleMutationFn = Apollo.MutationFunction<Types.CreateRoleMutation, Types.CreateRoleMutationVariables>;
+`;
+export type CreateRoleMutationFn = Apollo.MutationFunction<
+  Types.CreateRoleMutation,
+  Types.CreateRoleMutationVariables
+>;
 
 /**
  * __useCreateRoleMutation__
@@ -535,23 +710,37 @@ export type CreateRoleMutationFn = Apollo.MutationFunction<Types.CreateRoleMutat
  *   },
  * });
  */
-export function useCreateRoleMutation(baseOptions?: Apollo.MutationHookOptions<Types.CreateRoleMutation, Types.CreateRoleMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<Types.CreateRoleMutation, Types.CreateRoleMutationVariables>(CreateRoleDocument, options);
-      }
+export function useCreateRoleMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    Types.CreateRoleMutation,
+    Types.CreateRoleMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<Types.CreateRoleMutation, Types.CreateRoleMutationVariables>(
+    CreateRoleDocument,
+    options,
+  );
+}
 export type CreateRoleMutationHookResult = ReturnType<typeof useCreateRoleMutation>;
 export type CreateRoleMutationResult = Apollo.MutationResult<Types.CreateRoleMutation>;
-export type CreateRoleMutationOptions = Apollo.BaseMutationOptions<Types.CreateRoleMutation, Types.CreateRoleMutationVariables>;
+export type CreateRoleMutationOptions = Apollo.BaseMutationOptions<
+  Types.CreateRoleMutation,
+  Types.CreateRoleMutationVariables
+>;
 export const UpdateRoleDocument = gql`
-    mutation UpdateRole($id: String!, $name: String, $description: String) {
-  updateRole(data: {id: $id, name: $name, description: $description}) {
-    id
-    name
-    description
+  mutation UpdateRole($id: String!, $name: String, $description: String) {
+    updateRole(data: { id: $id, name: $name, description: $description }) {
+      id
+      name
+      description
+    }
   }
-}
-    `;
-export type UpdateRoleMutationFn = Apollo.MutationFunction<Types.UpdateRoleMutation, Types.UpdateRoleMutationVariables>;
+`;
+export type UpdateRoleMutationFn = Apollo.MutationFunction<
+  Types.UpdateRoleMutation,
+  Types.UpdateRoleMutationVariables
+>;
 
 /**
  * __useUpdateRoleMutation__
@@ -572,19 +761,33 @@ export type UpdateRoleMutationFn = Apollo.MutationFunction<Types.UpdateRoleMutat
  *   },
  * });
  */
-export function useUpdateRoleMutation(baseOptions?: Apollo.MutationHookOptions<Types.UpdateRoleMutation, Types.UpdateRoleMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<Types.UpdateRoleMutation, Types.UpdateRoleMutationVariables>(UpdateRoleDocument, options);
-      }
+export function useUpdateRoleMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    Types.UpdateRoleMutation,
+    Types.UpdateRoleMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<Types.UpdateRoleMutation, Types.UpdateRoleMutationVariables>(
+    UpdateRoleDocument,
+    options,
+  );
+}
 export type UpdateRoleMutationHookResult = ReturnType<typeof useUpdateRoleMutation>;
 export type UpdateRoleMutationResult = Apollo.MutationResult<Types.UpdateRoleMutation>;
-export type UpdateRoleMutationOptions = Apollo.BaseMutationOptions<Types.UpdateRoleMutation, Types.UpdateRoleMutationVariables>;
+export type UpdateRoleMutationOptions = Apollo.BaseMutationOptions<
+  Types.UpdateRoleMutation,
+  Types.UpdateRoleMutationVariables
+>;
 export const DeleteRoleDocument = gql`
-    mutation DeleteRole($id: String!) {
-  deleteRole(id: $id)
-}
-    `;
-export type DeleteRoleMutationFn = Apollo.MutationFunction<Types.DeleteRoleMutation, Types.DeleteRoleMutationVariables>;
+  mutation DeleteRole($id: String!) {
+    deleteRole(id: $id)
+  }
+`;
+export type DeleteRoleMutationFn = Apollo.MutationFunction<
+  Types.DeleteRoleMutation,
+  Types.DeleteRoleMutationVariables
+>;
 
 /**
  * __useDeleteRoleMutation__
@@ -603,29 +806,40 @@ export type DeleteRoleMutationFn = Apollo.MutationFunction<Types.DeleteRoleMutat
  *   },
  * });
  */
-export function useDeleteRoleMutation(baseOptions?: Apollo.MutationHookOptions<Types.DeleteRoleMutation, Types.DeleteRoleMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<Types.DeleteRoleMutation, Types.DeleteRoleMutationVariables>(DeleteRoleDocument, options);
-      }
+export function useDeleteRoleMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    Types.DeleteRoleMutation,
+    Types.DeleteRoleMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<Types.DeleteRoleMutation, Types.DeleteRoleMutationVariables>(
+    DeleteRoleDocument,
+    options,
+  );
+}
 export type DeleteRoleMutationHookResult = ReturnType<typeof useDeleteRoleMutation>;
 export type DeleteRoleMutationResult = Apollo.MutationResult<Types.DeleteRoleMutation>;
-export type DeleteRoleMutationOptions = Apollo.BaseMutationOptions<Types.DeleteRoleMutation, Types.DeleteRoleMutationVariables>;
+export type DeleteRoleMutationOptions = Apollo.BaseMutationOptions<
+  Types.DeleteRoleMutation,
+  Types.DeleteRoleMutationVariables
+>;
 export const GetUsersDocument = gql`
-    query GetUsers {
-  users {
-    id
-    username
-    enabled
-    firstName
-    lastName
-    email
-    roles {
+  query GetUsers {
+    users {
       id
-      name
+      username
+      enabled
+      firstName
+      lastName
+      email
+      roles {
+        id
+        name
+      }
     }
   }
-}
-    `;
+`;
 
 /**
  * __useGetUsersQuery__
@@ -642,37 +856,50 @@ export const GetUsersDocument = gql`
  *   },
  * });
  */
-export function useGetUsersQuery(baseOptions?: Apollo.QueryHookOptions<Types.GetUsersQuery, Types.GetUsersQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<Types.GetUsersQuery, Types.GetUsersQueryVariables>(GetUsersDocument, options);
-      }
-export function useGetUsersLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Types.GetUsersQuery, Types.GetUsersQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<Types.GetUsersQuery, Types.GetUsersQueryVariables>(GetUsersDocument, options);
-        }
+export function useGetUsersQuery(
+  baseOptions?: Apollo.QueryHookOptions<Types.GetUsersQuery, Types.GetUsersQueryVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<Types.GetUsersQuery, Types.GetUsersQueryVariables>(
+    GetUsersDocument,
+    options,
+  );
+}
+export function useGetUsersLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<Types.GetUsersQuery, Types.GetUsersQueryVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<Types.GetUsersQuery, Types.GetUsersQueryVariables>(
+    GetUsersDocument,
+    options,
+  );
+}
 export type GetUsersQueryHookResult = ReturnType<typeof useGetUsersQuery>;
 export type GetUsersLazyQueryHookResult = ReturnType<typeof useGetUsersLazyQuery>;
-export type GetUsersQueryResult = Apollo.QueryResult<Types.GetUsersQuery, Types.GetUsersQueryVariables>;
+export type GetUsersQueryResult = Apollo.QueryResult<
+  Types.GetUsersQuery,
+  Types.GetUsersQueryVariables
+>;
 export const GetUserAndRolesDocument = gql`
-    query GetUserAndRoles {
-  users {
-    id
-    username
-    enabled
-    firstName
-    lastName
-    email
+  query GetUserAndRoles {
+    users {
+      id
+      username
+      enabled
+      firstName
+      lastName
+      email
+      roles {
+        id
+        name
+      }
+    }
     roles {
       id
       name
     }
   }
-  roles {
-    id
-    name
-  }
-}
-    `;
+`;
 
 /**
  * __useGetUserAndRolesQuery__
@@ -689,33 +916,52 @@ export const GetUserAndRolesDocument = gql`
  *   },
  * });
  */
-export function useGetUserAndRolesQuery(baseOptions?: Apollo.QueryHookOptions<Types.GetUserAndRolesQuery, Types.GetUserAndRolesQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<Types.GetUserAndRolesQuery, Types.GetUserAndRolesQueryVariables>(GetUserAndRolesDocument, options);
-      }
-export function useGetUserAndRolesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Types.GetUserAndRolesQuery, Types.GetUserAndRolesQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<Types.GetUserAndRolesQuery, Types.GetUserAndRolesQueryVariables>(GetUserAndRolesDocument, options);
-        }
+export function useGetUserAndRolesQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    Types.GetUserAndRolesQuery,
+    Types.GetUserAndRolesQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<Types.GetUserAndRolesQuery, Types.GetUserAndRolesQueryVariables>(
+    GetUserAndRolesDocument,
+    options,
+  );
+}
+export function useGetUserAndRolesLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    Types.GetUserAndRolesQuery,
+    Types.GetUserAndRolesQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<Types.GetUserAndRolesQuery, Types.GetUserAndRolesQueryVariables>(
+    GetUserAndRolesDocument,
+    options,
+  );
+}
 export type GetUserAndRolesQueryHookResult = ReturnType<typeof useGetUserAndRolesQuery>;
 export type GetUserAndRolesLazyQueryHookResult = ReturnType<typeof useGetUserAndRolesLazyQuery>;
-export type GetUserAndRolesQueryResult = Apollo.QueryResult<Types.GetUserAndRolesQuery, Types.GetUserAndRolesQueryVariables>;
+export type GetUserAndRolesQueryResult = Apollo.QueryResult<
+  Types.GetUserAndRolesQuery,
+  Types.GetUserAndRolesQueryVariables
+>;
 export const GetUserDocument = gql`
-    query GetUser($id: String!) {
-  getOne(id: $id) {
-    id
-    username
-    enabled
-    firstName
-    lastName
-    email
-    roles {
+  query GetUser($id: String!) {
+    getOne(id: $id) {
       id
-      name
+      username
+      enabled
+      firstName
+      lastName
+      email
+      roles {
+        id
+        name
+      }
     }
   }
-}
-    `;
+`;
 
 /**
  * __useGetUserQuery__
@@ -733,36 +979,63 @@ export const GetUserDocument = gql`
  *   },
  * });
  */
-export function useGetUserQuery(baseOptions: Apollo.QueryHookOptions<Types.GetUserQuery, Types.GetUserQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<Types.GetUserQuery, Types.GetUserQueryVariables>(GetUserDocument, options);
-      }
-export function useGetUserLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Types.GetUserQuery, Types.GetUserQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<Types.GetUserQuery, Types.GetUserQueryVariables>(GetUserDocument, options);
-        }
+export function useGetUserQuery(
+  baseOptions: Apollo.QueryHookOptions<Types.GetUserQuery, Types.GetUserQueryVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<Types.GetUserQuery, Types.GetUserQueryVariables>(GetUserDocument, options);
+}
+export function useGetUserLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<Types.GetUserQuery, Types.GetUserQueryVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<Types.GetUserQuery, Types.GetUserQueryVariables>(
+    GetUserDocument,
+    options,
+  );
+}
 export type GetUserQueryHookResult = ReturnType<typeof useGetUserQuery>;
 export type GetUserLazyQueryHookResult = ReturnType<typeof useGetUserLazyQuery>;
-export type GetUserQueryResult = Apollo.QueryResult<Types.GetUserQuery, Types.GetUserQueryVariables>;
+export type GetUserQueryResult = Apollo.QueryResult<
+  Types.GetUserQuery,
+  Types.GetUserQueryVariables
+>;
 export const CreateUserDocument = gql`
-    mutation CreateUser($username: String!, $email: String!, $firstName: String!, $lastName: String!, $password: String!, $roleIds: [String!]!) {
-  createUser(
-    data: {username: $username, email: $email, firstName: $firstName, lastName: $lastName, password: $password, roleIds: $roleIds}
+  mutation CreateUser(
+    $username: String!
+    $email: String!
+    $firstName: String!
+    $lastName: String!
+    $password: String!
+    $roleIds: [String!]!
   ) {
-    id
-    username
-    enabled
-    firstName
-    lastName
-    email
-    roles {
+    createUser(
+      data: {
+        username: $username
+        email: $email
+        firstName: $firstName
+        lastName: $lastName
+        password: $password
+        roleIds: $roleIds
+      }
+    ) {
       id
-      name
+      username
+      enabled
+      firstName
+      lastName
+      email
+      roles {
+        id
+        name
+      }
     }
   }
-}
-    `;
-export type CreateUserMutationFn = Apollo.MutationFunction<Types.CreateUserMutation, Types.CreateUserMutationVariables>;
+`;
+export type CreateUserMutationFn = Apollo.MutationFunction<
+  Types.CreateUserMutation,
+  Types.CreateUserMutationVariables
+>;
 
 /**
  * __useCreateUserMutation__
@@ -786,32 +1059,62 @@ export type CreateUserMutationFn = Apollo.MutationFunction<Types.CreateUserMutat
  *   },
  * });
  */
-export function useCreateUserMutation(baseOptions?: Apollo.MutationHookOptions<Types.CreateUserMutation, Types.CreateUserMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<Types.CreateUserMutation, Types.CreateUserMutationVariables>(CreateUserDocument, options);
-      }
+export function useCreateUserMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    Types.CreateUserMutation,
+    Types.CreateUserMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<Types.CreateUserMutation, Types.CreateUserMutationVariables>(
+    CreateUserDocument,
+    options,
+  );
+}
 export type CreateUserMutationHookResult = ReturnType<typeof useCreateUserMutation>;
 export type CreateUserMutationResult = Apollo.MutationResult<Types.CreateUserMutation>;
-export type CreateUserMutationOptions = Apollo.BaseMutationOptions<Types.CreateUserMutation, Types.CreateUserMutationVariables>;
+export type CreateUserMutationOptions = Apollo.BaseMutationOptions<
+  Types.CreateUserMutation,
+  Types.CreateUserMutationVariables
+>;
 export const UpdateUserDocument = gql`
-    mutation UpdateUser($id: String!, $username: String!, $email: String, $firstName: String, $lastName: String, $password: String, $relatedRoleIds: [String!]) {
-  updateUser(
-    data: {id: $id, username: $username, email: $email, firstName: $firstName, lastName: $lastName, password: $password, roleIds: $relatedRoleIds}
+  mutation UpdateUser(
+    $id: String!
+    $username: String!
+    $email: String
+    $firstName: String
+    $lastName: String
+    $password: String
+    $relatedRoleIds: [String!]
   ) {
-    id
-    username
-    enabled
-    firstName
-    lastName
-    email
-    roles {
+    updateUser(
+      data: {
+        id: $id
+        username: $username
+        email: $email
+        firstName: $firstName
+        lastName: $lastName
+        password: $password
+        roleIds: $relatedRoleIds
+      }
+    ) {
       id
-      name
+      username
+      enabled
+      firstName
+      lastName
+      email
+      roles {
+        id
+        name
+      }
     }
   }
-}
-    `;
-export type UpdateUserMutationFn = Apollo.MutationFunction<Types.UpdateUserMutation, Types.UpdateUserMutationVariables>;
+`;
+export type UpdateUserMutationFn = Apollo.MutationFunction<
+  Types.UpdateUserMutation,
+  Types.UpdateUserMutationVariables
+>;
 
 /**
  * __useUpdateUserMutation__
@@ -836,19 +1139,33 @@ export type UpdateUserMutationFn = Apollo.MutationFunction<Types.UpdateUserMutat
  *   },
  * });
  */
-export function useUpdateUserMutation(baseOptions?: Apollo.MutationHookOptions<Types.UpdateUserMutation, Types.UpdateUserMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<Types.UpdateUserMutation, Types.UpdateUserMutationVariables>(UpdateUserDocument, options);
-      }
+export function useUpdateUserMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    Types.UpdateUserMutation,
+    Types.UpdateUserMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<Types.UpdateUserMutation, Types.UpdateUserMutationVariables>(
+    UpdateUserDocument,
+    options,
+  );
+}
 export type UpdateUserMutationHookResult = ReturnType<typeof useUpdateUserMutation>;
 export type UpdateUserMutationResult = Apollo.MutationResult<Types.UpdateUserMutation>;
-export type UpdateUserMutationOptions = Apollo.BaseMutationOptions<Types.UpdateUserMutation, Types.UpdateUserMutationVariables>;
+export type UpdateUserMutationOptions = Apollo.BaseMutationOptions<
+  Types.UpdateUserMutation,
+  Types.UpdateUserMutationVariables
+>;
 export const DeleteUserDocument = gql`
-    mutation DeleteUser($id: String!) {
-  deleteUser(id: $id)
-}
-    `;
-export type DeleteUserMutationFn = Apollo.MutationFunction<Types.DeleteUserMutation, Types.DeleteUserMutationVariables>;
+  mutation DeleteUser($id: String!) {
+    deleteUser(id: $id)
+  }
+`;
+export type DeleteUserMutationFn = Apollo.MutationFunction<
+  Types.DeleteUserMutation,
+  Types.DeleteUserMutationVariables
+>;
 
 /**
  * __useDeleteUserMutation__
@@ -867,10 +1184,21 @@ export type DeleteUserMutationFn = Apollo.MutationFunction<Types.DeleteUserMutat
  *   },
  * });
  */
-export function useDeleteUserMutation(baseOptions?: Apollo.MutationHookOptions<Types.DeleteUserMutation, Types.DeleteUserMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<Types.DeleteUserMutation, Types.DeleteUserMutationVariables>(DeleteUserDocument, options);
-      }
+export function useDeleteUserMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    Types.DeleteUserMutation,
+    Types.DeleteUserMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<Types.DeleteUserMutation, Types.DeleteUserMutationVariables>(
+    DeleteUserDocument,
+    options,
+  );
+}
 export type DeleteUserMutationHookResult = ReturnType<typeof useDeleteUserMutation>;
 export type DeleteUserMutationResult = Apollo.MutationResult<Types.DeleteUserMutation>;
-export type DeleteUserMutationOptions = Apollo.BaseMutationOptions<Types.DeleteUserMutation, Types.DeleteUserMutationVariables>;
+export type DeleteUserMutationOptions = Apollo.BaseMutationOptions<
+  Types.DeleteUserMutation,
+  Types.DeleteUserMutationVariables
+>;

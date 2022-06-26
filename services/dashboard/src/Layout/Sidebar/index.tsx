@@ -1,17 +1,15 @@
 import React from 'react';
 import { PageSidebar } from '@patternfly/react-core';
 
-import { Location } from 'history' 
+import { Location } from 'history';
 import PageNav from './PageNav';
-interface Props  {
-  isNavOpen: boolean,
-  location: Location
+interface Props {
+  isNavOpen: boolean;
+  location: Location;
 }
 
-const Sidebar: React.FC<Props> = ({isNavOpen, location}) => {
-  return (
-    <PageSidebar nav={<PageNav location={location} />} theme="dark" isNavOpen={isNavOpen} />
-  );
-}
+const Sidebar: React.FC<Props> = ({ isNavOpen, location }) => {
+  return <PageSidebar nav={<PageNav location={location} />} theme="dark" isNavOpen={isNavOpen} />;
+};
 
 export default Sidebar;

@@ -1,11 +1,6 @@
-import React from "react";
-import {
-  Select,
-  SelectOption,
-  SelectOptionObject,
-  SelectVariant,
-} from "@patternfly/react-core";
-import _ from "lodash";
+import React from 'react';
+import { Select, SelectOption, SelectOptionObject, SelectVariant } from '@patternfly/react-core';
+import _ from 'lodash';
 
 export interface SelectionOption {
   id: number | string;
@@ -20,7 +15,7 @@ interface Props {
   selected: (string | number)[];
   options: SelectionOption[];
   handleChangeSelected: (selected?: (string | number)[]) => void;
-  direction?: "up" | "down";
+  direction?: 'up' | 'down';
 }
 
 interface State {
@@ -32,14 +27,7 @@ interface State {
 }
 
 const MultiSelectWithFilter: React.FC<Props> = (props) => {
-  const {
-    keyName,
-    label,
-    selected,
-    options,
-    handleChangeSelected,
-    direction,
-  } = props;
+  const { keyName, label, selected, options, handleChangeSelected, direction } = props;
   const [state, setState] = React.useState<State>({
     isOpen: false,
     isDisabled: false,
@@ -61,7 +49,7 @@ const MultiSelectWithFilter: React.FC<Props> = (props) => {
 
   const setBadgeText = (selected: number) => {
     if (selected === options.length) {
-      return "All";
+      return 'All';
     }
     if (selected === 0) {
       return 0;
@@ -71,28 +59,28 @@ const MultiSelectWithFilter: React.FC<Props> = (props) => {
 
   const onSelect = (
     event: React.MouseEvent<Element, MouseEvent> | React.ChangeEvent<Element>,
-    selection: string | SelectOptionObject
+    selection: string | SelectOptionObject,
   ) => {
-      const itemId: string | number | undefined = _.find(options, {
-        value: selection.toString(),
-      })?.id;
-      if (itemId && _.find(selected, (s) => s === itemId)) {
-        const result = selected.filter((i) => i !== itemId);
-        handleChangeSelected(result);
+    const itemId: string | number | undefined = _.find(options, {
+      value: selection.toString(),
+    })?.id;
+    if (itemId && _.find(selected, (s) => s === itemId)) {
+      const result = selected.filter((i) => i !== itemId);
+      handleChangeSelected(result);
+      setState({
+        ...state,
+        customBadgeText: setBadgeText(result.length),
+      });
+    } else {
+      if (itemId) {
+        handleChangeSelected([...(selected || []), itemId]);
         setState({
           ...state,
-          customBadgeText: setBadgeText(result.length),
+          customBadgeText: setBadgeText(selected.length + 1),
         });
-      } else {
-        if (itemId) {
-          handleChangeSelected([...(selected || []), itemId]);
-          setState({
-            ...state,
-            customBadgeText: setBadgeText(selected.length + 1),
-          });
-        }
       }
-    };
+    }
+  };
 
   const { isDisabled, isCreatable } = state;
   return (
@@ -103,7 +91,7 @@ const MultiSelectWithFilter: React.FC<Props> = (props) => {
         onToggle={onToggle}
         onSelect={onSelect}
         onClear={clearSelection}
-        selections={selected.map(s => _.find(options, { id: s })?.value)}
+        selections={selected.map((s) => _.find(options, { id: s })?.value)}
         isOpen={state.isOpen}
         aria-labelledby={keyName}
         placeholderText={label}

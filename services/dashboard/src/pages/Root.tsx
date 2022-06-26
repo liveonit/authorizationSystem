@@ -10,6 +10,7 @@ import Home from './Home';
 import Bookstore from './Bookstore';
 import UsersAdmin from './UsersAdmin';
 import { AuthProvider } from '@utils/Auth/AuthProvider';
+import { CustomLoginPage } from './Login';
 
 const Root: React.FC = () => {
   return (
@@ -19,6 +20,7 @@ const Root: React.FC = () => {
           <Layout>
             <Routes>
               <Route path="/" element={<Home />} />
+              <Route path="/login" element={<CustomLoginPage />} />
               <Route path="/bookstore" element={<Bookstore />} />
               <Route path="/usersadmin" element={<UsersAdmin />} />
             </Routes>

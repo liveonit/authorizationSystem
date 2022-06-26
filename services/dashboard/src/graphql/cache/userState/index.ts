@@ -4,20 +4,20 @@ import { parseJwt } from '@utils/general/parseJwt';
 import ReactiveStoreVar from '../helpers';
 
 interface UserSessionPayload {
-  id: string;
-  username: string;
-  enabled: boolean;
-  emailVerified: boolean;
-  firstName?: string;
-  lastName?: string;
-  email?: string;
-  roles?: Role[];
+  id: string | null;
+  username: string | null;
+  enabled: boolean | null;
+  emailVerified: boolean | null;
+  firstName?: string | null;
+  lastName?: string | null;
+  email?: string | null;
+  roles?: Role[] | null;
 }
 
 export const userState = new ReactiveStoreVar<UserSession>({
   varName: 'userState',
   initialState: {
-    id: null,
+    id: '',
     accessToken: null,
     refreshToken: null,
   },

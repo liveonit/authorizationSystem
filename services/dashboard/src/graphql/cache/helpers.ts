@@ -1,5 +1,5 @@
-import { FieldPolicy, FieldReadFunction, ReactiveVar } from "@apollo/client";
-import { makeVar } from "@apollo/client";
+import { FieldPolicy, FieldReadFunction, ReactiveVar } from '@apollo/client';
+import { makeVar } from '@apollo/client';
 
 export interface Field {
   [fieldName: string]: FieldPolicy<any, any, any> | FieldReadFunction<any, any>;
@@ -32,9 +32,9 @@ export default class ReactiveStoreVar<T> {
     debug?: boolean;
   }) {
     if (persist && varName == null)
-      throw TypeError("Must specify varName when persist is set to true");
+      throw TypeError('Must specify varName when persist is set to true');
 
-    this.varName = varName || "";
+    this.varName = varName || '';
     this.persist = persist || false;
     this.debug = debug;
     this.loadOnMount = loadOnMount || true;
@@ -50,7 +50,7 @@ export default class ReactiveStoreVar<T> {
 
   set(newValue: T) {
     const state = this.reactiveVar(newValue);
-    if (process.env.NEXT_PUBLIC_DEBUG_STATE === "true" && this.debug) {
+    if (process.env.NEXT_PUBLIC_DEBUG_STATE === 'true' && this.debug) {
       console.log(this.varName, { state });
     }
     if (this.persist) this.save();
@@ -68,7 +68,7 @@ export default class ReactiveStoreVar<T> {
     if (!this.persist) return;
 
     // If on serve or if the initial state is prefered over cached state, load the initial state
-    if (typeof window === "undefined" || this.preferInitialState) {
+    if (typeof window === 'undefined' || this.preferInitialState) {
       this.set(this.initialState);
       return;
     }
@@ -89,8 +89,7 @@ export default class ReactiveStoreVar<T> {
       // If nothing was parsed, or if the value is an empty object, load initial state and return
       if (
         parsedValue == null ||
-        (typeof parsedValue === "object" &&
-          Object.keys(parsedValue).length === 0)
+        (typeof parsedValue === 'object' && Object.keys(parsedValue).length === 0)
       ) {
         this.set(this.initialState);
         return;
@@ -107,7 +106,7 @@ export default class ReactiveStoreVar<T> {
 
   // Save to local storage for persitence
   save() {
-    if (!this.persist || typeof window === "undefined") return;
+    if (!this.persist || typeof window === 'undefined') return;
     localStorage.setItem(this.varName, JSON.stringify(this.get()));
     return this;
   }
