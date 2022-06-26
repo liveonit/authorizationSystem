@@ -11,7 +11,7 @@
 
 ### Dev
 
-Se deberian configurar las varaiables de entorno a partir de .env.example creando un nuevo .env file pero como es para fines practicos ya dejo uno en el paquerte.
+Se deberian configurar las varaiables de entorno a partir de .env.example creando un nuevo .env file pero como es para fines practicos ya dejo uno en el paquete.
 
 Luego de configuradas las variables de entorno, en el directorio raiz del proyecto ejecutar `docker-compose up -d`
 

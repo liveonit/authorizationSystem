@@ -12,20 +12,20 @@ import Bookstore from "./Bookstore";
 import UsersAdmin from "./UsersAdmin";
 
 
-const  Root: React.FC = () => {
+const Root: React.FC = () => {
   return (
 
-      <ApolloProvider client={client}>
-        <CustomRouter history={history}>
-          <Layout>
-            <Routes>
-              <Route path="/" element={<Home/>} />
-              <Route path="/bookstore" element={<Bookstore/>} />
-              <Route path="/usersadmin" element={<UsersAdmin/>} />
-            </Routes>
-          </Layout>
-        </CustomRouter>
-      </ApolloProvider>
+    <ApolloProvider client={client}>
+      <CustomRouter history={history}>
+        <Layout>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/bookstore" element={<Bookstore />} />
+            <Route path="/usersadmin" element={<UsersAdmin />} />
+          </Routes>
+        </Layout>
+      </CustomRouter>
+    </ApolloProvider>
   );
 }
 
