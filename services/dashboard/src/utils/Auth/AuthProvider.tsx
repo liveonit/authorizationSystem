@@ -1,5 +1,6 @@
 import { useUserSession } from '@graphql/cache/userState';
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 interface IProps {
   [key: string]: any;
@@ -7,8 +8,12 @@ interface IProps {
 
 export const AuthProvider: React.FC<IProps> = ({ children }) => {
   const user = useUserSession();
-  if (!user.accessToken && !user.refreshToken) {
-    console.log('Just for test');
-  }
+  const navigate = useNavigate();
+  const location = useLocation();
+  useEffect(() => {
+    if (location.pathname !== '/login' && !user.accessToken && !user.refreshToken) {
+      navigate('/login', { replace: true });
+    }
+  }, [user.accessToken, user.refreshToken]);
   return children;
 };

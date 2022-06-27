@@ -5,14 +5,17 @@ import { parseJwt } from '@utils/general/parseJwt';
 import history from '@utils/Router/history';
 
 export const getToken = async () => {
+  console.log('gettingggg token');
   const user = userState.get();
   if (user.accessToken && user.refreshToken) {
+    console.log('gettingggg token 1');
     const decodedAccessToken = parseJwt<UserSessionPayload>(user.accessToken as string);
     const decodedRefreshToken = parseJwt<UserSessionPayload>(user.refreshToken as string);
     if ((decodedAccessToken.exp || 0) * 1000 < Date.now()) {
       if ((decodedRefreshToken.exp || 0) * 1000 < Date.now()) {
         return history.push('/login');
       } else {
+        console.log('heerreee');
         const result = await client.mutate({
           mutation: RefreshTokenDocument,
           variables: { refreshToken: user.refreshToken },
@@ -21,6 +24,7 @@ export const getToken = async () => {
       }
     }
   }
+  console.log('gettingggg token fin', user.accessToken);
   return user.accessToken;
 };
 

@@ -52,7 +52,9 @@ export const useEntity = <T>({
         setState({ ...state, items, data: _.omit(data, [entitiesName]) });
       }
     },
-    onError: (err) => console.error(err),
+    onError: (err) => {
+      console.error(err);
+    },
     fetchPolicy: 'cache-first',
   });
 

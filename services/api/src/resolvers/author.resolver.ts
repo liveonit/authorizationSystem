@@ -7,6 +7,7 @@ import { authSvc } from '@services/auth.svc';
 @Resolver()
 export class AuthorResolver {
   @Query(() => [Author])
+  @UseMiddleware([gqlLogMiddleware, authSvc.gqlAuthRequiredMiddleware([])])
   async authors(
     @Arg('limit', { nullable: true }) limit: number,
     @Arg('offset', { nullable: true }) offset: number,

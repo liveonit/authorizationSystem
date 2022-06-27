@@ -101,7 +101,7 @@ const Books: React.FC = () => {
     onChange: ({ items, data }) => {
       const newItems = items
         .filter((i) => _.find(data?.authors, { id: i.author?.id }))
-        .map((i) => ({ ...i, authorName: i?.author?.name || '' }));
+        .map((i) => ({ ...i, authorName: i?.author?.name || '', authorId: i?.author?.id || 0 }));
       setState({ ...state, items: newItems, authors: data?.authors || [] });
     },
   });
@@ -161,7 +161,6 @@ const Books: React.FC = () => {
   //#endregion
   //===========================================================================
 
-  console.count('canti rend');
   return (
     <>
       {loading ? (
