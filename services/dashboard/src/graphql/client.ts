@@ -1,6 +1,5 @@
-import { ApolloClient, HttpLink, split } from '@apollo/client';
+import { ApolloClient, HttpLink, NormalizedCacheObject } from '@apollo/client';
 
-import { getMainDefinition } from '@apollo/client/utilities';
 import { setContext } from '@apollo/link-context';
 import { onError } from '@apollo/client/link/error';
 import { getToken } from '@utils/Auth/helpers';
@@ -11,11 +10,6 @@ const loc = window.location;
 const httpLink = new HttpLink({
   uri: `${loc.protocol}//${loc.host}/graphql`,
 });
-
-const link = split(({ query }) => {
-  const definition = getMainDefinition(query);
-  return definition.kind === 'OperationDefinition' && definition.operation === 'subscription';
-}, httpLink);
 
 const errorLink = onError(({ graphQLErrors, networkError }) => {
   if (graphQLErrors)
@@ -35,20 +29,20 @@ const authLink = setContext(async (_, { headers }) => {
   return {
     headers: {
       ...headers,
-      authorization: token,
+      authorization: `Bearer ${token}`,
     },
   };
 });
 
-let clientAux;
+let clientAux: ApolloClient<NormalizedCacheObject>;
 if (window.location.pathname !== '/login') {
   clientAux = new ApolloClient({
-    link: errorLink.concat(authLink.concat(link)),
+    link: errorLink.concat(authLink.concat(httpLink)),
     cache,
   });
 } else {
   clientAux = new ApolloClient({
-    link: errorLink.concat(link),
+    link: errorLink.concat(httpLink),
     cache,
   });
 }

@@ -54,7 +54,7 @@ export class UserResolver {
   }
 
   @Mutation(() => String)
-  @UseMiddleware([authSvc.gqlAuthRequiredMiddleware([''])])
+  @UseMiddleware([authSvc.gqlAuthRequiredMiddleware([])])
   async logout(@Ctx() ctx: CustomContext): Promise<string> {
     if (!ctx.req.user?.id) throw new ApolloError('Invalid credentials');
     const userId = ctx.req.user.id;
@@ -82,7 +82,7 @@ export class UserResolver {
   }
 
   @Mutation(() => String)
-  @UseMiddleware([authSvc.gqlAuthRequiredMiddleware([''])])
+  @UseMiddleware([authSvc.gqlAuthRequiredMiddleware([])])
   async deleteMe(@Ctx() ctx: CustomContext): Promise<string> {
     if (!ctx.req.user?.id) throw new ApolloError('Invalid credentials');
     const userId = ctx.req.user.id;

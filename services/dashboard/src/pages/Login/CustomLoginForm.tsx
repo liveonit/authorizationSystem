@@ -19,10 +19,6 @@ export interface LoginFormProps extends React.HTMLProps<HTMLFormElement> {
   noAutoFocus?: boolean;
   /** Additional classes added to the Login Main Body's Form */
   className?: string;
-  /** Flag indicating the Helper Text is visible * */
-  showHelperText?: boolean;
-  /** Content displayed in the Helper Text component * */
-  helperText?: React.ReactNode;
   /** Icon displayed to the left in the Helper Text */
   helperTextIcon?: React.ReactNode;
   /** Label for the Username Input Field */
@@ -66,8 +62,6 @@ export interface LoginFormProps extends React.HTMLProps<HTMLFormElement> {
 export const CustomLoginForm: React.FunctionComponent<LoginFormProps> = ({
   noAutoFocus = false,
   className = '',
-  showHelperText = false,
-  helperText = null,
   helperTextIcon = null,
   usernameLabel = 'Username',
   usernameValue = '',
@@ -86,7 +80,7 @@ export const CustomLoginForm: React.FunctionComponent<LoginFormProps> = ({
   rememberMeLabel = '',
   isRememberMeChecked = false,
   onChangeRememberMe = () => undefined as any,
-  loginError = undefined,
+  loginError = '',
   ...props
 }: LoginFormProps) => {
   const [passwordHidden, setPasswordHidden] = React.useState(true);
@@ -102,16 +96,15 @@ export const CustomLoginForm: React.FunctionComponent<LoginFormProps> = ({
       onChange={onChangePassword}
     />
   );
-
   return (
     <Form className={className} {...props}>
       <FormHelperText
-        isError={!!loginError}
+        isError={!!loginError?.length}
         title={loginError}
-        isHidden={!showHelperText}
+        isHidden={!loginError?.length}
         icon={helperTextIcon}
       >
-        {helperText}
+        {loginError}
       </FormHelperText>
       <FormGroup
         label={usernameLabel}

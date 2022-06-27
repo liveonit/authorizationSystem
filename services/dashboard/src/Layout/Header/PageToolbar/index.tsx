@@ -13,6 +13,7 @@ import {
 } from '@patternfly/react-core';
 import { BellIcon, CogIcon, HelpIcon } from '@patternfly/react-icons';
 import { useUserState } from '@graphql/cache/userState';
+import { logout } from '@utils/Auth/helpers';
 
 export const userDropdownItems = (logout: () => void) => [
   <DropdownItem key="1">Link</DropdownItem>,
@@ -46,9 +47,8 @@ const PageToolbar: React.FC = () => {
   const [isKebabDropdownOpen, setIsKebabDropdownOpen] = React.useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = React.useState(false);
 
-  const logout = () => {
-    //FIXME: implement logout
-    console.log('should run logout function');
+  const handleLogout = () => {
+    logout();
   };
 
   return (
@@ -94,7 +94,7 @@ const PageToolbar: React.FC = () => {
             onSelect={onDropdownSelect}
             isOpen={isDropdownOpen}
             toggle={<DropdownToggle onToggle={onDropdownToggle}>{user.username}</DropdownToggle>}
-            dropdownItems={userDropdownItems(logout)}
+            dropdownItems={userDropdownItems(handleLogout)}
           />
         </PageHeaderToolsItem>
       </PageHeaderToolsGroup>

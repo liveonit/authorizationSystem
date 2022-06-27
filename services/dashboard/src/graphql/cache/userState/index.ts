@@ -12,6 +12,8 @@ interface UserSessionPayload {
   lastName?: string | null;
   email?: string | null;
   roles?: Role[] | null;
+  exp?: number;
+  iat?: number;
 }
 
 export const userState = new ReactiveStoreVar<UserSession>({

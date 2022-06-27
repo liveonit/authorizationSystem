@@ -6,7 +6,12 @@ import { Request, Response } from 'express';
 import { MiddlewareFn } from 'type-graphql';
 import { Role } from '@entities/Role';
 import { In } from 'typeorm';
-import { CreateUserInput, LoginInput, RefreshTokenInput, UpdateUserInput } from '@typeDefs/user.types';
+import {
+  CreateUserInput,
+  LoginInput,
+  RefreshTokenInput,
+  UpdateUserInput,
+} from '@typeDefs/user.types';
 import { signJwt, verifyJwt } from './auth/jwt';
 import { UserSession, UserSessionPayload } from '@entities/UserSession';
 import _ from 'lodash';
@@ -81,11 +86,11 @@ class AuthService {
     });
 
     // Return access token
-    return { accessToken, refreshToken } as UserSession;
+    return { id: user.id, accessToken, refreshToken } as UserSession;
   };
 
   public async login(data: LoginInput): Promise<UserSession> {
-    const {username, password} = data
+    const { username, password } = data;
     const user = await User.findOne({
       where: { username: username },
       relations: ['roles', 'roles.permissions'],
@@ -110,7 +115,7 @@ class AuthService {
       // Validate the Refresh token
       const decoded = verifyJwt<UserSessionPayload>(
         refreshTokenInput.refreshToken,
-        'refreshTokenPublicKey'
+        'refreshTokenPublicKey',
       );
       if (!decoded) {
         throw new ApolloError('Could not refresh access token');
@@ -123,7 +128,7 @@ class AuthService {
       }
 
       // Check if the user exist
-      const user = await User.findOneBy({ id: decoded.id});
+      const user = await User.findOneBy({ id: decoded.id });
 
       if (!user) {
         throw new ApolloError('Could not refresh access token');
@@ -135,9 +140,9 @@ class AuthService {
       });
 
       // Send the access token as cookie
-      return {id: decoded.id, ...refreshTokenInput ,accessToken} as UserSession;
+      return { id: decoded.id, ...refreshTokenInput, accessToken } as UserSession;
     } catch (err: any) {
-      logger.logError("Error refreshing access token", "AUTH");
+      logger.logError('Error refreshing access token', 'AUTH');
       throw new ApolloError('Could not refresh access token');
     }
   }
@@ -153,7 +158,7 @@ class AuthService {
     return async ({ context }, next) => {
       const token = this.getTokenFromHeader(context.req);
       if (token == null) throw new ApolloError('Invalid Credentials');
-      const userSession: UserSessionPayload | null = verifyJwt(token, 'refreshTokenPublicKey');
+      const userSession: UserSessionPayload | null = verifyJwt(token, 'accessTokenPublicKey');
       if (!userSession) throw new ApolloError('Invalid credentials');
       let result;
       if (requiredPermissionsName.length) {
@@ -163,7 +168,8 @@ class AuthService {
             userPermissions = [...userPermissions, ...role.permissions.map((p) => p.name)];
         }
         const validPermissions = requiredPermissionsName.filter((p) => userPermissions.includes(p));
-        if (!validPermissions.length) throw new ApolloError('Invalid permissions');
+        if (requiredPermissionsName.length && !validPermissions.length)
+          throw new ApolloError('Invalid permissions');
         else result = userSession;
       } else {
         result = userSession;

@@ -3,18 +3,20 @@ import { LoginPage, ListVariant } from '@patternfly/react-core';
 import ExclamationCircleIcon from '@patternfly/react-icons/dist/esm/icons/exclamation-circle-icon';
 import { CustomLoginForm } from './CustomLoginForm';
 import { validatePasswordError, validateUsernameError } from '@utils/Forms/validators';
+import { login } from '@utils/Auth/helpers';
+import { useNavigate } from 'react-router-dom';
 
 export const CustomLoginPage = () => {
   const [state, setState] = React.useState({
     showHelperText: false,
     usernameValue: '',
-    invalidUsernameText: undefined,
     passwordValue: '',
-    invalidPasswordText: undefined,
-    isRememberMeChecked: false,
     requireValidatePassword: false,
     requiredValidateUsername: false,
+    loginError: '',
   });
+
+  const navigate = useNavigate();
 
   const usernameError = useMemo(
     () => validateUsernameError(true)(state.usernameValue),
@@ -39,22 +41,21 @@ export const CustomLoginPage = () => {
     setState({ ...state, passwordValue, requireValidatePassword: true });
   };
 
-  const onLoginButtonClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  const onLoginButtonClick = async (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     event.preventDefault();
-    setState({ ...state, requiredValidateUsername: true, requireValidatePassword: true });
     if (usernameError || passwordError) return;
+    const result = await login(state.usernameValue, state.passwordValue);
+    if (result) navigate('/', { replace: true });
+    setState({
+      ...state,
+      requiredValidateUsername: true,
+      requireValidatePassword: true,
+      loginError: 'Invalid credentials',
+    });
   };
-  const helperText = (
-    <React.Fragment>
-      <ExclamationCircleIcon />
-      &nbsp;Invalid login credentials.
-    </React.Fragment>
-  );
 
   const loginForm = (
     <CustomLoginForm
-      showHelperText={state.showHelperText}
-      helperText={helperText}
       helperTextIcon={<ExclamationCircleIcon />}
       usernameLabel="Username"
       usernameValue={state.usernameValue}
@@ -66,6 +67,7 @@ export const CustomLoginPage = () => {
       invalidPasswordText={state.requireValidatePassword ? passwordError : undefined}
       onLoginButtonClick={onLoginButtonClick}
       loginButtonLabel="Iniciar session"
+      loginError={state.loginError}
     />
   );
 
