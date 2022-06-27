@@ -1,5 +1,5 @@
-import React from "react";
-import { Button, Modal, ModalVariant } from "@patternfly/react-core";
+import React from 'react';
+import { Button, Modal, ModalVariant } from '@patternfly/react-core';
 
 interface CreateUpdateModalProps {
   onClose: () => void;
@@ -25,14 +25,14 @@ const CreateUpdateModal: React.FC<CreateUpdateModalProps> = ({
   return (
     <Modal
       title={`Delete ${entityName}`}
-      variant={modalVariant || "small"}
+      variant={modalVariant || 'small'}
       isOpen={true}
       onClose={onClose}
       actions={[
         <Button
           key="delete"
           variant="primary"
-          onClick={(e) => {
+          onClick={() => {
             entity && rm({ variables: { id: entity.id } });
             onClose();
           }}

@@ -31,6 +31,11 @@ input CreateBookInput {
   title: String
 }
 
+input CreatePermissionInput {
+  description: String
+  name: String!
+}
+
 input CreateRoleInput {
   description: String
   name: String!
@@ -56,11 +61,13 @@ input LoginInput {
 type Mutation {
   createAuthor(data: CreateAuthorInput!): Author!
   createBook(data: CreateBookInput!): Book!
+  createPermission(data: CreatePermissionInput!): Permission!
   createRole(data: CreateRoleInput!): Role!
   createUser(data: CreateUserInput!): User!
   deleteAuthor(id: Int!): Float!
   deleteBook(id: Int!): Int!
   deleteMe: String!
+  deletePermission(id: String!): String!
   deleteRole(id: String!): String!
   deleteUser(id: String!): String!
   login(data: LoginInput!): UserSession!
@@ -68,6 +75,7 @@ type Mutation {
   refreshToken(data: RefreshTokenInput!): UserSession!
   updateAuthor(data: UpdateAuthorInput!, id: Int!): Author!
   updateBook(data: UpdateBookInput!, id: Int!): Book!
+  updatePermission(data: UpdatePermissionInput!): Permission!
   updateRole(data: UpdateRoleInput!): Role!
   updateUser(data: UpdateUserInput!): User!
 }
@@ -86,6 +94,8 @@ type Query {
   getMyProfile: User!
   getOne(id: String!): User!
   hello: String!
+  permission(id: String!): Permission!
+  permissions(limit: Float, offset: Float): [Permission!]!
   role(id: Int!): Role!
   roles(limit: Float, offset: Float): [Role!]!
   users(limit: Float, offset: Float): [User!]!
@@ -112,6 +122,12 @@ input UpdateBookInput {
   authorId: Int
   isPublished: Boolean
   title: String
+}
+
+input UpdatePermissionInput {
+  description: String
+  id: String!
+  name: String
 }
 
 input UpdateRoleInput {
@@ -148,13 +164,6 @@ type User {
 
 type UserSession {
   accessToken: String
-  email: String!
-  emailVerified: Boolean
-  enabled: Boolean!
-  firstName: String!
   id: String!
-  lastName: String!
   refreshToken: String
-  roles: [Role!]
-  username: String!
 }

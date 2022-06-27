@@ -1,17 +1,16 @@
 import React from 'react';
 import { Nav, NavList, NavItem } from '@patternfly/react-core';
-import { Link } from 'react-router-dom'
-import { Location } from 'history' 
+import { Link } from 'react-router-dom';
+import { Location } from 'history';
 
 interface Props {
-  location: Location
+  location: Location;
 }
 
 export const PageNav: React.FC<Props> = ({ location }) => {
-
   const pathname = React.useMemo(
     () => location.pathname.replace(`/macSearch/findbymac/`, ''),
-    [location.pathname]
+    [location.pathname],
   );
   return (
     <Nav aria-label="Nav" theme="dark">
@@ -34,6 +33,6 @@ export const PageNav: React.FC<Props> = ({ location }) => {
       </NavList>
     </Nav>
   );
-}
+};
 
 export default PageNav;

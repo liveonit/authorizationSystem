@@ -42,6 +42,11 @@ export type CreateBookInput = {
   title?: InputMaybe<Scalars['String']>;
 };
 
+export type CreatePermissionInput = {
+  description?: InputMaybe<Scalars['String']>;
+  name: Scalars['String'];
+};
+
 export type CreateRoleInput = {
   description?: InputMaybe<Scalars['String']>;
   name: Scalars['String'];
@@ -68,11 +73,13 @@ export type Mutation = {
   __typename?: 'Mutation';
   createAuthor: Author;
   createBook: Book;
+  createPermission: Permission;
   createRole: Role;
   createUser: User;
   deleteAuthor: Scalars['Float'];
   deleteBook: Scalars['Int'];
   deleteMe: Scalars['String'];
+  deletePermission: Scalars['String'];
   deleteRole: Scalars['String'];
   deleteUser: Scalars['String'];
   login: UserSession;
@@ -80,82 +87,80 @@ export type Mutation = {
   refreshToken: UserSession;
   updateAuthor: Author;
   updateBook: Book;
+  updatePermission: Permission;
   updateRole: Role;
   updateUser: User;
 };
-
 
 export type MutationCreateAuthorArgs = {
   data: CreateAuthorInput;
 };
 
-
 export type MutationCreateBookArgs = {
   data: CreateBookInput;
 };
 
+export type MutationCreatePermissionArgs = {
+  data: CreatePermissionInput;
+};
 
 export type MutationCreateRoleArgs = {
   data: CreateRoleInput;
 };
 
-
 export type MutationCreateUserArgs = {
   data: CreateUserInput;
 };
-
 
 export type MutationDeleteAuthorArgs = {
   id: Scalars['Int'];
 };
 
-
 export type MutationDeleteBookArgs = {
   id: Scalars['Int'];
 };
 
+export type MutationDeletePermissionArgs = {
+  id: Scalars['String'];
+};
 
 export type MutationDeleteRoleArgs = {
   id: Scalars['String'];
 };
 
-
 export type MutationDeleteUserArgs = {
   id: Scalars['String'];
 };
-
 
 export type MutationLoginArgs = {
   data: LoginInput;
 };
 
-
 export type MutationLogoutArgs = {
   data: Scalars['String'];
 };
 
-
 export type MutationRefreshTokenArgs = {
   data: RefreshTokenInput;
 };
-
 
 export type MutationUpdateAuthorArgs = {
   data: UpdateAuthorInput;
   id: Scalars['Int'];
 };
 
-
 export type MutationUpdateBookArgs = {
   data: UpdateBookInput;
   id: Scalars['Int'];
 };
 
+export type MutationUpdatePermissionArgs = {
+  data: UpdatePermissionInput;
+};
 
 export type MutationUpdateRoleArgs = {
   data: UpdateRoleInput;
 };
-
 
 export type MutationUpdateUserArgs = {
   data: UpdateUserInput;
@@ -177,49 +182,52 @@ export type Query = {
   getMyProfile: User;
   getOne: User;
   hello: Scalars['String'];
+  permission: Permission;
+  permissions: Array<Permission>;
   role: Role;
   roles: Array<Role>;
   users: Array<User>;
 };
 
-
 export type QueryAuthorArgs = {
   id: Scalars['Int'];
 };
-
 
 export type QueryAuthorsArgs = {
   limit?: InputMaybe<Scalars['Float']>;
   offset?: InputMaybe<Scalars['Float']>;
 };
 
-
 export type QueryBookArgs = {
   id: Scalars['Int'];
 };
-
 
 export type QueryBooksArgs = {
   limit?: InputMaybe<Scalars['Float']>;
   offset?: InputMaybe<Scalars['Float']>;
 };
 
-
 export type QueryGetOneArgs = {
   id: Scalars['String'];
 };
 
+export type QueryPermissionArgs = {
+  id: Scalars['String'];
+};
+
+export type QueryPermissionsArgs = {
+  limit?: InputMaybe<Scalars['Float']>;
+  offset?: InputMaybe<Scalars['Float']>;
+};
 
 export type QueryRoleArgs = {
   id: Scalars['Int'];
 };
 
-
 export type QueryRolesArgs = {
   limit?: InputMaybe<Scalars['Float']>;
   offset?: InputMaybe<Scalars['Float']>;
 };
-
 
 export type QueryUsersArgs = {
   limit?: InputMaybe<Scalars['Float']>;
@@ -248,6 +256,12 @@ export type UpdateBookInput = {
   authorId?: InputMaybe<Scalars['Int']>;
   isPublished?: InputMaybe<Scalars['Boolean']>;
   title?: InputMaybe<Scalars['String']>;
+};
+
+export type UpdatePermissionInput = {
+  description?: InputMaybe<Scalars['String']>;
+  id: Scalars['String'];
+  name?: InputMaybe<Scalars['String']>;
 };
 
 export type UpdateRoleInput = {
@@ -286,13 +300,6 @@ export type User = {
 export type UserSession = {
   __typename?: 'UserSession';
   accessToken?: Maybe<Scalars['String']>;
-  email: Scalars['String'];
-  emailVerified?: Maybe<Scalars['Boolean']>;
-  enabled: Scalars['Boolean'];
-  firstName: Scalars['String'];
   id: Scalars['String'];
-  lastName: Scalars['String'];
   refreshToken?: Maybe<Scalars['String']>;
-  roles?: Maybe<Array<Role>>;
-  username: Scalars['String'];
 };

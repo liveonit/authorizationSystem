@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
   Button,
   Modal,
@@ -7,17 +7,17 @@ import {
   TextInput,
   FormHelperText,
   ModalVariant,
-} from "@patternfly/react-core";
+} from '@patternfly/react-core';
 
-import { Toggle } from "rsuite";
+import { Toggle } from 'rsuite';
 
-import { ExclamationCircleIcon } from "@patternfly/react-icons";
+import { ExclamationCircleIcon } from '@patternfly/react-icons';
 
-import { Field, ValidateResult } from "../Utils";
-import SelectWithFilter from "../FieldComponents/SelectWithFilter";
-import MultiSelectWithFilter from "../FieldComponents/MultiSelectWithFilter";
-import PasswordWithConfirm from "../FieldComponents/PasswordWithConfirm";
-import _ from "lodash";
+import { Field, ValidateResult } from '../Utils';
+import SelectWithFilter from '../FieldComponents/SelectWithFilter';
+import MultiSelectWithFilter from '../FieldComponents/MultiSelectWithFilter';
+import PasswordWithConfirm from '../FieldComponents/PasswordWithConfirm';
+import _ from 'lodash';
 
 interface GenericModalProps<Entity, EntityCreateVars, EntityUpdateVars> {
   title: string;
@@ -39,17 +39,9 @@ interface State<Entity> {
 }
 
 const CreateUpdateModal = <Entity, EntityCreateVars, EntityUpdateVars>(
-  props: GenericModalProps<Entity, EntityCreateVars, EntityUpdateVars>
+  props: GenericModalProps<Entity, EntityCreateVars, EntityUpdateVars>,
 ) => {
-  const {
-    title,
-    entity,
-    modalVariant,
-    onClose,
-    fields,
-    update,
-    create,
-  } = props;
+  const { title, entity, modalVariant, onClose, fields, update, create } = props;
   const onUpdate = !!entity;
 
   const [state, setState] = React.useState<State<Entity>>({
@@ -59,9 +51,8 @@ const CreateUpdateModal = <Entity, EntityCreateVars, EntityUpdateVars>(
 
   React.useEffect(() => {
     const validated: Validated<Entity> = {};
-    fields.forEach((f) => (validated[f.keyName] = "default"));
+    fields.forEach((f) => (validated[f.keyName] = 'default'));
     setState({ ...state, validated });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // To validate, the function starts at True and does an "and" that verifies that all fields remain "success"
@@ -71,13 +62,12 @@ const CreateUpdateModal = <Entity, EntityCreateVars, EntityUpdateVars>(
       (f) =>
         (validated[f.keyName] = f.inputControl.validate(
           state.localEntity[f.keyName],
-          f.inputControl.required
-        ))
+          f.inputControl.required,
+        )),
     );
     const result = (Object.values(validated) as ValidateResult[]).reduce(
-      (prev: boolean, val: ValidateResult) =>
-        prev && (val === "success" || val === "default"),
-      true
+      (prev: boolean, val: ValidateResult) => prev && (val === 'success' || val === 'default'),
+      true,
     );
     setState({ ...state, validated });
     return result;
@@ -109,7 +99,7 @@ const CreateUpdateModal = <Entity, EntityCreateVars, EntityUpdateVars>(
             }
           }}
         >
-          {onUpdate ? "Update" : "Create"}
+          {onUpdate ? 'Update' : 'Create'}
         </Button>,
         <Button key="cancel" variant="link" onClick={onClose}>
           Cancel
@@ -118,7 +108,7 @@ const CreateUpdateModal = <Entity, EntityCreateVars, EntityUpdateVars>(
     >
       <Form>
         {fields.map((f) =>
-          f.type === "Password" ? (
+          f.type === 'Password' ? (
             <PasswordWithConfirm
               key={f.keyName.toString()}
               keyName={f.keyName.toString()}
@@ -132,11 +122,11 @@ const CreateUpdateModal = <Entity, EntityCreateVars, EntityUpdateVars>(
                   localEntity: { ...state.localEntity, [f.keyName]: v },
                   validated: {
                     ...state.validated,
-                    [f.keyName]: f.inputControl.validate(v, f.inputControl.required)
+                    [f.keyName]: f.inputControl.validate(v, f.inputControl.required),
                   },
                 })
               }
-              password={(state.localEntity[f.keyName] || "") as string}
+              password={(state.localEntity[f.keyName] || '') as string}
             />
           ) : (
             <FormGroup
@@ -145,7 +135,7 @@ const CreateUpdateModal = <Entity, EntityCreateVars, EntityUpdateVars>(
               helperText={
                 <FormHelperText
                   icon={<ExclamationCircleIcon />}
-                  isHidden={state.validated[f.keyName] !== "default"}
+                  isHidden={state.validated[f.keyName] !== 'default'}
                 >
                   {f.helperText}
                 </FormHelperText>
@@ -155,10 +145,10 @@ const CreateUpdateModal = <Entity, EntityCreateVars, EntityUpdateVars>(
               fieldId={f.keyName.toString()}
               validated={state.validated[f.keyName]}
             >
-              {f.type === "TextInput" ? (
+              {f.type === 'TextInput' ? (
                 <TextInput
                   validated={state.validated[f.keyName]}
-                  value={(state.localEntity[f.keyName] || "") as string}
+                  value={(state.localEntity[f.keyName] || '') as string}
                   id={f.keyName.toString()}
                   type={f.textInputType}
                   onChange={(v) => {
@@ -166,28 +156,25 @@ const CreateUpdateModal = <Entity, EntityCreateVars, EntityUpdateVars>(
                       ...state,
                       localEntity: {
                         ...state.localEntity,
-                        [f.keyName]:
-                          f.textInputType === "number" ? parseFloat(v) : v,
+                        [f.keyName]: f.textInputType === 'number' ? parseFloat(v) : v,
                       },
                       validated: {
                         ...state.validated,
                         [f.keyName]: f.inputControl.validate(
-                          f.textInputType === "number" ? parseFloat(v) : v, f.inputControl.required
+                          f.textInputType === 'number' ? parseFloat(v) : v,
+                          f.inputControl.required,
                         ),
                       },
                     });
                   }}
                 />
-              ) : f.type === "SelectWithFilter" ? (
+              ) : f.type === 'SelectWithFilter' ? (
                 <SelectWithFilter
                   keyName={f.keyName.toString()}
                   label={f.label}
                   options={f.options || []}
                   direction={f.direction}
-                  selected={
-                    _.find(f.options, ["id", state.localEntity[f.keyName]])
-                      ?.value
-                  }
+                  selected={_.find(f.options, ['id', state.localEntity[f.keyName]])?.value}
                   handleChangeSelected={(v) =>
                     setState({
                       ...state,
@@ -198,13 +185,14 @@ const CreateUpdateModal = <Entity, EntityCreateVars, EntityUpdateVars>(
                       validated: {
                         ...state.validated,
                         [f.keyName]: f.inputControl.validate(
-                          _.find(f.options, { value: v })?.id, f.inputControl.required
+                          _.find(f.options, { value: v })?.id,
+                          f.inputControl.required,
                         ),
                       },
                     })
                   }
                 />
-              ) : f.type === "ToggleSwitch" ? (
+              ) : f.type === 'ToggleSwitch' ? (
                 <Toggle
                   checked={!!state.localEntity[f.keyName]}
                   size="md"
@@ -219,7 +207,7 @@ const CreateUpdateModal = <Entity, EntityCreateVars, EntityUpdateVars>(
                     })
                   }
                 ></Toggle>
-              ) : f.type === "MultiSelectWithFilter" ? (
+              ) : f.type === 'MultiSelectWithFilter' ? (
                 <MultiSelectWithFilter
                   keyName={f.keyName.toString()}
                   label={f.label}
@@ -239,7 +227,7 @@ const CreateUpdateModal = <Entity, EntityCreateVars, EntityUpdateVars>(
                 />
               ) : undefined}
             </FormGroup>
-          )
+          ),
         )}
       </Form>
     </Modal>

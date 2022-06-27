@@ -1,0 +1,37 @@
+query getPermissions {
+  permissions {
+    id
+    name
+    description
+  }
+}
+
+query getPermission($id: String!) {
+  permission(id: $id) {
+    id
+    name
+    description
+  }
+}
+
+mutation createPermission($name: String!, $description: String) {
+  createPermission(data: { name: $name, description: $description}) {
+    id
+    name
+    description
+  }
+}
+
+
+mutation updatePermission($id: String!, $name: String!, $description: String) {
+  updatePermission(data: { id: $id, name: $name, description: $description}) {
+    id
+    name
+    description
+  }
+}
+
+mutation deletePermission($id: String!) {
+  deletePermission(id: $id)
+}
+

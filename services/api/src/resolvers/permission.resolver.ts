@@ -1,4 +1,4 @@
-import { Resolver, Query, Mutation, Arg, Int } from 'type-graphql';
+import { Resolver, Query, Mutation, Arg } from 'type-graphql';
 import { CreatePermissionInput, UpdatePermissionInput } from '@typeDefs/permission.types';
 import { Permission } from '@entities/Permission';
 import { ApolloError } from 'apollo-server-express';
@@ -20,7 +20,7 @@ export class PermissionResolver {
   }
 
   @Query(() => Permission)
-  async permission(@Arg('id', () => Int) id: string): Promise<Permission> {
+  async permission(@Arg('id', () => String) id: string): Promise<Permission> {
     const permission = await Permission.findOneByOrFail({ id });
     return permission as Permission;
   }
@@ -33,14 +33,10 @@ export class PermissionResolver {
 
   @Mutation(() => Permission)
   async updatePermission(
-    @Arg('id') id: string,
     @Arg('data') data: UpdatePermissionInput,
   ): Promise<Permission> {
-    const permission = await Permission.findOneOrFail({
-      where: { id: data.id },
-      relations: ['permissions'],
-    });
-    return permission.save();
+    const permission = await Permission.findOneByOrFail({id: data.id});
+    return Permission.create({ ...permission, ...data}).save()
   }
 
   @Mutation(() => String)

@@ -1,18 +1,20 @@
-import './style.css'
+import './style.css';
 
-import React from "react";
+import React from 'react';
 
-import get from "lodash/get";
+import get from 'lodash/get';
 import {
   Table as PatternflyTable,
   TableVariant,
   TableHeader,
-  TableBody, ICell, IActions
-} from "@patternfly/react-table";
+  TableBody,
+  ICell,
+  IActions,
+} from '@patternfly/react-table';
 
-import { onSort } from "./onSort";
+import { onSort } from './onSort';
 
-import _ from "lodash";
+import _ from 'lodash';
 
 interface TableProps {
   columns: (string | ICell)[];
@@ -23,7 +25,7 @@ interface TableProps {
 }
 
 const Table: React.FC<TableProps> = ({ columns, items, onEdit, onDelete, transformRows }) => {
-  let [state, setState] = React.useState<{ rows: any[]; sortBy: any }>({
+  const [state, setState] = React.useState<{ rows: any[]; sortBy: any }>({
     rows: [],
     sortBy: {},
   });
@@ -32,24 +34,28 @@ const Table: React.FC<TableProps> = ({ columns, items, onEdit, onDelete, transfo
     setState({ rows: items, sortBy: {} });
   }, [items]);
 
-  const actions: IActions = []
-  onEdit && actions.push({
-    title: "Edit",
-    onClick: (a, b, rowData) => {
-      onEdit && (isNaN(_.get(rowData, "cells.0"))
-      ? onEdit(_.get(rowData, "cells.0").toString())
-      : onEdit(parseInt(_.get(rowData, "cells.0"))))
-    }
-  });
+  const actions: IActions = [];
+  onEdit &&
+    actions.push({
+      title: 'Edit',
+      onClick: (a, b, rowData) => {
+        onEdit &&
+          (isNaN(_.get(rowData, 'cells.0'))
+            ? onEdit(_.get(rowData, 'cells.0').toString())
+            : onEdit(parseInt(_.get(rowData, 'cells.0'))));
+      },
+    });
 
-  onDelete && actions.push({
-    title: "Delete",
-    onClick: (a, b, rowData) => {
-      onDelete && (isNaN(_.get(rowData, "cells.0"))
-      ? onDelete(_.get(rowData, "cells.0").toString())
-      : onDelete(parseInt(_.get(rowData, "cells.0"))))
-  }
-});
+  onDelete &&
+    actions.push({
+      title: 'Delete',
+      onClick: (a, b, rowData) => {
+        onDelete &&
+          (isNaN(_.get(rowData, 'cells.0'))
+            ? onDelete(_.get(rowData, 'cells.0').toString())
+            : onDelete(parseInt(_.get(rowData, 'cells.0'))));
+      },
+    });
   return (
     <PatternflyTable
       aria-label="Table"
@@ -62,7 +68,7 @@ const Table: React.FC<TableProps> = ({ columns, items, onEdit, onDelete, transfo
             direction,
             key: get(columns, `${index}.key`),
             rows: state.rows,
-          })
+          }),
         )
       }
       cells={columns}

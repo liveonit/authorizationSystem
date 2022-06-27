@@ -1,21 +1,17 @@
-import "./style.css";
+import './style.css';
 
-import React from "react";
-import "@patternfly/react-styles";
+import React from 'react';
+import '@patternfly/react-styles';
 
-import {
-  Toolbar as PatternflyToolbar,
-  ToolbarItem,
-  ToolbarContent,
-} from "@patternfly/react-core";
+import { Toolbar as PatternflyToolbar, ToolbarItem, ToolbarContent } from '@patternfly/react-core';
 
-import { Input } from "rsuite";
+import { Input } from 'rsuite';
 
-import { DateTimeFilter } from "../DatetimePickerRange";
+import { DateTimeFilter } from '../DatetimePickerRange';
 
 interface ToolbarProps {
-  hasFilter?: Boolean;
-  hasDateTimeFilter?: Boolean;
+  hasFilter?: boolean;
+  hasDateTimeFilter?: boolean;
   startDate?: number;
   endDate?: number;
   handleUpdateFilterInput?: (searchText?: string) => void;
@@ -26,37 +22,40 @@ interface ToolbarProps {
     startDate?: number;
     endDate?: number;
   }) => void;
-  hasCreateEntity?: Boolean;
-  CreateEntityChild?: React.ReactChild
+  hasCreateEntity?: boolean;
+  CreateEntityChild?: React.ReactChild;
 }
 
 export const HeaderToolbar: React.FC<ToolbarProps> = (props) => {
-  const { handleUpdateFilterInput, hasFilter, hasDateTimeFilter, hasCreateEntity, CreateEntityChild } = props;
+  const {
+    handleUpdateFilterInput,
+    hasFilter,
+    hasDateTimeFilter,
+    hasCreateEntity,
+    CreateEntityChild,
+  } = props;
   return (
     <PatternflyToolbar>
       <ToolbarContent style={{ paddingRight: 0 }}>
-        {
-        hasFilter &&
-        <ToolbarItem  className="--toolbar-header-filter">
-          <Input
-            onChange={(e) => handleUpdateFilterInput && handleUpdateFilterInput(e)}
-            style={{ width: 200 }}
-            placeholder="Search in Table"
-          />
-        </ToolbarItem>
-        }
-        {
-        hasDateTimeFilter &&
-        <ToolbarItem className="--toolbar-header-date-filter">
-          <DateTimeFilter {...props} />
-        </ToolbarItem>
-        }
-        {
-        hasCreateEntity &&
-        <ToolbarItem className="--toolbar-create-entity" alignment={{ default: 'alignRight' }}>
-          {CreateEntityChild}
-        </ToolbarItem>
-        }
+        {hasFilter && (
+          <ToolbarItem className="--toolbar-header-filter">
+            <Input
+              onChange={(e) => handleUpdateFilterInput && handleUpdateFilterInput(e)}
+              style={{ width: 200 }}
+              placeholder="Search in Table"
+            />
+          </ToolbarItem>
+        )}
+        {hasDateTimeFilter && (
+          <ToolbarItem className="--toolbar-header-date-filter">
+            <DateTimeFilter {...props} />
+          </ToolbarItem>
+        )}
+        {hasCreateEntity && (
+          <ToolbarItem className="--toolbar-create-entity" alignment={{ default: 'alignRight' }}>
+            {CreateEntityChild}
+          </ToolbarItem>
+        )}
       </ToolbarContent>
     </PatternflyToolbar>
   );

@@ -1,5 +1,5 @@
 import React from 'react';
-import { 
+import {
   Button,
   ButtonVariant,
   KebabToggle,
@@ -12,18 +12,24 @@ import {
   PageHeaderToolsItem,
 } from '@patternfly/react-core';
 import { BellIcon, CogIcon, HelpIcon } from '@patternfly/react-icons';
-import { logout, getUserInfo } from '../../../utils/general/auth'
+import { useUserState } from '@graphql/cache/userState';
 
-export const userDropdownItems = [
+export const userDropdownItems = (logout: () => void) => [
   <DropdownItem key="1">Link</DropdownItem>,
-  <DropdownItem key="2" onClick={e => console.log(getUserInfo())} component="button">Imprimir Info Usuario</DropdownItem>,
-  <DropdownItem key="3" isDisabled>Disabled Link</DropdownItem>,
+  <DropdownItem key="2" onClick={() => console.log('getUserInfo()')} component="button">
+    Imprimir Info Usuario
+  </DropdownItem>,
+  <DropdownItem key="3" isDisabled>
+    Disabled Link
+  </DropdownItem>,
   <DropdownItem key="4" isDisabled component="button">
     Disabled Action
   </DropdownItem>,
   <DropdownSeparator key="5" />,
   <DropdownItem key="6">Separated Link</DropdownItem>,
-  <DropdownItem key="7" onClick={e =>  logout()} component="button">Cerrar Sesión</DropdownItem>
+  <DropdownItem key="7" onClick={() => logout()} component="button">
+    Cerrar Sesión
+  </DropdownItem>,
 ];
 
 export const kebabDropdownItems = [
@@ -32,64 +38,70 @@ export const kebabDropdownItems = [
   </DropdownItem>,
   <DropdownItem key="2">
     <CogIcon /> Settings
-  </DropdownItem>
+  </DropdownItem>,
 ];
 
-const  PageToolbar: React.FC = () => {
+const PageToolbar: React.FC = () => {
+  const user = useUserState();
   const [isKebabDropdownOpen, setIsKebabDropdownOpen] = React.useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = React.useState(false);
 
-  return (
-      <PageHeaderTools>
-        <PageHeaderToolsGroup
-          visibility={{
-            default: 'hidden',
-            lg: 'visible'
-          }} /** the settings and help icon buttons are only visible on desktop sizes and replaced by a kebab dropdown for other sizes */
-        >
-          <PageHeaderToolsItem>
-            <Button aria-label="Settings actions" variant={ButtonVariant.plain}>
-              <CogIcon />
-            </Button>
-          </PageHeaderToolsItem>
-          <PageHeaderToolsItem>
-            <Button aria-label="Help actions" variant={ButtonVariant.plain}>
-              <HelpIcon />
-            </Button>
-          </PageHeaderToolsItem>
-        </PageHeaderToolsGroup>
-        <PageHeaderToolsGroup>
-          <PageHeaderToolsItem
-            visibility={{
-              lg: 'hidden'
-            }} /** this kebab dropdown replaces the icon buttons and is hidden for desktop sizes */
-          >
-            <Dropdown
-              isPlain
-              position="right"
-              onSelect={onKebabDropdownSelect}
-              toggle={<KebabToggle onToggle={onKebabDropdownToggle} />}
-              isOpen={isKebabDropdownOpen}
-              dropdownItems={kebabDropdownItems}
-            />
-          </PageHeaderToolsItem>
-          <PageHeaderToolsItem
-            visibility={{ md: 'visible' }} /** this user dropdown is hidden on mobile sizes */
-          >
-            <Dropdown
-              isPlain
-              position="right"
-              onSelect={onDropdownSelect}
-              isOpen={isDropdownOpen}
-          toggle={<DropdownToggle onToggle={onDropdownToggle}>{getUserInfo().name}</DropdownToggle>}
-              dropdownItems={userDropdownItems}
-            />
-          </PageHeaderToolsItem>
-        </PageHeaderToolsGroup>
-      </PageHeaderTools>
-    );
+  const logout = () => {
+    //FIXME: implement logout
+    console.log('should run logout function');
+  };
 
-  function onKebabDropdownSelect () {
+  return (
+    <PageHeaderTools>
+      <PageHeaderToolsGroup
+        visibility={{
+          default: 'hidden',
+          lg: 'visible',
+        }} /** the settings and help icon buttons are only visible on desktop sizes and replaced by a kebab dropdown for other sizes */
+      >
+        <PageHeaderToolsItem>
+          <Button aria-label="Settings actions" variant={ButtonVariant.plain}>
+            <CogIcon />
+          </Button>
+        </PageHeaderToolsItem>
+        <PageHeaderToolsItem>
+          <Button aria-label="Help actions" variant={ButtonVariant.plain}>
+            <HelpIcon />
+          </Button>
+        </PageHeaderToolsItem>
+      </PageHeaderToolsGroup>
+      <PageHeaderToolsGroup>
+        <PageHeaderToolsItem
+          visibility={{
+            lg: 'hidden',
+          }} /** this kebab dropdown replaces the icon buttons and is hidden for desktop sizes */
+        >
+          <Dropdown
+            isPlain
+            position="right"
+            onSelect={onKebabDropdownSelect}
+            toggle={<KebabToggle onToggle={onKebabDropdownToggle} />}
+            isOpen={isKebabDropdownOpen}
+            dropdownItems={kebabDropdownItems}
+          />
+        </PageHeaderToolsItem>
+        <PageHeaderToolsItem
+          visibility={{ md: 'visible' }} /** this user dropdown is hidden on mobile sizes */
+        >
+          <Dropdown
+            isPlain
+            position="right"
+            onSelect={onDropdownSelect}
+            isOpen={isDropdownOpen}
+            toggle={<DropdownToggle onToggle={onDropdownToggle}>{user.username}</DropdownToggle>}
+            dropdownItems={userDropdownItems(logout)}
+          />
+        </PageHeaderToolsItem>
+      </PageHeaderToolsGroup>
+    </PageHeaderTools>
+  );
+
+  function onKebabDropdownSelect() {
     setIsKebabDropdownOpen(!isKebabDropdownOpen);
   }
 
@@ -104,6 +116,6 @@ const  PageToolbar: React.FC = () => {
   function onDropdownToggle(isDropdownOpen: boolean) {
     setIsDropdownOpen(isDropdownOpen);
   }
-}
+};
 
 export default PageToolbar;
