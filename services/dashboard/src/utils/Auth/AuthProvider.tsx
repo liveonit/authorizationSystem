@@ -8,7 +8,7 @@ interface IProps {
 export const AuthProvider: React.FC<IProps> = ({ children }) => {
   const user = useUserSession();
   if (!user.accessToken && !user.refreshToken) {
-    console.log('asdasd');
+    console.log('Just for test');
   }
   return children;
 };

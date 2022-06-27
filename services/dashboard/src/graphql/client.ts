@@ -1,4 +1,4 @@
-import { ApolloClient, HttpLink, NormalizedCacheObject } from '@apollo/client';
+import { ApolloClient, HttpLink } from '@apollo/client';
 
 import { setContext } from '@apollo/link-context';
 import { onError } from '@apollo/client/link/error';
@@ -26,24 +26,17 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
 
 const authLink = setContext(async (_, { headers }) => {
   const token = await getToken();
-  return {
-    headers: {
-      ...headers,
-      authorization: `Bearer ${token}`,
-    },
-  };
+  if (token)
+    return {
+      headers: {
+        ...headers,
+        authorization: `Bearer ${token}`,
+      },
+    };
+  else return { headers };
 });
 
-let clientAux: ApolloClient<NormalizedCacheObject>;
-if (window.location.pathname !== '/login') {
-  clientAux = new ApolloClient({
-    link: errorLink.concat(authLink.concat(httpLink)),
-    cache,
-  });
-} else {
-  clientAux = new ApolloClient({
-    link: errorLink.concat(httpLink),
-    cache,
-  });
-}
-export const client = clientAux;
+export const client = new ApolloClient({
+  link: errorLink.concat(authLink.concat(httpLink)),
+  cache,
+});

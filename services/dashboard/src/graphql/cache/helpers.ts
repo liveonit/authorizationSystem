@@ -50,7 +50,7 @@ export default class ReactiveStoreVar<T> {
 
   set(newValue: T) {
     const state = this.reactiveVar(newValue);
-    if (process.env.NEXT_PUBLIC_DEBUG_STATE === 'true' && this.debug) {
+    if (this.debug) {
       console.log(this.varName, { state });
     }
     if (this.persist) this.save();

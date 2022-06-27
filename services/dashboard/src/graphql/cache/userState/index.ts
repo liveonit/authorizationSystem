@@ -3,7 +3,7 @@ import { Role, UserSession } from '@gqlauto/schemas';
 import { parseJwt } from '@utils/general/parseJwt';
 import ReactiveStoreVar from '../helpers';
 
-interface UserSessionPayload {
+export interface UserSessionPayload {
   id: string | null;
   username: string | null;
   enabled: boolean | null;
@@ -24,7 +24,7 @@ export const userState = new ReactiveStoreVar<UserSession>({
     refreshToken: null,
   },
   persist: true,
-  debug: true,
+  debug: false,
   loadOnMount: true,
 });
 
@@ -34,8 +34,8 @@ export const useUserSession = () => {
 
 export const useUserState = () => {
   const session = useReactiveVar(userState.reactiveVar);
-  if (session.refreshToken) return parseJwt<UserSessionPayload>(session.refreshToken);
-  if (session.accessToken) return parseJwt<UserSessionPayload>(session.accessToken);
+  if (session.accessToken?.length) return parseJwt<UserSessionPayload>(session.accessToken);
+  if (session.refreshToken?.length) return parseJwt<UserSessionPayload>(session.refreshToken);
   return {
     id: null,
     username: null,
@@ -50,8 +50,8 @@ export const useUserState = () => {
 
 export const getUser = () => {
   const session = userState.get();
-  if (session.refreshToken) return parseJwt<UserSessionPayload>(session.refreshToken);
-  if (session.accessToken) return parseJwt<UserSessionPayload>(session.accessToken);
+  if (session.refreshToken?.length) return parseJwt<UserSessionPayload>(session.refreshToken);
+  if (session.accessToken?.length) return parseJwt<UserSessionPayload>(session.accessToken);
   return {
     id: null,
     username: null,
