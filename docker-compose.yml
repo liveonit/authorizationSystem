@@ -42,50 +42,9 @@ services:
     volumes: 
       - cache:/data
 
-  api1:
+  api:
     image: ${PROJECT_NAME}-api
-    build:
-      context: ./services/api
-      dockerfile: Dockerfile
-    tty: true
-    environment:
-      NODE_ENV: development
-      ENVIRONMENT: development
-      FORCE_COLOR: 1
-    restart: always
-    depends_on:
-      - db
-    env_file:
-      - .env
-    volumes:
-      - ./services/api:/api
-      - /api/node_modules
-    networks:
-      - authorization_net
-
-  api2:
-    image: ${PROJECT_NAME}-api
-    build:
-      context: ./services/api
-      dockerfile: Dockerfile
-    tty: true
-    environment:
-      NODE_ENV: development
-      ENVIRONMENT: development
-      FORCE_COLOR: 1
-    restart: always
-    depends_on:
-      - db
-    env_file:
-      - .env
-    volumes:
-      - ./services/api:/api
-      - /api/node_modules
-    networks:
-      - authorization_net
-
-  api3:
-    image: ${PROJECT_NAME}-api
+    container_name: ${PROJECT_NAME}-api
     build:
       context: ./services/api
       dockerfile: Dockerfile

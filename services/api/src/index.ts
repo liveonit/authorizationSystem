@@ -31,7 +31,7 @@ export const pubsub: PubSubEngine = new PubSub();
 
 async function main() {
   // Connect to db, run pending migrations and run seeds
-  await db.connectDb({ retry: true, runAfterConnect: 'syncModels' });
+  await db.connectDb({ retry: true, runAfterConnect: 'migrations' });
 
   // Build the graphQL `schema` from resolvers and its class decorators
   let schema;
