@@ -2,6 +2,7 @@ import { Resolver, Query, Mutation, Arg, UseMiddleware, Int } from 'type-graphql
 import { Author } from '@entities/Author';
 import { CreateAuthorInput, UpdateAuthorInput } from '@typeDefs/author.types';
 import { gqlLogMiddleware } from '@utils/middlewares/gqlLogMiddleware';
+import { authSvc } from '@services/auth.svc';
 
 @Resolver()
 export class AuthorResolver {
@@ -19,19 +20,20 @@ export class AuthorResolver {
   }
 
   @Query(() => Author)
+  @UseMiddleware([gqlLogMiddleware, authSvc.gqlAuthRequiredMiddleware([])])
   async author(@Arg('id', () => Int) id: number): Promise<Author> {
     return Author.findOneOrFail({ where: { id }, relations: ['books'] });
   }
 
   @Mutation(() => Author)
-  @UseMiddleware([gqlLogMiddleware])
+  @UseMiddleware([gqlLogMiddleware, authSvc.gqlAuthRequiredMiddleware(['editAuthors'])])
   async createAuthor(@Arg('data') data: CreateAuthorInput): Promise<Author> {
     const author = Author.create(data as Author);
     return author.save();
   }
 
   @Mutation(() => Author)
-  @UseMiddleware([gqlLogMiddleware])
+  @UseMiddleware([gqlLogMiddleware, authSvc.gqlAuthRequiredMiddleware(['editAuthors'])])
   async updateAuthor(
     @Arg('id', () => Int) id: number,
     @Arg('data') data: UpdateAuthorInput,
@@ -44,7 +46,7 @@ export class AuthorResolver {
   }
 
   @Mutation(() => Number)
-  @UseMiddleware([gqlLogMiddleware])
+  @UseMiddleware([gqlLogMiddleware, authSvc.gqlAuthRequiredMiddleware(['editAuthors'])])
   async deleteAuthor(@Arg('id', () => Int) id: number): Promise<number> {
     const author = await Author.findOne({ where: { id } });
     if (!author) throw new Error('Author not found!');

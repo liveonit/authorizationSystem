@@ -1,13 +1,15 @@
-import { Resolver, Query, Mutation, Arg, Int } from 'type-graphql';
+import { Resolver, Query, Mutation, Arg, Int, UseMiddleware } from 'type-graphql';
 import { CreateRoleInput, UpdateRoleInput } from '@typeDefs/role.types';
 import { Role } from '@entities/Role';
 import { Permission } from '@entities/Permission';
 import { In } from 'typeorm';
 import { ApolloError } from 'apollo-server-express';
+import { authSvc } from '@services/auth.svc';
 
 @Resolver()
 export class RoleResolver {
   @Query(() => [Role])
+  @UseMiddleware([authSvc.gqlAuthRequiredMiddleware(['manageUsers'])])
   async roles(
     @Arg('limit', { nullable: true }) limit: number,
     @Arg('offset', { nullable: true }) offset: number,
@@ -16,16 +18,18 @@ export class RoleResolver {
     if (offset && limit) {
       roles = roles.slice(offset, offset + limit + 1);
     }
-    return roles.map((r) => ({ id: r.id, name: r.name, description: r.description } as Role));
+    return roles;
   }
 
   @Query(() => Role)
+  @UseMiddleware([authSvc.gqlAuthRequiredMiddleware(['manageUsers'])])
   async role(@Arg('id', () => Int) id: string): Promise<Role> {
-    const role = await Role.findOneByOrFail({ id });
+    const role = await Role.findOneOrFail({ where: {id}, relations: ['permissions']  });
     return role as Role;
   }
 
   @Mutation(() => Role)
+  @UseMiddleware([authSvc.gqlAuthRequiredMiddleware(['manageUsers'])])
   async createRole(@Arg('data') data: CreateRoleInput): Promise<Role> {
     const role = Role.create(data as Role);
     if (data.permissionIds)
@@ -36,6 +40,7 @@ export class RoleResolver {
   }
 
   @Mutation(() => Role)
+  @UseMiddleware([authSvc.gqlAuthRequiredMiddleware(['manageUsers'])])
   async updateRole(@Arg('data') data: UpdateRoleInput): Promise<Role> {
     const role = await Role.findOneOrFail({ where: { id: data.id }, relations: ['permissions'] });
     if (data.permissionIds)
@@ -46,6 +51,7 @@ export class RoleResolver {
   }
 
   @Mutation(() => String)
+  @UseMiddleware([authSvc.gqlAuthRequiredMiddleware(['manageUsers'])])
   async deleteRole(@Arg('id') id: string): Promise<string> {
     const result = await Role.delete({ id });
     if (!result.affected) throw new ApolloError('User not found');

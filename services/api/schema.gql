@@ -43,12 +43,11 @@ input CreateRoleInput {
 }
 
 input CreateUserInput {
-  accessToken: String
   email: String!
+  enabled: Boolean = true
   firstName: String!
   lastName: String!
   password: String!
-  refreshToken: String
   roleIds: [String!]
   username: String!
 }
@@ -71,7 +70,7 @@ type Mutation {
   deleteRole(id: String!): String!
   deleteUser(id: String!): String!
   login(data: LoginInput!): UserSession!
-  logout(data: String!): String!
+  logout: String!
   refreshToken(data: RefreshTokenInput!): UserSession!
   updateAuthor(data: UpdateAuthorInput!, id: Int!): Author!
   updateBook(data: UpdateBookInput!, id: Int!): Book!
@@ -138,26 +137,23 @@ input UpdateRoleInput {
 }
 
 input UpdateUserInput {
-  accessToken: String
   email: String
+  enabled: Boolean = true
   firstName: String
   id: String!
   lastName: String
   password: String
-  refreshToken: String
   roleIds: [String!]
   username: String
 }
 
 type User {
-  accessToken: String
   email: String!
   emailVerified: Boolean
   enabled: Boolean!
   firstName: String!
   id: String!
   lastName: String!
-  refreshToken: String
   roles: [Role!]
   username: String!
 }

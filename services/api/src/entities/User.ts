@@ -26,12 +26,6 @@ export class User extends BaseEntity {
   @Column()
   emailVerified!: boolean;
 
-  @Field(() => String, { nullable: true })
-  accessToken?: string;
-
-  @Field(() => String, { nullable: true })
-  refreshToken?: string;
-
   @Field(() => String)
   @Column()
   firstName?: string;

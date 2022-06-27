@@ -1,6 +1,11 @@
 import { Resolver, Query, Mutation, Arg, UseMiddleware, Ctx } from 'type-graphql';
-import { CreateUserInput, LoginInput, RefreshTokenInput, UpdateUserInput } from '@typeDefs/user.types';
-import { gqlLogMiddleware } from '../utils/middlewares/gqlLogMiddleware';
+import {
+  CreateUserInput,
+  LoginInput,
+  RefreshTokenInput,
+  UpdateUserInput,
+} from '@typeDefs/user.types';
+
 import { User } from '@entities/User';
 import { authSvc, CustomContext } from '@services/auth.svc';
 import { ApolloError } from 'apollo-server-express';
@@ -9,6 +14,7 @@ import { UserSession } from '@entities/UserSession';
 @Resolver()
 export class UserResolver {
   @Query(() => [User])
+  @UseMiddleware([authSvc.gqlAuthRequiredMiddleware(['manageUsers'])])
   async users(
     @Arg('limit', { nullable: true }) limit: number,
     @Arg('offset', { nullable: true }) offset: number,
@@ -21,12 +27,14 @@ export class UserResolver {
   }
 
   @Query(() => User)
+  @UseMiddleware([authSvc.gqlAuthRequiredMiddleware(['manageUsers'])])
   async getOne(@Arg('id', () => String) id: string): Promise<User> {
     const user = await authSvc.getOne({ id });
     return user;
   }
 
   @Query(() => User)
+  @UseMiddleware([authSvc.gqlAuthRequiredMiddleware([])])
   async getMyProfile(@Ctx() ctx: CustomContext): Promise<User> {
     if (!ctx.req.user?.id) throw new ApolloError('Invalid credentials');
     const userId = ctx.req.user.id;
@@ -35,47 +43,46 @@ export class UserResolver {
   }
 
   @Mutation(() => User)
-  @UseMiddleware([gqlLogMiddleware])
+  @UseMiddleware([authSvc.gqlAuthRequiredMiddleware(['manageUsers'])])
   async createUser(@Arg('data') data: CreateUserInput): Promise<User> {
     return authSvc.createUser(data);
   }
 
   @Mutation(() => UserSession)
-  @UseMiddleware([gqlLogMiddleware])
   async login(@Arg('data') data: LoginInput): Promise<UserSession> {
     return authSvc.login(data);
   }
 
   @Mutation(() => String)
-  @UseMiddleware([gqlLogMiddleware])
-  async logout(@Arg('data', () => String!) id: string): Promise<string> {
-    await authSvc.logout(id);
-    return id;
+  @UseMiddleware([authSvc.gqlAuthRequiredMiddleware([''])])
+  async logout(@Ctx() ctx: CustomContext): Promise<string> {
+    if (!ctx.req.user?.id) throw new ApolloError('Invalid credentials');
+    const userId = ctx.req.user.id;
+    await authSvc.logout(userId);
+    return userId;
   }
 
   @Mutation(() => UserSession)
-  @UseMiddleware([gqlLogMiddleware])
   async refreshToken(@Arg('data') refreshTokenInput: RefreshTokenInput): Promise<UserSession> {
     return authSvc.refreshToken(refreshTokenInput);
   }
 
-
   @Mutation(() => User)
-  @UseMiddleware([gqlLogMiddleware])
+  @UseMiddleware([authSvc.gqlAuthRequiredMiddleware(['manageUsers'])])
   async updateUser(@Arg('data') data: UpdateUserInput): Promise<User> {
     const updatedUser = await authSvc.updateUser(data);
     return updatedUser;
   }
 
   @Mutation(() => String)
-  @UseMiddleware([gqlLogMiddleware])
+  @UseMiddleware([authSvc.gqlAuthRequiredMiddleware(['manageUsers'])])
   async deleteUser(@Arg('id') id: string): Promise<string> {
     await authSvc.delete(id);
     return id;
   }
 
   @Mutation(() => String)
-  @UseMiddleware([gqlLogMiddleware])
+  @UseMiddleware([authSvc.gqlAuthRequiredMiddleware([''])])
   async deleteMe(@Ctx() ctx: CustomContext): Promise<string> {
     if (!ctx.req.user?.id) throw new ApolloError('Invalid credentials');
     const userId = ctx.req.user.id;

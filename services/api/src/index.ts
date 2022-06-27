@@ -23,6 +23,7 @@ import {
 // Define Globals
 import { logger } from '@utils/helpers/Logger';
 import { ExecutionArgs } from 'graphql';
+import { redisClient } from './redis';
 global.logger = logger;
 
 require('reflect-metadata');
@@ -32,6 +33,9 @@ export const pubsub: PubSubEngine = new PubSub();
 async function main() {
   // Connect to db, run pending migrations and run seeds
   await db.connectDb({ retry: true, runAfterConnect: 'migrations' });
+
+  // Connect Redis client cache
+  await redisClient.connect();
 
   // Build the graphQL `schema` from resolvers and its class decorators
   let schema;
@@ -52,10 +56,7 @@ async function main() {
 
   // Creating the WebSocket subscription server
   const wsServer = new WebSocketServer({
-    // This is the `httpServer` returned by createServer(app);
     server: server,
-    // Pass a different path here if your ApolloServer serves at
-    // a different path.
     path: '/graphql',
   });
   const getDynamicContext = async (ctx: Context, msg: SubscribeMessage, args: ExecutionArgs) => {
@@ -64,10 +65,7 @@ async function main() {
   const serverCleanup = useServer(
     {
       schema,
-      // Adding a context property lets you add data to your GraphQL operation context.
       context: (ctx, msg, args) => {
-        // Returning an object here will add that information to our
-        // GraphQL context, which all of our resolvers have access to.
         return getDynamicContext(ctx, msg, args);
       },
     },
@@ -99,7 +97,7 @@ async function main() {
       process.env.NODE_ENV === 'production'
         ? ApolloServerPluginLandingPageProductionDefault({
             embed: true,
-            graphRef: 'plaid-gufzoj@current',
+            graphRef: 'seguridad@ucu.com',
           })
         : ApolloServerPluginLandingPageLocalDefault({ embed: true }),
     ],

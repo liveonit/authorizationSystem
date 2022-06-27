@@ -1,11 +1,13 @@
-import { Resolver, Query, Mutation, Arg } from 'type-graphql';
+import { Resolver, Query, Mutation, Arg, UseMiddleware } from 'type-graphql';
 import { CreatePermissionInput, UpdatePermissionInput } from '@typeDefs/permission.types';
 import { Permission } from '@entities/Permission';
 import { ApolloError } from 'apollo-server-express';
+import { authSvc } from '@services/auth.svc';
 
 @Resolver()
 export class PermissionResolver {
   @Query(() => [Permission])
+  @UseMiddleware([authSvc.gqlAuthRequiredMiddleware(['manageUsers'])])
   async permissions(
     @Arg('limit', { nullable: true }) limit: number,
     @Arg('offset', { nullable: true }) offset: number,
@@ -20,18 +22,21 @@ export class PermissionResolver {
   }
 
   @Query(() => Permission)
+  @UseMiddleware([authSvc.gqlAuthRequiredMiddleware(['manageUsers'])])
   async permission(@Arg('id', () => String) id: string): Promise<Permission> {
     const permission = await Permission.findOneByOrFail({ id });
     return permission as Permission;
   }
 
   @Mutation(() => Permission)
+  @UseMiddleware([authSvc.gqlAuthRequiredMiddleware(['manageUsers'])])
   async createPermission(@Arg('data') data: CreatePermissionInput): Promise<Permission> {
     const permission = Permission.create(data as Permission);
     return permission.save();
   }
 
   @Mutation(() => Permission)
+  @UseMiddleware([authSvc.gqlAuthRequiredMiddleware(['manageUsers'])])
   async updatePermission(
     @Arg('data') data: UpdatePermissionInput,
   ): Promise<Permission> {
@@ -40,6 +45,7 @@ export class PermissionResolver {
   }
 
   @Mutation(() => String)
+  @UseMiddleware([authSvc.gqlAuthRequiredMiddleware(['manageUsers'])])
   async deletePermission(@Arg('id') id: string): Promise<string> {
     const result = await Permission.delete({ id });
     if (!result.affected) throw new ApolloError('User not found');

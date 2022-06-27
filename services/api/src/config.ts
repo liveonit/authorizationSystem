@@ -19,9 +19,9 @@ export const config = {
   accessTokenPublicKey: process.env.ACCESS_TOKEN_PUBLIC_KEY as string,
   refreshTokenPrivateKey: process.env.REFRESH_TOKEN_PRIVATE_KEY as string,
   refreshTokenPublicKey: process.env.REFRESH_TOKEN_PUBLIC_KEY as string,
-  redisHost: process.env.redisHost as string,
-  redisPort: +process.env.redisPort!,
-  redisPassword: process.env.redisPassword as string,
+  redisHost: process.env.REDIS_HOST as string,
+  redisPort: +process.env.REDIS_PORT!,
+  redisPassword: process.env.REDIS_PASSWORD as string,
   isRemoteEnv: process.env.IS_REMOTE_ENV === 'true',
 };
 

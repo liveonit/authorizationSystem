@@ -28,7 +28,7 @@ class AuthService {
   public async createUser(user: CreateUserInput): Promise<Omit<User, 'password'>> {
     let newUser = User.create(user as User);
     newUser.password = await argon2.hash(user.password);
-    if (user.roleIds) newUser.roles = await Role.find({ where: { name: In(user.roleIds) } });
+    if (user.roleIds) newUser.roles = await Role.find({ where: { id: In(user.roleIds) } });
     newUser = await newUser.save();
     return _.omit(newUser, ['password']);
   }

@@ -3,6 +3,7 @@ import { Book } from '@entities/Book';
 import { CreateBookInput, UpdateBookInput } from '@typeDefs/book.types';
 import { gqlLogMiddleware } from '../utils/middlewares/gqlLogMiddleware';
 import { Author } from '@entities/Author';
+import { authSvc } from '@services/auth.svc';
 
 @Resolver()
 export class BookResolver {
@@ -12,6 +13,7 @@ export class BookResolver {
   }
 
   @Query(() => [Book])
+  @UseMiddleware([gqlLogMiddleware, authSvc.gqlAuthRequiredMiddleware([])])
   async books(
     @Arg('limit', { nullable: true }) limit: number,
     @Arg('offset', { nullable: true }) offset: number,
@@ -25,7 +27,7 @@ export class BookResolver {
   }
 
   @Mutation(() => Book)
-  @UseMiddleware([gqlLogMiddleware])
+  @UseMiddleware([gqlLogMiddleware, authSvc.gqlAuthRequiredMiddleware(['editAuthors'])])
   async createBook(@Arg('data') data: CreateBookInput): Promise<Book> {
     const book = Book.create(data as Book);
     await book.save();
@@ -34,13 +36,14 @@ export class BookResolver {
   }
 
   @Query(() => Book)
+  @UseMiddleware([gqlLogMiddleware, authSvc.gqlAuthRequiredMiddleware([])])
   @UseMiddleware([gqlLogMiddleware])
   async book(@Arg('id', () => Int) id: number): Promise<Book> {
     return Book.findOneOrFail({ where: { id } });
   }
 
   @Mutation(() => Book)
-  @UseMiddleware([gqlLogMiddleware])
+  @UseMiddleware([gqlLogMiddleware, authSvc.gqlAuthRequiredMiddleware(['editAuthors'])])
   async updateBook(
     @Arg('id', () => Int) id: number,
     @Arg('data') data: UpdateBookInput,
@@ -55,7 +58,7 @@ export class BookResolver {
   }
 
   @Mutation(() => Int)
-  @UseMiddleware([gqlLogMiddleware])
+  @UseMiddleware([gqlLogMiddleware, authSvc.gqlAuthRequiredMiddleware(['editAuthors'])])
   async deleteBook(@Arg('id', () => Int) id: number): Promise<number> {
     const book = await Book.findOne({ where: { id } });
     if (!book) throw new Error('Book not found!');

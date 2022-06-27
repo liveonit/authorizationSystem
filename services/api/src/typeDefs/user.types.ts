@@ -22,17 +22,15 @@ export class CreateUserInput {
 
   @Field(() => String)
   password!: string;
-  @Field(() => String, { nullable: true })
-  accessToken?: string;
-
-  @Field(() => String, { nullable: true })
-  refreshToken?: string;
 
   @Field(() => String)
   firstName?: string;
 
   @Field(() => String)
   lastName?: string;
+
+  @Field(() => Boolean, {defaultValue: true})
+  enabled?: boolean;
 
   @Field(() => String)
   email?: string;
@@ -54,16 +52,13 @@ export class UpdateUserInput {
   password!: string;
 
   @Field(() => String, { nullable: true })
-  accessToken?: string;
-
-  @Field(() => String, { nullable: true })
-  refreshToken?: string;
-
-  @Field(() => String, { nullable: true })
   firstName?: string;
 
   @Field(() => String, { nullable: true })
   lastName?: string;
+
+  @Field(() => Boolean, {defaultValue: true})
+  enabled?: boolean;
 
   @Field(() => String, { nullable: true })
   email?: string;
