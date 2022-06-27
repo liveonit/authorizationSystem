@@ -1,5 +1,4 @@
 import { useUserSession } from '@graphql/cache/userState';
-import history from '@utils/Router/history';
 import React from 'react';
 
 interface IProps {
@@ -9,7 +8,7 @@ interface IProps {
 export const AuthProvider: React.FC<IProps> = ({ children }) => {
   const user = useUserSession();
   if (!user.accessToken && !user.refreshToken) {
-    history.push('/login');
+    console.log('asdasd');
   }
   return children;
 };

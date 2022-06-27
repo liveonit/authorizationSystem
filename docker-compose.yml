@@ -64,6 +64,25 @@ services:
     networks:
       - authorization_net
 
+  dashboard:
+    image: ${PROJECT_NAME}-dashboard
+    build:
+      context: ./services/dashboard
+      dockerfile: Dockerfile.development
+    env_file: 
+      - .env
+    container_name: ${PROJECT_NAME}-dashboard
+    restart: unless-stopped
+    tty: true
+    volumes:
+      - ./services/dashboard:/dashboard
+      - /dashboard/node_modules
+    ports:
+      - "0.0.0.0:${DASHBOARD_PORT}:80"
+    networks:
+      - authorization_net
+
+
 volumes:
   mysql_data:
   cache:

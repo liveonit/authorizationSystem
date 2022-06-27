@@ -6,6 +6,9 @@ RUN mkdir -p /dashboard
 WORKDIR /dashboard
 
 COPY package.json .
+
+COPY yarn.lock .
+
 RUN yarn install
 
 ENV PORT=80
