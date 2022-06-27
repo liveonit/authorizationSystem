@@ -91,88 +91,71 @@ export type Mutation = {
   updateUser: User;
 };
 
-
 export type MutationCreateAuthorArgs = {
   data: CreateAuthorInput;
 };
-
 
 export type MutationCreateBookArgs = {
   data: CreateBookInput;
 };
 
-
 export type MutationCreatePermissionArgs = {
   data: CreatePermissionInput;
 };
-
 
 export type MutationCreateRoleArgs = {
   data: CreateRoleInput;
 };
 
-
 export type MutationCreateUserArgs = {
   data: CreateUserInput;
 };
-
 
 export type MutationDeleteAuthorArgs = {
   id: Scalars['Int'];
 };
 
-
 export type MutationDeleteBookArgs = {
   id: Scalars['Int'];
 };
-
 
 export type MutationDeletePermissionArgs = {
   id: Scalars['String'];
 };
 
-
 export type MutationDeleteRoleArgs = {
   id: Scalars['String'];
 };
-
 
 export type MutationDeleteUserArgs = {
   id: Scalars['String'];
 };
 
-
 export type MutationLoginArgs = {
   data: LoginInput;
 };
 
-
 export type MutationRefreshTokenArgs = {
   data: RefreshTokenInput;
 };
-
 
 export type MutationUpdateAuthorArgs = {
   data: UpdateAuthorInput;
   id: Scalars['Int'];
 };
 
-
 export type MutationUpdateBookArgs = {
   data: UpdateBookInput;
   id: Scalars['Int'];
 };
 
-
 export type MutationUpdatePermissionArgs = {
   data: UpdatePermissionInput;
 };
 
-
 export type MutationUpdateRoleArgs = {
   data: UpdateRoleInput;
 };
-
 
 export type MutationUpdateUserArgs = {
   data: UpdateUserInput;
@@ -201,55 +184,45 @@ export type Query = {
   users: Array<User>;
 };
 
-
 export type QueryAuthorArgs = {
   id: Scalars['Int'];
 };
-
 
 export type QueryAuthorsArgs = {
   limit?: InputMaybe<Scalars['Float']>;
   offset?: InputMaybe<Scalars['Float']>;
 };
 
-
 export type QueryBookArgs = {
   id: Scalars['Int'];
 };
-
 
 export type QueryBooksArgs = {
   limit?: InputMaybe<Scalars['Float']>;
   offset?: InputMaybe<Scalars['Float']>;
 };
 
-
 export type QueryGetOneArgs = {
   id: Scalars['String'];
 };
 
-
 export type QueryPermissionArgs = {
   id: Scalars['String'];
 };
-
 
 export type QueryPermissionsArgs = {
   limit?: InputMaybe<Scalars['Float']>;
   offset?: InputMaybe<Scalars['Float']>;
 };
 
-
 export type QueryRoleArgs = {
   id: Scalars['Int'];
 };
-
 
 export type QueryRolesArgs = {
   limit?: InputMaybe<Scalars['Float']>;
   offset?: InputMaybe<Scalars['Float']>;
 };
-
 
 export type QueryUsersArgs = {
   limit?: InputMaybe<Scalars['Float']>;

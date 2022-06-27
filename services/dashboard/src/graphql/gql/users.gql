@@ -79,7 +79,7 @@ mutation CreateUser(
 }
 
 mutation UpdateUser(
-  $id: String!,
+  $id: String!
   $username: String!
   $email: String
   $firstName: String
@@ -113,4 +113,24 @@ mutation UpdateUser(
 
 mutation DeleteUser($id: String!) {
   deleteUser(id: $id)
+}
+
+mutation Login($username: String!, $password: String!) {
+  login(data: { username: $username, password: $password }) {
+    id
+    accessToken
+    refreshToken
+  }
+}
+
+mutation RefreshToken($refreshToken: String!) {
+  refreshToken(data: { refreshToken: $refreshToken }) {
+    id
+    accessToken
+    refreshToken
+  }
+}
+
+mutation Logout {
+  logout
 }

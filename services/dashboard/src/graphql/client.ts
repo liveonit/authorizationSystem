@@ -3,7 +3,7 @@ import { ApolloClient, HttpLink, split } from '@apollo/client';
 import { getMainDefinition } from '@apollo/client/utilities';
 import { setContext } from '@apollo/link-context';
 import { onError } from '@apollo/client/link/error';
-import { getToken } from '@utils/Auth/token';
+import { getToken } from '@utils/Auth/helpers';
 import { cache } from './cache';
 
 const loc = window.location;
