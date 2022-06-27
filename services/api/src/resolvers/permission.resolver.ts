@@ -37,11 +37,9 @@ export class PermissionResolver {
 
   @Mutation(() => Permission)
   @UseMiddleware([authSvc.gqlAuthRequiredMiddleware(['manageUsers'])])
-  async updatePermission(
-    @Arg('data') data: UpdatePermissionInput,
-  ): Promise<Permission> {
-    const permission = await Permission.findOneByOrFail({id: data.id});
-    return Permission.create({ ...permission, ...data}).save()
+  async updatePermission(@Arg('data') data: UpdatePermissionInput): Promise<Permission> {
+    const permission = await Permission.findOneByOrFail({ id: data.id });
+    return Permission.create({ ...permission, ...data }).save();
   }
 
   @Mutation(() => String)

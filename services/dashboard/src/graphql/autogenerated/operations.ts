@@ -1,26 +1,16 @@
 import * as Types from './schemas';
 
-export type GetAuthorsQueryVariables = Types.Exact<{ [key: string]: never }>;
+export type GetAuthorsQueryVariables = Types.Exact<{ [key: string]: never; }>;
 
-export type GetAuthorsQuery = {
-  __typename?: 'Query';
-  authors: Array<{
-    __typename?: 'Author';
-    id: number;
-    name: string;
-    age: number;
-    country?: string | null;
-  }>;
-};
+
+export type GetAuthorsQuery = { __typename?: 'Query', authors: Array<{ __typename?: 'Author', id: number, name: string, age: number, country?: string | null }> };
 
 export type GetAuthorQueryVariables = Types.Exact<{
   id: Types.Scalars['Int'];
 }>;
 
-export type GetAuthorQuery = {
-  __typename?: 'Query';
-  author: { __typename?: 'Author'; id: number; name: string; age: number; country?: string | null };
-};
+
+export type GetAuthorQuery = { __typename?: 'Query', author: { __typename?: 'Author', id: number, name: string, age: number, country?: string | null } };
 
 export type CreateAuthorMutationVariables = Types.Exact<{
   name: Types.Scalars['String'];
@@ -28,16 +18,8 @@ export type CreateAuthorMutationVariables = Types.Exact<{
   country?: Types.InputMaybe<Types.Scalars['String']>;
 }>;
 
-export type CreateAuthorMutation = {
-  __typename?: 'Mutation';
-  createAuthor: {
-    __typename?: 'Author';
-    id: number;
-    age: number;
-    name: string;
-    country?: string | null;
-  };
-};
+
+export type CreateAuthorMutation = { __typename?: 'Mutation', createAuthor: { __typename?: 'Author', id: number, age: number, name: string, country?: string | null } };
 
 export type UpdateAuthorMutationVariables = Types.Exact<{
   id: Types.Scalars['Int'];
@@ -46,66 +28,32 @@ export type UpdateAuthorMutationVariables = Types.Exact<{
   country?: Types.InputMaybe<Types.Scalars['String']>;
 }>;
 
-export type UpdateAuthorMutation = {
-  __typename?: 'Mutation';
-  updateAuthor: {
-    __typename?: 'Author';
-    id: number;
-    age: number;
-    name: string;
-    country?: string | null;
-  };
-};
+
+export type UpdateAuthorMutation = { __typename?: 'Mutation', updateAuthor: { __typename?: 'Author', id: number, age: number, name: string, country?: string | null } };
 
 export type DeleteAuthorMutationVariables = Types.Exact<{
   id: Types.Scalars['Int'];
 }>;
 
-export type DeleteAuthorMutation = { __typename?: 'Mutation'; deleteAuthor: number };
 
-export type GetBooksQueryVariables = Types.Exact<{ [key: string]: never }>;
+export type DeleteAuthorMutation = { __typename?: 'Mutation', deleteAuthor: number };
 
-export type GetBooksQuery = {
-  __typename?: 'Query';
-  books: Array<{
-    __typename?: 'Book';
-    id: number;
-    title: string;
-    isPublished: boolean;
-    author?: { __typename?: 'Author'; id: number; name: string } | null;
-  }>;
-};
+export type GetBooksQueryVariables = Types.Exact<{ [key: string]: never; }>;
 
-export type GetBooksAndAuthorsQueryVariables = Types.Exact<{ [key: string]: never }>;
 
-export type GetBooksAndAuthorsQuery = {
-  __typename?: 'Query';
-  books: Array<{
-    __typename?: 'Book';
-    id: number;
-    title: string;
-    isPublished: boolean;
-    authorId: number;
-    author?: { __typename?: 'Author'; id: number; name: string } | null;
-  }>;
-  authors: Array<{ __typename?: 'Author'; id: number; name: string }>;
-};
+export type GetBooksQuery = { __typename?: 'Query', books: Array<{ __typename?: 'Book', id: number, title: string, isPublished: boolean, author?: { __typename?: 'Author', id: number, name: string } | null }> };
+
+export type GetBooksAndAuthorsQueryVariables = Types.Exact<{ [key: string]: never; }>;
+
+
+export type GetBooksAndAuthorsQuery = { __typename?: 'Query', books: Array<{ __typename?: 'Book', id: number, title: string, isPublished: boolean, authorId: number, author?: { __typename?: 'Author', id: number, name: string } | null }>, authors: Array<{ __typename?: 'Author', id: number, name: string }> };
 
 export type GetBookQueryVariables = Types.Exact<{
   id: Types.Scalars['Int'];
 }>;
 
-export type GetBookQuery = {
-  __typename?: 'Query';
-  book: {
-    __typename?: 'Book';
-    id: number;
-    title: string;
-    isPublished: boolean;
-    authorId: number;
-    author?: { __typename?: 'Author'; id: number; name: string } | null;
-  };
-};
+
+export type GetBookQuery = { __typename?: 'Query', book: { __typename?: 'Book', id: number, title: string, isPublished: boolean, authorId: number, author?: { __typename?: 'Author', id: number, name: string } | null } };
 
 export type CreateBookMutationVariables = Types.Exact<{
   title: Types.Scalars['String'];
@@ -113,16 +61,8 @@ export type CreateBookMutationVariables = Types.Exact<{
   authorId: Types.Scalars['Int'];
 }>;
 
-export type CreateBookMutation = {
-  __typename?: 'Mutation';
-  createBook: {
-    __typename?: 'Book';
-    id: number;
-    title: string;
-    isPublished: boolean;
-    author?: { __typename?: 'Author'; id: number; name: string } | null;
-  };
-};
+
+export type CreateBookMutation = { __typename?: 'Mutation', createBook: { __typename?: 'Book', id: number, title: string, isPublished: boolean, author?: { __typename?: 'Author', id: number, name: string } | null } };
 
 export type UpdateBookMutationVariables = Types.Exact<{
   id: Types.Scalars['Int'];
@@ -131,58 +71,35 @@ export type UpdateBookMutationVariables = Types.Exact<{
   authorId?: Types.InputMaybe<Types.Scalars['Int']>;
 }>;
 
-export type UpdateBookMutation = {
-  __typename?: 'Mutation';
-  updateBook: {
-    __typename?: 'Book';
-    id: number;
-    title: string;
-    isPublished: boolean;
-    author?: { __typename?: 'Author'; id: number; name: string } | null;
-  };
-};
+
+export type UpdateBookMutation = { __typename?: 'Mutation', updateBook: { __typename?: 'Book', id: number, title: string, isPublished: boolean, author?: { __typename?: 'Author', id: number, name: string } | null } };
 
 export type DeleteBookMutationVariables = Types.Exact<{
   id: Types.Scalars['Int'];
 }>;
 
-export type DeleteBookMutation = { __typename?: 'Mutation'; deleteBook: number };
 
-export type GetPermissionsQueryVariables = Types.Exact<{ [key: string]: never }>;
+export type DeleteBookMutation = { __typename?: 'Mutation', deleteBook: number };
 
-export type GetPermissionsQuery = {
-  __typename?: 'Query';
-  permissions: Array<{
-    __typename?: 'Permission';
-    id: string;
-    name: string;
-    description?: string | null;
-  }>;
-};
+export type GetPermissionsQueryVariables = Types.Exact<{ [key: string]: never; }>;
+
+
+export type GetPermissionsQuery = { __typename?: 'Query', permissions: Array<{ __typename?: 'Permission', id: string, name: string, description?: string | null }> };
 
 export type GetPermissionQueryVariables = Types.Exact<{
   id: Types.Scalars['String'];
 }>;
 
-export type GetPermissionQuery = {
-  __typename?: 'Query';
-  permission: { __typename?: 'Permission'; id: string; name: string; description?: string | null };
-};
+
+export type GetPermissionQuery = { __typename?: 'Query', permission: { __typename?: 'Permission', id: string, name: string, description?: string | null } };
 
 export type CreatePermissionMutationVariables = Types.Exact<{
   name: Types.Scalars['String'];
   description?: Types.InputMaybe<Types.Scalars['String']>;
 }>;
 
-export type CreatePermissionMutation = {
-  __typename?: 'Mutation';
-  createPermission: {
-    __typename?: 'Permission';
-    id: string;
-    name: string;
-    description?: string | null;
-  };
-};
+
+export type CreatePermissionMutation = { __typename?: 'Mutation', createPermission: { __typename?: 'Permission', id: string, name: string, description?: string | null } };
 
 export type UpdatePermissionMutationVariables = Types.Exact<{
   id: Types.Scalars['String'];
@@ -190,47 +107,35 @@ export type UpdatePermissionMutationVariables = Types.Exact<{
   description?: Types.InputMaybe<Types.Scalars['String']>;
 }>;
 
-export type UpdatePermissionMutation = {
-  __typename?: 'Mutation';
-  updatePermission: {
-    __typename?: 'Permission';
-    id: string;
-    name: string;
-    description?: string | null;
-  };
-};
+
+export type UpdatePermissionMutation = { __typename?: 'Mutation', updatePermission: { __typename?: 'Permission', id: string, name: string, description?: string | null } };
 
 export type DeletePermissionMutationVariables = Types.Exact<{
   id: Types.Scalars['String'];
 }>;
 
-export type DeletePermissionMutation = { __typename?: 'Mutation'; deletePermission: string };
 
-export type GetRolesQueryVariables = Types.Exact<{ [key: string]: never }>;
+export type DeletePermissionMutation = { __typename?: 'Mutation', deletePermission: string };
 
-export type GetRolesQuery = {
-  __typename?: 'Query';
-  roles: Array<{ __typename?: 'Role'; id: string; name: string; description?: string | null }>;
-};
+export type GetRolesQueryVariables = Types.Exact<{ [key: string]: never; }>;
+
+
+export type GetRolesQuery = { __typename?: 'Query', roles: Array<{ __typename?: 'Role', id: string, name: string, description?: string | null }> };
 
 export type GetRoleQueryVariables = Types.Exact<{
   id: Types.Scalars['Int'];
 }>;
 
-export type GetRoleQuery = {
-  __typename?: 'Query';
-  role: { __typename?: 'Role'; id: string; name: string; description?: string | null };
-};
+
+export type GetRoleQuery = { __typename?: 'Query', role: { __typename?: 'Role', id: string, name: string, description?: string | null } };
 
 export type CreateRoleMutationVariables = Types.Exact<{
   name: Types.Scalars['String'];
   description?: Types.InputMaybe<Types.Scalars['String']>;
 }>;
 
-export type CreateRoleMutation = {
-  __typename?: 'Mutation';
-  createRole: { __typename?: 'Role'; id: string; name: string; description?: string | null };
-};
+
+export type CreateRoleMutation = { __typename?: 'Mutation', createRole: { __typename?: 'Role', id: string, name: string, description?: string | null } };
 
 export type UpdateRoleMutationVariables = Types.Exact<{
   id: Types.Scalars['String'];
@@ -238,67 +143,32 @@ export type UpdateRoleMutationVariables = Types.Exact<{
   description?: Types.InputMaybe<Types.Scalars['String']>;
 }>;
 
-export type UpdateRoleMutation = {
-  __typename?: 'Mutation';
-  updateRole: { __typename?: 'Role'; id: string; name: string; description?: string | null };
-};
+
+export type UpdateRoleMutation = { __typename?: 'Mutation', updateRole: { __typename?: 'Role', id: string, name: string, description?: string | null } };
 
 export type DeleteRoleMutationVariables = Types.Exact<{
   id: Types.Scalars['String'];
 }>;
 
-export type DeleteRoleMutation = { __typename?: 'Mutation'; deleteRole: string };
 
-export type GetUsersQueryVariables = Types.Exact<{ [key: string]: never }>;
+export type DeleteRoleMutation = { __typename?: 'Mutation', deleteRole: string };
 
-export type GetUsersQuery = {
-  __typename?: 'Query';
-  users: Array<{
-    __typename?: 'User';
-    id: string;
-    username: string;
-    enabled: boolean;
-    firstName: string;
-    lastName: string;
-    email: string;
-    roles?: Array<{ __typename?: 'Role'; id: string; name: string }> | null;
-  }>;
-};
+export type GetUsersQueryVariables = Types.Exact<{ [key: string]: never; }>;
 
-export type GetUserAndRolesQueryVariables = Types.Exact<{ [key: string]: never }>;
 
-export type GetUserAndRolesQuery = {
-  __typename?: 'Query';
-  users: Array<{
-    __typename?: 'User';
-    id: string;
-    username: string;
-    enabled: boolean;
-    firstName: string;
-    lastName: string;
-    email: string;
-    roles?: Array<{ __typename?: 'Role'; id: string; name: string }> | null;
-  }>;
-  roles: Array<{ __typename?: 'Role'; id: string; name: string }>;
-};
+export type GetUsersQuery = { __typename?: 'Query', users: Array<{ __typename?: 'User', id: string, username: string, enabled: boolean, firstName: string, lastName: string, email: string, roles?: Array<{ __typename?: 'Role', id: string, name: string }> | null }> };
+
+export type GetUserAndRolesQueryVariables = Types.Exact<{ [key: string]: never; }>;
+
+
+export type GetUserAndRolesQuery = { __typename?: 'Query', users: Array<{ __typename?: 'User', id: string, username: string, enabled: boolean, firstName: string, lastName: string, email: string, roles?: Array<{ __typename?: 'Role', id: string, name: string }> | null }>, roles: Array<{ __typename?: 'Role', id: string, name: string }> };
 
 export type GetUserQueryVariables = Types.Exact<{
   id: Types.Scalars['String'];
 }>;
 
-export type GetUserQuery = {
-  __typename?: 'Query';
-  getOne: {
-    __typename?: 'User';
-    id: string;
-    username: string;
-    enabled: boolean;
-    firstName: string;
-    lastName: string;
-    email: string;
-    roles?: Array<{ __typename?: 'Role'; id: string; name: string }> | null;
-  };
-};
+
+export type GetUserQuery = { __typename?: 'Query', getOne: { __typename?: 'User', id: string, username: string, enabled: boolean, firstName: string, lastName: string, email: string, roles?: Array<{ __typename?: 'Role', id: string, name: string }> | null } };
 
 export type CreateUserMutationVariables = Types.Exact<{
   username: Types.Scalars['String'];
@@ -309,19 +179,8 @@ export type CreateUserMutationVariables = Types.Exact<{
   roleIds: Array<Types.Scalars['String']> | Types.Scalars['String'];
 }>;
 
-export type CreateUserMutation = {
-  __typename?: 'Mutation';
-  createUser: {
-    __typename?: 'User';
-    id: string;
-    username: string;
-    enabled: boolean;
-    firstName: string;
-    lastName: string;
-    email: string;
-    roles?: Array<{ __typename?: 'Role'; id: string; name: string }> | null;
-  };
-};
+
+export type CreateUserMutation = { __typename?: 'Mutation', createUser: { __typename?: 'User', id: string, username: string, enabled: boolean, firstName: string, lastName: string, email: string, roles?: Array<{ __typename?: 'Role', id: string, name: string }> | null } };
 
 export type UpdateUserMutationVariables = Types.Exact<{
   id: Types.Scalars['String'];
@@ -333,22 +192,12 @@ export type UpdateUserMutationVariables = Types.Exact<{
   relatedRoleIds?: Types.InputMaybe<Array<Types.Scalars['String']> | Types.Scalars['String']>;
 }>;
 
-export type UpdateUserMutation = {
-  __typename?: 'Mutation';
-  updateUser: {
-    __typename?: 'User';
-    id: string;
-    username: string;
-    enabled: boolean;
-    firstName: string;
-    lastName: string;
-    email: string;
-    roles?: Array<{ __typename?: 'Role'; id: string; name: string }> | null;
-  };
-};
+
+export type UpdateUserMutation = { __typename?: 'Mutation', updateUser: { __typename?: 'User', id: string, username: string, enabled: boolean, firstName: string, lastName: string, email: string, roles?: Array<{ __typename?: 'Role', id: string, name: string }> | null } };
 
 export type DeleteUserMutationVariables = Types.Exact<{
   id: Types.Scalars['String'];
 }>;
 
-export type DeleteUserMutation = { __typename?: 'Mutation'; deleteUser: string };
+
+export type DeleteUserMutation = { __typename?: 'Mutation', deleteUser: string };

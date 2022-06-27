@@ -1,37 +1,48 @@
-import React from 'react';
-import { LoginForm, LoginPage, ListVariant } from '@patternfly/react-core';
+import React, { useMemo } from 'react';
+import { LoginPage, ListVariant } from '@patternfly/react-core';
 import ExclamationCircleIcon from '@patternfly/react-icons/dist/esm/icons/exclamation-circle-icon';
+import { CustomLoginForm } from './CustomLoginForm';
+import { validatePasswordError, validateUsernameError } from '@utils/Forms/validators';
 
 export const CustomLoginPage = () => {
   const [state, setState] = React.useState({
     showHelperText: false,
     usernameValue: '',
-    isValidUsername: true,
+    invalidUsernameText: undefined,
     passwordValue: '',
-    isValidPassword: true,
+    invalidPasswordText: undefined,
     isRememberMeChecked: false,
+    requireValidatePassword: false,
+    requiredValidateUsername: false,
   });
 
+  const usernameError = useMemo(
+    () => validateUsernameError(true)(state.usernameValue),
+    [state.usernameValue],
+  );
+  const passwordError = useMemo(
+    () =>
+      validatePasswordError({
+        digit: true,
+        lowercase: true,
+        uppercase: true,
+        minLength: 8,
+      })(state.passwordValue),
+    [state.passwordValue],
+  );
+
   const handleUsernameChange = (value: string) => {
-    setState({ ...state, usernameValue: value });
+    setState({ ...state, usernameValue: value, requiredValidateUsername: true });
   };
 
   const handlePasswordChange = (passwordValue: string) => {
-    setState({ ...state, passwordValue });
-  };
-
-  const onRememberMeClick = () => {
-    setState({ ...state, isRememberMeChecked: !state.isRememberMeChecked });
+    setState({ ...state, passwordValue, requireValidatePassword: true });
   };
 
   const onLoginButtonClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     event.preventDefault();
-    setState({
-      ...state,
-      isValidUsername: !!state.usernameValue,
-      isValidPassword: !!state.passwordValue,
-      showHelperText: !state.usernameValue || !state.passwordValue,
-    });
+    setState({ ...state, requiredValidateUsername: true, requireValidatePassword: true });
+    if (usernameError || passwordError) return;
   };
   const helperText = (
     <React.Fragment>
@@ -41,20 +52,18 @@ export const CustomLoginPage = () => {
   );
 
   const loginForm = (
-    <LoginForm
+    <CustomLoginForm
       showHelperText={state.showHelperText}
       helperText={helperText}
       helperTextIcon={<ExclamationCircleIcon />}
       usernameLabel="Username"
       usernameValue={state.usernameValue}
       onChangeUsername={handleUsernameChange}
-      isValidUsername={state.isValidUsername}
+      invalidUsernameText={state.requiredValidateUsername ? usernameError : undefined}
       passwordLabel="Password"
       passwordValue={state.passwordValue}
       onChangePassword={handlePasswordChange}
-      isValidPassword={state.isValidPassword}
-      isRememberMeChecked={state.isRememberMeChecked}
-      onChangeRememberMe={onRememberMeClick}
+      invalidPasswordText={state.requireValidatePassword ? passwordError : undefined}
       onLoginButtonClick={onLoginButtonClick}
       loginButtonLabel="Iniciar session"
     />

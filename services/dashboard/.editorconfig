@@ -10,7 +10,7 @@ charset = utf-8
 indent_style = space
 indent_size = 2
 # Forces a hard wrap, so this is set looser than the ~100 width that we want to target
-max_line_length = 120
+max_line_length = 100
 
 # Code
 [*.{css,js,jsx,py,sh,sql,ts}]

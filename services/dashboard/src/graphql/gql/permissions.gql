@@ -15,16 +15,15 @@ query getPermission($id: String!) {
 }
 
 mutation createPermission($name: String!, $description: String) {
-  createPermission(data: { name: $name, description: $description}) {
+  createPermission(data: { name: $name, description: $description }) {
     id
     name
     description
   }
 }
 
-
 mutation updatePermission($id: String!, $name: String!, $description: String) {
-  updatePermission(data: { id: $id, name: $name, description: $description}) {
+  updatePermission(data: { id: $id, name: $name, description: $description }) {
     id
     name
     description
@@ -34,4 +33,3 @@ mutation updatePermission($id: String!, $name: String!, $description: String) {
 mutation deletePermission($id: String!) {
   deletePermission(id: $id)
 }
-

@@ -31,14 +31,12 @@
     "no-console": "off",
     "react/prop-types": [2, { "ignore": ["history"] }],
     "jsx-a11y/label-has-associated-control": "off",
-    "react/jsx-filename-extension": [1,
-      { "extensions": [".js", ".jsx", ".ts", ".tsx"] }
-    ],
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx", ".ts", ".tsx"] }],
     "react/no-set-state": "off",
     "prettier/prettier": ["error"],
     "react/jsx-props-no-spreading": "off",
     "prefer-promise-reject-errors": "off",
     "camelcase": "off",
-    "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/no-explicit-any": "off"
   }
 }
