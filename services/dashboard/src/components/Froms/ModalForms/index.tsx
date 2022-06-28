@@ -72,7 +72,6 @@ const CreateUpdateModal = <Entity, EntityCreateVars, EntityUpdateVars>(
     setState({ ...state, validated });
     return result;
   };
-
   return (
     <Modal
       variant={modalVariant}
@@ -114,7 +113,11 @@ const CreateUpdateModal = <Entity, EntityCreateVars, EntityUpdateVars>(
               keyName={f.keyName.toString()}
               label={f.label}
               helperText={f.helperText}
-              helperTextInvalid={f.helperTextInvalid}
+              helperTextInvalid={
+                state.validated[f.keyName] !== 'success'
+                  ? f.helperTextInvalid(state.localEntity[f.keyName])
+                  : undefined
+              }
               validated={state.validated[f.keyName]}
               onChangePassword={(v) =>
                 setState({
@@ -140,7 +143,9 @@ const CreateUpdateModal = <Entity, EntityCreateVars, EntityUpdateVars>(
                   {f.helperText}
                 </FormHelperText>
               }
-              helperTextInvalid={f.helperTextInvalid}
+              helperTextInvalid={
+                state.validated[f.keyName] && f.helperTextInvalid(state.localEntity[f.keyName])
+              }
               helperTextInvalidIcon={<ExclamationCircleIcon />}
               fieldId={f.keyName.toString()}
               validated={state.validated[f.keyName]}

@@ -181,7 +181,7 @@ const AuthorsPage: React.FC = () => {
                   keyName: 'name',
                   label: 'Full Name',
                   helperText: "Please enter Author's full name",
-                  helperTextInvalid: 'Full name has to be at least two words',
+                  helperTextInvalid: () => 'Full name has to be at least two words',
                   inputControl: {
                     required: true,
                     validate: validateFullName,
@@ -193,7 +193,7 @@ const AuthorsPage: React.FC = () => {
                   keyName: 'age',
                   label: 'Age',
                   helperText: "Please enter Author's age",
-                  helperTextInvalid: 'Age has to be a number',
+                  helperTextInvalid: () => 'Age has to be a number',
                   inputControl: {
                     required: true,
                     validate: validateAge,
@@ -205,7 +205,7 @@ const AuthorsPage: React.FC = () => {
                   keyName: 'country',
                   label: 'Country',
                   helperText: "Please enter Author's country",
-                  helperTextInvalid: 'If country is set, it has to be at least one word',
+                  helperTextInvalid: () => 'If country is set, it has to be at least one word',
                   inputControl: {
                     required: false,
                     validate: validateCountry,

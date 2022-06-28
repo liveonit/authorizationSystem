@@ -49,6 +49,7 @@ export const logout = async () => {
       mutation: LogoutDocument,
     });
     userState.set({ id: '', accessToken: null, refreshToken: null });
+    await client.clearStore();
     return result;
   } catch (err) {
     console.error(err);

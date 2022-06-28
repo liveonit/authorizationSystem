@@ -181,7 +181,7 @@ const RolesPage: React.FC = () => {
                   keyName: 'name',
                   label: 'Role name',
                   helperText: 'Insert a representarive name to the role',
-                  helperTextInvalid:
+                  helperTextInvalid: () =>
                     // eslint-disable-next-line max-len
                     'Text must be at least 4 characters long and must not begin or end with "." or "_" and does not contain spaces or special characters other than "-" or "_"',
                   inputControl: {
@@ -195,7 +195,7 @@ const RolesPage: React.FC = () => {
                   keyName: 'description',
                   label: 'Role description',
                   helperText: 'Insert a description to the role',
-                  helperTextInvalid: '',
+                  helperTextInvalid: () => '',
                   inputControl: {
                     required: true,
                     validate: validateString,

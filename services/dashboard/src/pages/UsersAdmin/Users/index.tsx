@@ -18,13 +18,14 @@ import {
   validateAtLeastOneOptionRequired,
   validateBoolean,
   validateEmail,
+  validatePassword,
   validateString,
   validateUsername,
 } from '@components/Froms/Utils';
 
 import { hashCode } from '../../../utils/general/stringHash';
 
-import { Role, User } from '@gqlauto/schemas';
+import { Role, UpdateUserInput, User } from '@gqlauto/schemas';
 
 import {
   GetUserAndRolesDocument,
@@ -33,6 +34,7 @@ import {
   DeleteUserDocument,
 } from '@gqlauto/hooks';
 import { TypeAttributes } from 'rsuite/esm/@types/common';
+import { validatePasswordError, validateUsernameError } from '@utils/Forms/validators';
 
 const TAGS_COLORS: TypeAttributes.Color[] = [
   'red',
@@ -219,16 +221,14 @@ const UsersPage: React.FC = () => {
           />
           {state.isCreateUpdateModalOpen && (
             <ModalForm
-              title={state.entity ? 'Update Author' : 'Create Author'}
+              title={state.entity ? 'Update User' : 'Create User'}
               modalVariant={ModalVariant.small}
               fields={[
                 {
                   keyName: 'username',
                   label: 'Username',
                   helperText: 'Insert username',
-                  helperTextInvalid:
-                    // eslint-disable-next-line max-len
-                    'Text must be at least 4 characters long and must not begin or end with "." or "_" and does not contain spaces or special characters other than "-" or "_"',
+                  helperTextInvalid: (v) => validateUsernameError(true)(v),
                   inputControl: {
                     required: true,
                     validate: validateUsername,
@@ -237,10 +237,24 @@ const UsersPage: React.FC = () => {
                   textInputType: 'text',
                 },
                 {
+                  keyName: 'password',
+                  label: 'Password',
+                  helperText: state.entity
+                    ? 'Enter the user password only if you want to change it'
+                    : "Please enter User's password",
+                  helperTextInvalid: (v) => validatePasswordError()(v),
+                  inputControl: {
+                    required: !state.entity,
+                    validate: validatePassword,
+                  },
+                  type: 'Password',
+                  textInputType: 'text',
+                },
+                {
                   keyName: 'firstName',
                   label: 'First Name',
                   helperText: "Please enter User's first name",
-                  helperTextInvalid: 'It has to be at least one word',
+                  helperTextInvalid: () => 'It has to be at least one word',
                   inputControl: {
                     required: true,
                     validate: validateString,
@@ -252,7 +266,7 @@ const UsersPage: React.FC = () => {
                   keyName: 'lastName',
                   label: 'Last Name',
                   helperText: "Please enter User's last name",
-                  helperTextInvalid: 'It has to be at least one word',
+                  helperTextInvalid: () => 'It has to be at least one word',
                   inputControl: {
                     required: true,
                     validate: validateString,
@@ -264,7 +278,7 @@ const UsersPage: React.FC = () => {
                   keyName: 'email',
                   label: 'Email',
                   helperText: "Please enter User's email",
-                  helperTextInvalid: 'The email must be in the format: xxx@xxx.xxx',
+                  helperTextInvalid: () => 'The email must be in the format: xxx@xxx.xxx',
                   inputControl: {
                     required: true,
                     validate: validateEmail,
@@ -276,7 +290,7 @@ const UsersPage: React.FC = () => {
                   keyName: 'enabled',
                   label: 'Is Enable?',
                   helperText: 'Select if user is currently enabled',
-                  helperTextInvalid: 'Active means that the user is enabled',
+                  helperTextInvalid: () => 'Active means that the user is enabled',
                   inputControl: {
                     required: false,
                     validate: validateBoolean,
@@ -284,10 +298,10 @@ const UsersPage: React.FC = () => {
                   type: 'ToggleSwitch',
                 },
                 {
-                  keyName: 'roles',
+                  keyName: 'roleIds',
                   label: "Select user's roles",
                   helperText: "Please select the User's Role",
-                  helperTextInvalid: 'At least one role must be selected',
+                  helperTextInvalid: () => 'At least one role must be selected',
                   inputControl: {
                     required: true,
                     validate: validateAtLeastOneOptionRequired,
@@ -295,13 +309,14 @@ const UsersPage: React.FC = () => {
                   type: 'MultiSelectWithFilter',
                   options: (state.roles || []).map((a: any) => ({
                     id: a.id,
-                    value: a.name,
+                    value: a.id,
+                    description: a.name,
                   })),
                   direction: 'up',
                 },
               ]}
               onClose={onCloseAnyModal}
-              entity={state.entity}
+              entity={state.entity as UpdateUserInput}
               create={createItem}
               update={updateItem}
             />

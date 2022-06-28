@@ -23,13 +23,7 @@ export const CustomLoginPage = () => {
     [state.usernameValue],
   );
   const passwordError = useMemo(
-    () =>
-      validatePasswordError({
-        digit: true,
-        lowercase: true,
-        uppercase: true,
-        minLength: 8,
-      })(state.passwordValue),
+    () => validatePasswordError()(state.passwordValue),
     [state.passwordValue],
   );
 

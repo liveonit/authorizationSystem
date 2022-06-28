@@ -1,3 +1,5 @@
+import { validatePasswordError, validateUsernameError } from '@utils/Forms/validators';
+
 export type ValidateResult = 'success' | 'error' | 'default' | 'warning';
 
 export type ValidateFunction = (text?: any, required?: boolean) => ValidateResult;
@@ -26,7 +28,7 @@ export interface Field<T> {
   label: string;
   type: FieldType;
   helperText: string;
-  helperTextInvalid: string;
+  helperTextInvalid: (value: any) => string | undefined;
   inputControl: FormInputControl;
   textInputType?:
     | 'number'
@@ -79,14 +81,11 @@ export const validateId: ValidateFunction = (s, r) =>
 export const validateBoolean: ValidateFunction = (s, r) =>
   !s ? (r ? 'error' : 'success') : 'success';
 
-export const validateUsername: ValidateFunction = (s, r) =>
-  !s
-    ? r
-      ? 'error'
-      : 'default'
-    : /^(?=.{4,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/.test(s.toString())
-    ? 'success'
-    : 'error';
+export const validateUsername: ValidateFunction = (s, r) => {
+  if (r && !s) return 'error';
+  if (s) return validateUsernameError(!!r)(s) ? 'error' : 'success';
+  return 'default';
+};
 
 export const validateEmail: ValidateFunction = (s, r) =>
   !s
@@ -100,11 +99,10 @@ export const validateEmail: ValidateFunction = (s, r) =>
 export const validateAtLeastOneOptionRequired: ValidateFunction = (s, r) =>
   s && (s as string[]).length >= 1 ? 'success' : r ? 'error' : 'default';
 
-export const validatePassword: ValidateFunction = (s, r) =>
-  !s
-    ? r
-      ? 'error'
-      : 'default'
-    : /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/.test(s.toString())
-    ? 'success'
-    : 'error';
+export const validatePassword: ValidateFunction = (s, r) => {
+  let result;
+  if (r && !s) result = 'error';
+  if (s) result = validatePasswordError()(s) ? 'error' : 'success';
+  result = 'default';
+  return result;
+};

@@ -182,7 +182,7 @@ const PermissionsPage: React.FC = () => {
                   keyName: 'name',
                   label: 'Permission name',
                   helperText: 'Insert a representative name to the Permission',
-                  helperTextInvalid:
+                  helperTextInvalid: () =>
                     // eslint-disable-next-line max-len
                     'Text must be at least 4 characters long and must not begin or end with "." or "_" and does not contain spaces or special characters other than "-" or "_"',
                   inputControl: {
@@ -196,7 +196,7 @@ const PermissionsPage: React.FC = () => {
                   keyName: 'description',
                   label: 'Permission description',
                   helperText: 'Insert a description to the permission',
-                  helperTextInvalid: '',
+                  helperTextInvalid: () => '',
                   inputControl: {
                     required: true,
                     validate: validateString,

@@ -189,7 +189,7 @@ const Books: React.FC = () => {
                   keyName: 'title',
                   label: 'Book Title',
                   helperText: 'Please enter the Book title',
-                  helperTextInvalid: 'Book title is at least one word',
+                  helperTextInvalid: () => 'Book title is at least one word',
                   inputControl: {
                     required: true,
                     validate: validateString,
@@ -201,7 +201,7 @@ const Books: React.FC = () => {
                   keyName: 'isPublished',
                   label: 'Is Published?',
                   helperText: 'Select if book is currently published',
-                  helperTextInvalid: 'Active means that the book is published',
+                  helperTextInvalid: () => 'Active means that the book is published',
                   inputControl: {
                     required: false,
                     validate: validateBoolean,
@@ -212,7 +212,7 @@ const Books: React.FC = () => {
                   keyName: 'authorId',
                   label: "Book's author",
                   helperText: "Please select the Book's Author",
-                  helperTextInvalid: 'Author must be selected',
+                  helperTextInvalid: () => 'Author must be selected',
                   inputControl: {
                     required: true,
                     validate: validateString,

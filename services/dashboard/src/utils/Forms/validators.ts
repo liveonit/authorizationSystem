@@ -23,17 +23,26 @@ interface IValidatePasswordOptions {
   uppercase?: boolean;
 }
 
-export const validatePasswordError = (required: IValidatePasswordOptions) => (value: string) => {
-  if (!value) return 'Password is required';
-  if (value.length < (required.minLength || 8))
-    return `Min length of ${required.minLength || 8} is required`;
-  if (required?.digit && !/\d/.test(value)) return 'At least one number is required';
-  if (required?.lowercase && !/(?=.*[a-z])/.test(value))
-    return 'At least one lowercase letter is required';
-  if (required?.uppercase && !/(?=.*[A-Z])/.test(value))
-    return 'At least one uppercase letter is required';
-  return undefined;
-};
+export const validatePasswordError =
+  (
+    required: IValidatePasswordOptions = {
+      digit: true,
+      lowercase: true,
+      uppercase: true,
+      minLength: 8,
+    },
+  ) =>
+  (value: string) => {
+    if (!value) return 'Password is required';
+    if (value.length < (required.minLength || 8))
+      return `Min length of ${required.minLength || 8} is required`;
+    if (required?.digit && !/\d/.test(value)) return 'At least one number is required';
+    if (required?.lowercase && !/(?=.*[a-z])/.test(value))
+      return 'At least one lowercase letter is required';
+    if (required?.uppercase && !/(?=.*[A-Z])/.test(value))
+      return 'At least one uppercase letter is required';
+    return undefined;
+  };
 
 export const validateConfirmPasswordError = (password1: string) => (value: string) => {
   if (password1 !== value) return 'The password and confirmation password do not match';

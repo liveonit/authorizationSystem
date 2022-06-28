@@ -1,5 +1,6 @@
 import { FormGroup, FormHelperText, TextInput, TextInputProps } from '@patternfly/react-core';
 import { ExclamationCircleIcon } from '@patternfly/react-icons';
+import { validateConfirmPasswordError } from '@utils/Forms/validators';
 import React from 'react';
 
 interface Props extends TextInputProps {
@@ -36,7 +37,7 @@ const PasswordWithConfirm: React.FC<Props> = (props) => {
           </FormHelperText>
         }
         helperTextInvalid={
-          validated !== 'success' ? helperTextInvalid : 'The password confirmation does not match'
+          helperTextInvalid || validateConfirmPasswordError(password)(state.confirmPass)
         }
         helperTextInvalidIcon={<ExclamationCircleIcon />}
         fieldId={keyName}
@@ -58,9 +59,9 @@ const PasswordWithConfirm: React.FC<Props> = (props) => {
               ...state,
               confirmValidate:
                 password !== ''
-                  ? password === state.confirmPass
-                    ? 'success'
-                    : 'error'
+                  ? validateConfirmPasswordError(password)(state.confirmPass)
+                    ? 'error'
+                    : 'success'
                   : 'default',
             })
           }
