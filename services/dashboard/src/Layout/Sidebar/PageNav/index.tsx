@@ -19,13 +19,10 @@ export const PageNav: React.FC<Props> = ({ location }) => {
           <Link to="/">Home</Link>
         </NavItem>
         <NavItem itemId={1} isActive={pathname === '/demoGrid'}>
-          <Link to="/demogrid">Demo Grid</Link>
+          <Link to="/anything">Not found</Link>
         </NavItem>
         <NavItem itemId={2} isActive={pathname === '/page2'}>
           <Link to="/bookstore">Bookstore</Link>
-        </NavItem>
-        <NavItem itemId={3} isActive={pathname === '/Logs'}>
-          <Link to="/bookstoreaudit">Bookstore Audit</Link>
         </NavItem>
         <NavItem itemId={4} isActive={pathname === '/page3'}>
           <Link to="/usersadmin">Users Admin</Link>

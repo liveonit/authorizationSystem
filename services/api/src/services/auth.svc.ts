@@ -82,7 +82,7 @@ class AuthService {
 
     // Create a Session
     redisClient.set(user.id, JSON.stringify(user), {
-      EX: 60 * 60,
+      EX: (config.refreshTokenExpiresIn + 60) * 60,
     });
 
     // Return access token
@@ -118,12 +118,14 @@ class AuthService {
         'refreshTokenPublicKey',
       );
       if (!decoded) {
+        logger.debug({ que: 'nada0' });
         throw new ApolloError('Could not refresh access token');
       }
 
       // Check if the user has a valid session
       const session = await redisClient.get(decoded.id);
       if (!session) {
+        logger.debug({ que: 'nada1' });
         throw new ApolloError('Could not refresh access token');
       }
 
@@ -131,6 +133,7 @@ class AuthService {
       const user = await User.findOneBy({ id: decoded.id });
 
       if (!user) {
+        logger.debug({ que: 'nada2' });
         throw new ApolloError('Could not refresh access token');
       }
 
@@ -142,7 +145,7 @@ class AuthService {
       // Send the access token as cookie
       return { id: decoded.id, ...refreshTokenInput, accessToken } as UserSession;
     } catch (err: any) {
-      logger.logError('Error refreshing access token', 'AUTH');
+      logger.logError('Error refreshing access token: ' + err, 'AUTH');
       throw new ApolloError('Could not refresh access token');
     }
   }

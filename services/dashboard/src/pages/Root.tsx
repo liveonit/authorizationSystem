@@ -11,6 +11,8 @@ import Bookstore from './Bookstore';
 import UsersAdmin from './UsersAdmin';
 import { CustomLoginPage } from './Login';
 import { AuthProvider } from '@utils/Auth/AuthProvider';
+import { AlertsProvider } from '@components/Alerts/AlertsContainer';
+import { NotFound } from './NotFound';
 
 const Root: React.FC = () => {
   return (
@@ -18,21 +20,16 @@ const Root: React.FC = () => {
       <CustomRouter history={history}>
         <AuthProvider>
           <Layout>
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/login" element={<CustomLoginPage />} />
-              <Route path="/bookstore" element={<Bookstore />} />
-              <Route path="/usersadmin" element={<UsersAdmin />} />
-              <Route
-                path="*"
-                element={
-                  <main style={{ padding: '1rem' }}>
-                    <p>Page not found!</p>
-                  </main>
-                }
-              />
-              ˝
-            </Routes>
+            <>
+              <AlertsProvider />
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/login" element={<CustomLoginPage />} />
+                <Route path="/bookstore" element={<Bookstore />} />
+                <Route path="/usersadmin" element={<UsersAdmin />} />
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </>
           </Layout>
         </AuthProvider>
       </CustomRouter>

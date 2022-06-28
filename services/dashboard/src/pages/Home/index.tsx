@@ -1,12 +1,23 @@
 import React from 'react';
-import { PageSection, PageSectionVariants } from '@patternfly/react-core';
 
+import bg from './mainBackgound.webp';
 export function Home() {
   return (
     <>
-      <PageSection variant={PageSectionVariants.light}>
-        <h1>Home</h1>
-      </PageSection>
+      <img
+        style={{
+          height: '100vh',
+          width: '100vw',
+          position: 'absolute',
+          right: 0,
+          top: 0,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          overflow: 'hidden',
+        }}
+        src={bg}
+        alt={'bg'}
+      />
     </>
   );
 }

@@ -6,6 +6,7 @@ import { getToken } from '@utils/Auth/helpers';
 import { cache } from './cache';
 
 const loc = window.location;
+const OPERATIONS_WITHOUT_TOKEN = ['Login', 'RefreshToken'];
 
 const httpLink = new HttpLink({
   uri: `${loc.protocol}//${loc.host}/graphql`,
@@ -24,16 +25,17 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
   if (networkError) console.error(`[Network error]: ${networkError}`);
 });
 
-const authLink = setContext(async (_, { headers }) => {
-  const token = await getToken();
-  if (token)
+const authLink = setContext(async (ctx, { headers }) => {
+  console.log({ opName: ctx.operationName });
+  if (ctx.operationName && !OPERATIONS_WITHOUT_TOKEN.includes(ctx.operationName)) {
+    const token = await getToken();
     return {
       headers: {
         ...headers,
         authorization: `Bearer ${token}`,
       },
     };
-  else return { headers };
+  } else return { headers };
 });
 
 export const client = new ApolloClient({

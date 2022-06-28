@@ -1,7 +1,7 @@
 import React from 'react';
 import { Alert, AlertGroup, AlertActionCloseButton, AlertVariant } from '@patternfly/react-core';
 
-interface IAlert {
+export interface IAlert {
   title: string;
   type: AlertVariant;
   description: string;

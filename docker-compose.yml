@@ -10,7 +10,7 @@ services:
       - ./services/proxy/proxy.conf:/etc/nginx/proxy.conf:ro
     ports:
       - "80:80"
-    command: [nginx-debug, '-g', 'daemon off;']
+    command: [nginx-debug, "-g", "daemon off;"]
     networks:
       - authorization_net
   db:
@@ -32,17 +32,33 @@ services:
       - "0.0.0.0:${DB_PORT}:${DB_PORT}"
     networks:
       - authorization_net
-  
+
   cache:
-    image: redis:6.2-alpine
+    image: redis
     restart: always
     ports:
-      - '6379:6379'
+      - "6379:6379"
     command: redis-server --save 20 1 --loglevel warning --requirepass ${REDIS_PASSWORD}
-    volumes: 
+    volumes:
       - cache:/data
     networks:
       - authorization_net
+
+  redis-commander:
+    image: rediscommander/redis-commander
+    platform: linux/x86_64
+    container_name: ${PROJECT_NAME}-redis_manager
+    restart: always
+    networks:
+      - authorization_net
+    depends_on:
+      - cache
+    environment:
+      REDIS_HOST: cache
+      REDIS_HOSTS: local:cache:6379
+      REDIS_PASSWORD: ${REDIS_PASSWORD}
+    ports:
+      - "${REDIS_MANAGER_UI:-8081}:8081"
 
   api:
     image: ${PROJECT_NAME}-api
@@ -71,7 +87,7 @@ services:
     build:
       context: ./services/dashboard
       dockerfile: Dockerfile.development
-    env_file: 
+    env_file:
       - .env
     container_name: ${PROJECT_NAME}-dashboard
     restart: unless-stopped
@@ -83,7 +99,6 @@ services:
       - "0.0.0.0:${DASHBOARD_PORT}:80"
     networks:
       - authorization_net
-
 
 volumes:
   mysql_data:
