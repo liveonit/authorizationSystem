@@ -14,6 +14,16 @@ https://user-images.githubusercontent.com/39178332/176276216-207c0cac-0634-4668-
 - [Docker compose >= 1.29.2](https://docs.docker.com/compose/install/)
 - [Node.js >= v16.15.1](https://nodejs.org/en/download/)
 
+## Arquitecturas
+
+## Development
+
+![Development Architecture](docs/development_arquitecture.png)
+
+## Production
+
+![Development Architecture](docs/production_arquitecture.png)
+
 ## Levantar ambiente local para usar el proyecto
 
 Primero se necesitan configurar las variables de entorno para su amibiente local, para esto hay que generar un `.env` en el directorio raíz del proyecto y como ejemplo de las variables necesarias encontrara en la misma ruta un archivo `.env.example` que tiene ejemplos para validar el formato que debería tener cada una de las variables.
@@ -62,4 +72,4 @@ Se deberan instalar todas dependencias necesarias en las siguientes carpetas:
 - ./services/api
 - ./services/dashboard
 
-En ambos casos ejecutar `npm install` o `yarn install` dependiendo  el gestor de paquetes de su preferencia y ya estaria en condiciones de programar en su IDE de preferencia. En cada proyecto se provee la configuración de editorconfig para los IDE que lo soporten, y si usa VsCode ya se encuentran todas las configuraciones iniciales para comenzar directamente a programar.
+En ambos casos ejecutar `npm install` o `yarn install` dependiendo  el gestor de paquetes de su preferencia y ya estaría en condiciones de programar en su IDE de preferencia. En cada proyecto se provee la configuración de editorconfig para los IDE que lo soporten, y si usa VsCode ya se encuentran todas las configuraciones iniciales para comenzar directamente a programar.
