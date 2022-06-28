@@ -26,7 +26,7 @@ export const getToken = async () => {
       }
     }
   }
-  return user.accessToken;
+  return userState.get().accessToken;
 };
 
 export const login = async (username: string, password: string) => {

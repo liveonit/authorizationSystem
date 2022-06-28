@@ -12,12 +12,12 @@ import {
   PageHeaderToolsItem,
 } from '@patternfly/react-core';
 import { BellIcon, CogIcon, HelpIcon } from '@patternfly/react-icons';
-import { useUserState } from '@graphql/cache/userState';
+import { userState, useUserState } from '@graphql/cache/userState';
 import { logout } from '@utils/Auth/helpers';
 
 export const userDropdownItems = (logout: () => void) => [
   <DropdownItem key="1">Link</DropdownItem>,
-  <DropdownItem key="2" onClick={() => console.log('getUserInfo()')} component="button">
+  <DropdownItem key="2" onClick={() => console.log(userState.get())} component="button">
     Imprimir Info Usuario
   </DropdownItem>,
   <DropdownItem key="3" isDisabled>

@@ -118,32 +118,23 @@ class AuthService {
         'refreshTokenPublicKey',
       );
       if (!decoded) {
-        logger.debug({ que: 'nada0' });
         throw new ApolloError('Could not refresh access token');
       }
 
       // Check if the user has a valid session
       const session = await redisClient.get(decoded.id);
       if (!session) {
-        logger.debug({ que: 'nada1' });
         throw new ApolloError('Could not refresh access token');
       }
-
-      // Check if the user exist
-      const user = await User.findOneBy({ id: decoded.id });
-
-      if (!user) {
-        logger.debug({ que: 'nada2' });
-        throw new ApolloError('Could not refresh access token');
-      }
+      const userPayload = JSON.parse(session);
 
       // Sign new access token
-      const accessToken = signJwt({ decoded }, 'accessTokenPrivateKey', {
+      const accessToken = signJwt(userPayload, 'accessTokenPrivateKey', {
         expiresIn: `${config.accessTokenExpiresIn}m`,
       });
 
       // Send the access token as cookie
-      return { id: decoded.id, ...refreshTokenInput, accessToken } as UserSession;
+      return { ...refreshTokenInput, accessToken, id: userPayload.id } as UserSession;
     } catch (err: any) {
       logger.logError('Error refreshing access token: ' + err, 'AUTH');
       throw new ApolloError('Could not refresh access token');
