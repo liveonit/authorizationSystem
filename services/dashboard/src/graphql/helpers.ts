@@ -2,6 +2,7 @@ import React from 'react';
 import * as Apollo from '@apollo/client';
 import { useMutation, useQuery } from '@apollo/client';
 import _ from 'lodash';
+import { addAlert } from './cache/alerts';
 
 export type GqlTypes = 'Int' | 'Float' | 'String' | 'Boolean' | 'ID' | '[String!]';
 
@@ -54,6 +55,7 @@ export const useEntity = <T>({
     },
     onError: (err) => {
       console.error(err);
+      addAlert({ title: err.message, type: 'danger' });
     },
     fetchPolicy: 'cache-first',
   });
@@ -67,7 +69,10 @@ export const useEntity = <T>({
             setState({ ...state, items: newItems });
           }
         },
-        onError: (err) => console.error(err),
+        onError: (err) => {
+          console.error(err);
+          addAlert({ title: err.message, type: 'danger' });
+        },
         update: (cache, { data }) => {
           if (get) {
             const result: any = cache.readQuery({ query: get });
@@ -97,7 +102,10 @@ export const useEntity = <T>({
             setState({ ...state, items: newItems });
           }
         },
-        onError: (err) => console.error(err),
+        onError: (err) => {
+          console.error(err);
+          addAlert({ title: err.message, type: 'danger' });
+        },
       })) ||
     [];
 
@@ -111,7 +119,10 @@ export const useEntity = <T>({
             setState({ ...state, items: newItems });
           }
         },
-        onError: (err) => console.error(err),
+        onError: (err) => {
+          console.error(err);
+          addAlert({ title: err.message, type: 'danger' });
+        },
         update: (cache, { data }) => {
           cache.modify({
             fields: {

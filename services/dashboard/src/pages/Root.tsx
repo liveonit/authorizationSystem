@@ -11,7 +11,7 @@ import Bookstore from './Bookstore';
 import UsersAdmin from './UsersAdmin';
 import { CustomLoginPage } from './Login';
 import { AuthProvider } from '@utils/Auth/AuthProvider';
-import { AlertsProvider } from '@components/Alerts/AlertsContainer';
+import { AlertsProvider } from '@components/Alerts/AlertsProvider';
 import { NotFound } from './NotFound';
 
 const Root: React.FC = () => {

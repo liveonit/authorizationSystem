@@ -4,7 +4,8 @@ import ReactiveStoreVar from '../helpers';
 
 export interface ICustomAlert {
   title: string;
-  variant: AlertProps['variant'];
+  type: AlertProps['variant'];
+  timeout?: number;
 }
 
 export interface AlertsState {
@@ -15,7 +16,7 @@ export const alertsState = new ReactiveStoreVar<AlertsState>({
   varName: 'alertsState',
   initialState: { alerts: [] },
   persist: false,
-  debug: true,
+  debug: false,
   loadOnMount: true,
 });
 
@@ -40,6 +41,7 @@ export const addAlert = (newAlert: ICustomAlert) => {
       {
         ...newAlert,
         key,
+        timeout: newAlert.timeout || 6000,
         onTimeout: () => removeAlert(key),
         onClose: () => removeAlert(key),
       },

@@ -8,19 +8,20 @@ export const AlertsProvider = () => {
   return (
     <React.Fragment>
       <AlertGroup isToast isLiveRegion>
-        {alerts.map(({ key, variant, title, onClose, onTimeout }) => (
+        {alerts.map(({ key, type, title, timeout, onClose, onTimeout }) => (
           <Alert
-            variant={variant && AlertVariant[variant]}
+            variant={type && AlertVariant[type]}
             title={title}
             actionClose={
               <AlertActionCloseButton
                 title={title as string}
-                variantLabel={`${variant} alert`}
+                variantLabel={`${type} alert`}
                 onClose={() => onClose && onClose()}
               />
             }
             key={key}
             onTimeout={() => onTimeout && onTimeout()}
+            timeout={timeout}
           />
         ))}
       </AlertGroup>

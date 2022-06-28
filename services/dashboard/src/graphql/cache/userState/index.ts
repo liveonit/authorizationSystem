@@ -24,7 +24,7 @@ export const userState = new ReactiveStoreVar<UserSession>({
     refreshToken: null,
   },
   persist: true,
-  debug: true,
+  debug: false,
   loadOnMount: true,
 });
 

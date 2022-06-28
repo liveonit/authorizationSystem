@@ -14,14 +14,19 @@ import {
 import { BellIcon, CogIcon, HelpIcon } from '@patternfly/react-icons';
 import { userState, useUserState } from '@graphql/cache/userState';
 import { logout } from '@utils/Auth/helpers';
+import { addAlert } from '@graphql/cache/alerts';
 
 export const userDropdownItems = (logout: () => void) => [
   <DropdownItem key="1">Link</DropdownItem>,
   <DropdownItem key="2" onClick={() => console.log(userState.get())} component="button">
     Imprimir Info Usuario
   </DropdownItem>,
-  <DropdownItem key="3" isDisabled>
-    Disabled Link
+  <DropdownItem
+    key="3"
+    onClick={() => addAlert({ title: 'Test alert', type: 'danger' })}
+    component="button"
+  >
+    Handle alert
   </DropdownItem>,
   <DropdownItem key="4" isDisabled component="button">
     Disabled Action
