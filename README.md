@@ -16,7 +16,7 @@ https://user-images.githubusercontent.com/39178332/176276216-207c0cac-0634-4668-
 
 ## Arquitecturas
 
-## Development
+### Development
 
 ![Development Architecture](docs/development_arquitecture.png)
 
@@ -24,7 +24,7 @@ https://user-images.githubusercontent.com/39178332/176276216-207c0cac-0634-4668-
 
 ![Development Architecture](docs/production_arquitecture.png)
 
-## Levantar ambiente local para usar el proyecto
+### Levantar ambiente local para usar el proyecto
 
 Primero se necesitan configurar las variables de entorno para su amibiente local, para esto hay que generar un `.env` en el directorio raíz del proyecto y como ejemplo de las variables necesarias encontrara en la misma ruta un archivo `.env.example` que tiene ejemplos para validar el formato que debería tener cada una de las variables.
 
