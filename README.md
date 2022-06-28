@@ -6,14 +6,16 @@ Integrantes: Ignacio Barreto, German Rios, Sebastian Olivera, Patricio Zarauz
 https://user-images.githubusercontent.com/39178332/176276216-207c0cac-0634-4668-b612-c7f6b2695144.mov
 
 ## Requisitos
-### Dev
 
-- Docker
-- Docker compose
-- node
-- Manejador de paquetes de node (npm o yarn)
+### Development environment
 
-## Instalacion 
+- [Docker >= 20.10.14](https://docs.docker.com/get-docker/)
+- [Docker compose >= 1.29.2](https://docs.docker.com/compose/install/)
+- [Node.js >= v16.15.1](https://nodejs.org/en/download/)
+
+## Setup local environment
+
+## Para desarrollar en este proyecto 
 Se deberan instalar todas dependencias necesarias en las siguientes carpetas: 
 - ./services/api
 - ./services/dashboard 
