@@ -1,6 +1,10 @@
 # Sistema de autenticación - segunda entrega Seguridad
 Integrantes: Ignacio Barreto, German Rios, Sebastian Olivera, Patricio Zarauz
 
+## Demo
+
+https://user-images.githubusercontent.com/39178332/176276216-207c0cac-0634-4668-b612-c7f6b2695144.mov
+
 ## Requisitos
 ### Dev
 
@@ -22,6 +26,3 @@ Luego de configuradas las variables de entorno, en el directorio raiz del proyec
 Ahora en `http://localhost:<your_api_port>/graphql` (your_api_port en este default env es 4000) puede acceder a la api y en `http://localhost:<your_dashboard_port>` (your_dashboard_port  en este default env es 80)
 
 Puede ir al dahsboard hacer signup y ver su usuario en la base de datos
-
-## Demo
-El video conteniendo la demo del proyecto se encuentra en la carpeta demo
