@@ -114,4 +114,4 @@ export class Db {
   }
 }
 
-export const db = new Db(!config.isRemoteEnv);
+export const db = new Db(!config.isProduction);

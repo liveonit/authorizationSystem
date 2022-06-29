@@ -5,7 +5,8 @@ dotenv.config({ path: path.resolve(__dirname, '../../.env') });
 
 export const config = {
   projectName: process.env.PROJECT_NAME as string,
-  environment: process.env.ENVIRONMENT as string,
+  nodeEnv: process.env.NODE_ENV as string,
+  isProduction: (process.env.NODE_ENV || '').includes('prod'),
   dbHost: process.env.DB_HOST as string,
   dbVendor: process.env.DB_VENDOR as string,
   dbPort: parseInt(process.env.DB_PORT || '3306', 10),

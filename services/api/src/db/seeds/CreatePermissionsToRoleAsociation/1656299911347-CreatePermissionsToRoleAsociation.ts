@@ -1,8 +1,8 @@
-import path from "path";
-import { TypeOrmMigrationFromFile } from "@utils/dbMigrations/TypeOrmMigrationFromFile";
+import path from 'path';
+import { TypeOrmMigrationFromFile } from '@utils/dbMigrations/TypeOrmMigrationFromFile';
 
 export class CreatePermissionsToRoleAsociation1656299911347 extends TypeOrmMigrationFromFile {
   constructor() {
-    super(path.resolve(__dirname, 'up.sql'), path.resolve(__dirname, 'down.sql'))
+    super(path.resolve(__dirname, 'up.sql'), path.resolve(__dirname, 'down.sql'));
   }
 }

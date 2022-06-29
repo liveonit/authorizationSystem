@@ -65,6 +65,41 @@ usuario=usuario1
 password=s3gur1d4dUsuario1
 ```
 
+## Levantar un ambiente estilo producción
+
+Dependiendo la magnitud del proyecto, seguramente se requiera pasar los servicios de el docker-compose a deploys de `k8s` pero las consideraciones dentro del cluster serian las mismas, para probar un ambiente similar al productivo se sigue el mismo flujo que para el ambiente de dev pero el `docker-compose` a utilizar es el `docker-compose.production.yml`, para esto a los comandos de docker-compose hay agregar el flag `-f docker-compose.yml` por lo tanto los comandos quedarían
+
+```bash
+# levantar todos los servicios necesarios
+docker-compose -f docker-compose.production.yml up -d
+
+# bajar todos los servicios
+docker-compose  -f docker-compose.production.yml down
+
+# bajar los servicios necesarios y borrar los datos de la base y redis
+docker-compose  -f docker-compose.production.yml down -v
+
+# para ver que servicios se levantaron
+docker ps
+
+# con el siguiente comando puede ver los logs de cada uno de los servicios, si se agrega la opción -f se queda mostrando continuadamente los últimos logs
+docker logs [options] <container_name>
+```
+
+Los cambios entre orquestar con `docker-compose.yml` y `docker-compose.production.yml` que mejoran la seguridad son los siguientes:
+
+- Se cierran todos los puertos de servicios que no se deben exponer (ejemplo: mysql, redis manager)
+- Los build de `API` y `Dashboard` se hacen con el dockerfile de producción.
+Para el dashbaord esto implica, no dar detalles de los errores ni quedar observando el código fuente y en lugar de servir el código fuente hace un build donde se eliminan comentarios, saltos de linea, se reducen los nombres de las variables, obteniendo archivos [minificados](https://reactjs.org/docs/optimizing-performance.html) que luego se sirven como assets estáticos, esto va reducir el tamaño de los archivos, optimizar la performance y mejorar la seguridad.
+Para la API también implica hacer el build del código fuente y ejecutar los archivos resultantes, ademas de que cambian algunas cosas como por ejemplo, no se deja disponible la pagina de interacción directa con graphql y los logs se limitan a los errores, se elimina todo tipo de log de información o debug, eliminando también el modo debug de el ORM que en `dev` loggea las transacciones para hacer troubleshooting.
+
+## Consideraciones para un posible pasaje a producción
+
+Para un posible pasaje a producción es necesario hacer algunos cambios en el proyecto para maximizar la seguridad, los cambios son listados a continuación:
+
+- Eliminar los usuarios por defecto y crear solo el usuario ROOT (se debe establecer un password muy seguro), esto se hace dentro de la API modificando el `seed` de crear ususarios por defecto en el folder `src/db`
+- Configurar el `NGINX` en `proxy/nginx.conf` para que redirija el puerto 80 al 443 y en el 443 agregar los certificados, la configuración y forzar el uso de TLS.
+
 ## Para desarrollar en este proyecto
 
 Se deberan instalar todas dependencias necesarias en las siguientes carpetas:

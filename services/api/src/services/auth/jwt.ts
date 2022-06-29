@@ -1,6 +1,6 @@
 import { ApolloError } from 'apollo-server-express';
 import jwt, { SignOptions } from 'jsonwebtoken';
-import { config } from 'src/config';
+import { config } from '@src/config';
 
 export const signJwt = (
   payload: Object,

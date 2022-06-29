@@ -24,7 +24,7 @@ export class RoleResolver {
   @Query(() => Role)
   @UseMiddleware([authSvc.gqlAuthRequiredMiddleware(['manageUsers'])])
   async role(@Arg('id', () => Int) id: string): Promise<Role> {
-    const role = await Role.findOneOrFail({ where: {id}, relations: ['permissions']  });
+    const role = await Role.findOneOrFail({ where: { id }, relations: ['permissions'] });
     return role as Role;
   }
 

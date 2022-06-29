@@ -1,4 +1,5 @@
 import { ApolloError } from 'apollo-server-express';
+import { config } from '@src/config';
 import { MiddlewareFn } from 'type-graphql';
 
 export const gqlLogMiddleware: MiddlewareFn = async ({ info }, next) => {
@@ -20,6 +21,8 @@ export const gqlLogMiddleware: MiddlewareFn = async ({ info }, next) => {
     log['ErrorMessage'] = error.message;
     log['ErrorStack'] = error.stack?.split('\n');
     logger.logError(log, 'GraphQLLogger');
-    throw new ApolloError(error.message, error.name, { stacktrace: error.stack?.split('\n') });
+    throw new ApolloError(error.message, error.name, {
+      stacktrace: !config.isProduction && error.stack?.split('\n'),
+    });
   }
 };

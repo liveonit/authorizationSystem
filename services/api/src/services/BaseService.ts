@@ -1,5 +1,5 @@
 import { ApolloError } from 'apollo-server-errors';
-import { db, Db } from 'src/db';
+import { db, Db } from '@src/db';
 import {
   BaseEntity,
   FindManyOptions,

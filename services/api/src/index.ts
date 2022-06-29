@@ -12,7 +12,7 @@ import { WebSocketServer } from 'ws';
 import { useServer } from 'graphql-ws/lib/use/ws';
 import { SubscribeMessage } from 'graphql-ws/lib/common';
 import { Context } from 'graphql-ws/lib/server';
-import { config } from './config';
+import { config } from '@src/config';
 import { CustomContext } from './services/auth.svc';
 
 import {
@@ -23,7 +23,8 @@ import {
 // Define Globals
 import { logger } from '@utils/helpers/Logger';
 import { ExecutionArgs } from 'graphql';
-import { redisClient } from './redis';
+import { redisClient } from './redisCient';
+// import { getModuleAliases } from '@utils/getModuleAliases';
 global.logger = logger;
 
 require('reflect-metadata');
@@ -31,6 +32,9 @@ require('reflect-metadata');
 export const pubsub: PubSubEngine = new PubSub();
 
 async function main() {
+  // modules config
+  // getModuleAliases();
+
   // Connect to db, run pending migrations and run seeds
   await db.connectDb({ retry: true, runAfterConnect: 'migrations' });
 
@@ -118,7 +122,7 @@ async function main() {
   app.use(urlencoded({ extended: false }));
 
   server.listen({ host: '0.0.0.0', port: config.apiPort }, (): void => {
-    logger.logInfo(`Enviornment: ===>>> ${config.environment} <<<===`, 'Node');
+    logger.logInfo(`Enviornment: ===>>> ${config.nodeEnv} <<<===`, 'Node');
     logger.logInfo(`Express server is now running on port ${config.apiPort}`, 'Express');
     logger.logInfo(`is now running on /graphql`, 'GraphQL');
   });

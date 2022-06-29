@@ -10,6 +10,7 @@ services:
       - ./services/proxy/proxy.conf:/etc/nginx/proxy.conf:ro
     ports:
       - "80:80"
+      - "443:443"
     command: [nginx-debug, "-g", "daemon off;"]
     networks:
       - authorization_net
@@ -28,8 +29,6 @@ services:
       MYSQL_TCP_PORT: ${DB_PORT}
     volumes:
       - mysql_data:/var/lib/mysql
-    ports:
-      - "0.0.0.0:${DB_PORT}:${DB_PORT}"
     networks:
       - authorization_net
 
@@ -42,32 +41,16 @@ services:
     networks:
       - authorization_net
 
-  redis-commander:
-    image: rediscommander/redis-commander
-    platform: linux/x86_64
-    container_name: ${PROJECT_NAME}-redis_manager
-    restart: always
-    networks:
-      - authorization_net
-    depends_on:
-      - cache
-    environment:
-      REDIS_HOST: cache
-      REDIS_HOSTS: local:cache:6379
-      REDIS_PASSWORD: ${REDIS_PASSWORD}
-    ports:
-      - "${REDIS_MANAGER_UI:-8081}:8081"
-
   api:
-    image: ${PROJECT_NAME}-api
-    container_name: ${PROJECT_NAME}-api
+    image: ${PROJECT_NAME}-api-prod
+    container_name: ${PROJECT_NAME}-api-prod
     build:
       context: ./services/api
-      dockerfile: Dockerfile.development
+      dockerfile: Dockerfile
     tty: true
     environment:
-      NODE_ENV: development
-      ENVIRONMENT: development
+      NODE_ENV: production
+      ENVIRONMENT: production
       FORCE_COLOR: 1
     restart: always
     depends_on:
@@ -81,18 +64,15 @@ services:
       - authorization_net
 
   dashboard:
-    image: ${PROJECT_NAME}-dashboard
+    image: ${PROJECT_NAME}-dashboard-prod
     build:
       context: ./services/dashboard
-      dockerfile: Dockerfile.development
+      dockerfile: Dockerfile
     env_file:
       - .env
-    container_name: ${PROJECT_NAME}-dashboard
+    container_name: ${PROJECT_NAME}-dashboard-prod
     restart: unless-stopped
     tty: true
-    volumes:
-      - ./services/dashboard:/dashboard
-      - /dashboard/node_modules
     networks:
       - authorization_net
 

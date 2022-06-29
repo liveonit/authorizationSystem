@@ -1,13 +1,15 @@
 import chalk from 'chalk';
+import { config } from '@src/config';
 
 export const logger = {
   debug: (data: any): void => {
-    typeof data === 'object'
-      ? console.debug(chalk.hex('ffa500')(`🐛 [Debug]: ${JSON.stringify(data, null, 2)}`))
-      : console.debug(chalk.hex('ffa500')(`🐛 [Debug]: ${data?.toString()}`));
+    if (!config.isProduction)
+      typeof data === 'object'
+        ? console.debug(chalk.hex('ffa500')(`🐛 [Debug]: ${JSON.stringify(data, null, 2)}`))
+        : console.debug(chalk.hex('ffa500')(`🐛 [Debug]: ${data?.toString()}`));
   },
   log: (data: any): void => {
-    console.log(data);
+    if (!config.isProduction) console.log(data);
   },
   logInfo: (data: any, processName?: string): void => {
     typeof data === 'object'

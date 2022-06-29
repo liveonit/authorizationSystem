@@ -9,5 +9,5 @@ export const resolvers = [
   RoleResolver,
   AuthorResolver,
   BookResolver,
-  PermissionResolver
+  PermissionResolver,
 ] as NonEmptyArray<Function>;

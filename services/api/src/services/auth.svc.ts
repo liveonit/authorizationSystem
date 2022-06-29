@@ -1,4 +1,4 @@
-import { config } from '../config';
+import { config } from '@src/config';
 import { User } from '@entities/User';
 import * as argon2 from 'argon2';
 import { ApolloError } from 'apollo-server-express';
@@ -15,7 +15,7 @@ import {
 import { signJwt, verifyJwt } from './auth/jwt';
 import { UserSession, UserSessionPayload } from '@entities/UserSession';
 import _ from 'lodash';
-import { redisClient } from 'src/redis';
+import { redisClient } from '@src/redisCient';
 export interface CustomContext {
   req: Request;
   res: Response;
