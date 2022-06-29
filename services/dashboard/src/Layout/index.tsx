@@ -28,7 +28,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
       style={{ padding: 0, margin: 0, height: '100vh', overflow: 'hidden' }}
     >
       <PageSection
-        style={{ margin: 0, padding: 0, overflow: 'hidden' }}
+        style={{ margin: 0, padding: 0, overflow: 'hidden', display: 'contents' }}
         variant={PageSectionVariants.light}
         className="--seccion-principal"
       >
