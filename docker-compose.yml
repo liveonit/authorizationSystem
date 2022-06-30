@@ -91,8 +91,7 @@ services:
     restart: unless-stopped
     tty: true
     volumes:
-      - ./services/dashboard:/dashboard
-      - /dashboard/node_modules
+      - ./services/dashboard/src:/dashboard/src
     networks:
       - authorization_net
 

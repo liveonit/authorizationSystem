@@ -11,6 +11,8 @@ COPY yarn.lock .
 
 RUN yarn install
 
+COPY . .
+
 ENV PORT=80
 EXPOSE 80
 CMD ["yarn", "start"]
