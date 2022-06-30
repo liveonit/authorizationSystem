@@ -1,6 +1,6 @@
 import React from 'react';
-import { Bullseye, Label, ModalVariant } from '@patternfly/react-core';
-import { IconButton, TagGroup, Tag, Loader } from 'rsuite';
+import { Bullseye, Label, LabelGroup, ModalVariant } from '@patternfly/react-core';
+import { IconButton, Loader } from 'rsuite';
 import { Plus } from '@rsuite/icons';
 import { sortable, classNames, Visibility } from '@patternfly/react-table';
 
@@ -33,18 +33,9 @@ import {
   UpdateUserDocument,
   DeleteUserDocument,
 } from '@gqlauto/hooks';
-import { TypeAttributes } from 'rsuite/esm/@types/common';
 import { validatePasswordError, validateUsernameError } from '@utils/Forms/validators';
 
-const TAGS_COLORS: TypeAttributes.Color[] = [
-  'red',
-  'orange',
-  'yellow',
-  'green',
-  'cyan',
-  'blue',
-  'violet',
-];
+const TAGS_COLORS = ['blue', 'cyan', 'green', 'orange', 'purple', 'red', 'grey'];
 
 //=============================================================================
 //#region Table configuration
@@ -78,22 +69,22 @@ function transformRows(items: any[]) {
       if (column.key === 'rolesName') {
         return {
           title: item?.rolesName ? (
-            <TagGroup>
+            <LabelGroup>
               {item.rolesName.map((r: string) => (
-                <Tag key={r} color={TAGS_COLORS[hashCode(r) % TAGS_COLORS.length]}>
+                <Label key={r} color={TAGS_COLORS[hashCode(r) % TAGS_COLORS.length] as any}>
                   {r}
-                </Tag>
+                </Label>
               ))}
-            </TagGroup>
+            </LabelGroup>
           ) : (
             ''
           ),
         };
       } else if (column.key === 'enabled') {
         const label = _.get(item, column.key, false);
-        const className = label ? 'greenLabel' : 'normalLabel';
+        const labelColor = label ? 'green' : 'red';
         return {
-          title: <Label className={className}>{label ? 'YES' : 'NO'}</Label>,
+          title: <Label color={labelColor}>{label ? 'YES' : 'NO'}</Label>,
         };
       } else return _.get(item, column.key);
     }),
